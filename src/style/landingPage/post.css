@@ -1,0 +1,19 @@
+.postContainer {
+    margin: 0px 4% 0px 4%;
+    background-color: sandybrown;
+}
+
+.postTitle {
+    display: flex;
+    justify-content: flex-start;
+    background-color: silver;
+}
+
+.postFilter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    line-height: 5px;
+    font-size: 15px;
+    background-color: pink;
+}

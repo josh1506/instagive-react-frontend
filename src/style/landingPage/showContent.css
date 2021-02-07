@@ -1,0 +1,11 @@
+.showContent {
+    background-color: salmon;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.contentDetails {
+    width: 500px;
+    background-color: lightblue;
+    text-align: center;
+}

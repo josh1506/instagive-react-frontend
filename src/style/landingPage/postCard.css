@@ -1,0 +1,21 @@
+.postCardContainer {
+    display: flex;
+    background-color: powderblue;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.postCard {
+    border: 1px solid black;
+    margin: 1%;
+    width: 30%;
+    background-color: salmon;
+    flex-basis: 300px;
+    align-self: center;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px;
+}
