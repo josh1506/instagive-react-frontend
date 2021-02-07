@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../../style/landingPage/postCard.css'
+import '../../style/common/postCard.css'
 
 function PostCard(props) {
     const [cardData, setCardData] = useState([

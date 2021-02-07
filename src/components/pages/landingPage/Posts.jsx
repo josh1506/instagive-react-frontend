@@ -1,5 +1,5 @@
 import React from 'react';
-import PostCard from './PostCard';
+import PostCard from './../../common/PostCard';
 import '../../../style/landingPage/post.css'
 
 function Posts(props) {
