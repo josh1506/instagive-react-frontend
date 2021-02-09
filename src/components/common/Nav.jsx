@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../style/Nav.css'
+import '../../style/common/Nav.css'
 import logo from '../../img/Instagive-logo-2.png'
 
 function Nav(props) {
