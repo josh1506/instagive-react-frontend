@@ -1,0 +1,17 @@
+.viewUpdatesContainer {
+    background-color: salmon;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.donateNowContainer {
+    background-color: thistle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.donationContent {
+    margin: 0 15% 1% 15%
+}
