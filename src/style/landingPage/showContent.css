@@ -1,11 +1,13 @@
 .showContent {
-    background-color: salmon;
+    background-image: url('../../img/Landscape-Color.jpg');
     display: flex;
     justify-content: flex-end;
+    height: 500px;
 }
 
 .contentDetails {
     width: 500px;
-    background-color: lightblue;
+    margin-top: 30%;
     text-align: center;
+    justify-content: center;
 }
