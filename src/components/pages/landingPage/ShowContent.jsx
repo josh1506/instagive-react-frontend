@@ -4,7 +4,6 @@ import '../../../style/landingPage/showContent.css'
 function ShowContent(props) {
     return (
         <div class='showContent'>
-            {/* show content */}
             <div class='contentDetailsContainer'>
                 <div className="contentDetails">
                     <h1 className='title'>Welcome to InstaGive</h1>
