@@ -12,11 +12,11 @@ function Login(props) {
                 <label htmlFor="password">Password</label>
                 <input type="password" name="password" id="password" placeholder='Password' />
                 <div>
+                    <a href="#">Forgot Password</a>
                     <div>
-                        <a href="#">Forgot Password</a>
-                        <a href="#">Sign up</a>
+                        <button>Login</button>
+                        <button>Sign up</button>
                     </div>
-                    <button>Login</button>
                 </div>
             </form>
         </div>
