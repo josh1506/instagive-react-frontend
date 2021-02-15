@@ -1,19 +1,23 @@
 .postContainer {
-    margin: 0px 4% 0px 4%;
-    background-color: sandybrown;
+    margin: 4%;
+    border: ridge 5px;
+    padding: 1% 3%;
 }
 
 .postTitle {
     display: flex;
     justify-content: flex-start;
-    background-color: silver;
 }
 
-.postFilter {
+.postFilterContainer {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     line-height: 5px;
     font-size: 15px;
-    background-color: pink;
+}
+
+.postFilter {
+    margin: 0px 0.4%;
+    letter-spacing: 1px;
 }
