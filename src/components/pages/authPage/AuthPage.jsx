@@ -6,9 +6,14 @@ import ForgotPass from './ForgotPass';
 function AuthPage(props) {
     return (
         <div>
-            <Login />
-            <Register />
-            <ForgotPass />
+            <div>
+                <img src="" alt="Image here" />
+            </div>
+            <div>
+                <Login />
+                <Register />
+                <ForgotPass />
+            </div>
         </div>
     );
 }
