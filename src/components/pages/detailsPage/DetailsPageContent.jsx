@@ -7,10 +7,7 @@ function DetailsPageContent(props) {
             <div>
                 <img src="" alt="Photo" className='detailsPageImage' />
             </div>
-            <h1>A Big Title</h1>
-            <div className='viewUpdatesContainer'>
-                <button >View Updates</button>
-            </div>
+            {props.children}
             <p className='donationContent'>
                 Once upon a time there was an old mother pig who had three little pigs and not enough food to feed them. So when they were old enough, she sent them out into the world to seek their fortunes.
 
