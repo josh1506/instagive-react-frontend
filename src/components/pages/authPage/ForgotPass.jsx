@@ -1,22 +1,23 @@
 import React from 'react';
+import '../../../style/authPage/forgotPassword.css'
 
 function ForgotPass(props) {
     return (
-        <div>
-            <div>
-                <h1>Forgot Password</h1>
-                <p>Text Here</p>
+        <div className='forgot-pass-container'>
+            <div className='forgot-pass-title'>
+                <h1 className='authTitle'>Forgot Password</h1>
+                <p className='authDetails'>You can change your password for security reasons or reset it if you forget it. Your Google Account password is used to access many Google products, like Gmail and YouTube.</p>
             </div>
-            <form action="">
-                <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" />
+            <form action="" className='form-container'>
+                <label htmlFor="email" className='form-label'>Email</label>
+                <input type="email" name="email" id="email" className='form-input-text' />
             </form>
-            <div>
+            <div style={{ width: '100%' }} className='form-button-container'>
                 <div>
-                    <a href="">Login</a>
-                    <a href="">Signup</a>
+                    <a href="" className='form-link'>Login</a>
+                    <a href="" className='form-link'>Signup</a>
                 </div>
-                <button>Send</button>
+                <button className='form-button'>Send</button>
             </div>
         </div>
     );
