@@ -1,16 +1,21 @@
 .showContent {
     background-image: url('../../img/Landscape-Color.jpg');
-    display: flex;
-    justify-content: flex-end;
     height: 500px;
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0px 1%;
 }
 
+.fadedBackground {
+    background-color: rgba(23, 122, 146, 0.658);
+    height: 500px;
+    display: flex;
+    justify-content: flex-end;
+}
+
 .contentDetails {
     width: 500px;
-    margin-top: 66%;
+    margin: 50% 60px 0px 0%;
     text-align: center;
     justify-content: center;
     font-weight: bold;
@@ -20,4 +25,9 @@
 
 .title {
     font-family: 'Lobster', cursive;
+    letter-spacing: 5px;
+}
+
+.details {
+    letter-spacing: 2px;
 }
