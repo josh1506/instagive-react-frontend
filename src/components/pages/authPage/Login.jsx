@@ -1,21 +1,22 @@
 import React from 'react';
+import '../../../style/authPage/login.css'
 
 function Login(props) {
     return (
-        <div>
+        <div className='LoginContainer'>
             <div>
-                <h1>Welcome!</h1>
+                <h1 className='authTitle'>Welcome!</h1>
             </div>
-            <form action="#" className='login-form'>
-                <label htmlFor="username">Username</label>
-                <input type="text" name="username" id="username" placeholder='Username' />
-                <label htmlFor="password">Password</label>
-                <input type="password" name="password" id="password" placeholder='Password' />
-                <div>
-                    <a href="#">Forgot Password</a>
-                    <div>
-                        <button>Login</button>
-                        <button>Sign up</button>
+            <form action="#" className='form-container'>
+                <label htmlFor="username" className='form-label'>Username</label>
+                <input type="text" name="username" id="username" placeholder='Username' className='form-input-text' />
+                <label htmlFor="password" className='form-label'>Password</label>
+                <input type="password" name="password" id="password" placeholder='Password' className='form-input-text' />
+                <div style={{ width: '100%' }}>
+                    <a href="#" className='form-link'>Forgot Password</a>
+                    <div className='form-button-container'>
+                        <button className='form-button'>Login</button>
+                        <button className='form-button'>Sign up</button>
                     </div>
                 </div>
             </form>
