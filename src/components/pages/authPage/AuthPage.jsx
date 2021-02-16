@@ -3,7 +3,6 @@ import Login from './Login';
 import Register from './Register';
 import ForgotPass from './ForgotPass';
 import '../../../style/authPage/authPage.css'
-import image from '../../../img/hands-charity.png'
 
 function AuthPage(props) {
     return (
