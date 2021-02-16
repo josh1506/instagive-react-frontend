@@ -11,9 +11,9 @@ function App() {
   return (
     <div className="App">
       <Nav />
-      <LandingPage />
+      {/* <LandingPage /> */}
       {/* <DetailsPage /> */}
-      {/* <AuthPage /> */}
+      <AuthPage />
       {/* <UserPage /> */}
       {/* <AdminPage /> */}
 
