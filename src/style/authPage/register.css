@@ -17,7 +17,9 @@
 
 .register-form1 {
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 .register-form2 {
@@ -32,4 +34,31 @@
 
 .register-input-container2 {
     margin-right: 5%;
+}
+
+.register-form-input-text {
+    width: 100%;
+    font-size: 18px;
+    margin: 5px 20px 8px 10px;
+}
+
+
+.register-org-description-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#org-description {
+    letter-spacing: 0px;
+    font-size: 18px;
+    resize: vertical;
+    max-height: 150px;
+    min-height: 100px;
+}
+
+.register-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

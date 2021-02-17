@@ -5,3 +5,7 @@
     align-items: center;
     justify-items: center;
 }
+
+.form-link {
+    letter-spacing: 1px !important;
+}
