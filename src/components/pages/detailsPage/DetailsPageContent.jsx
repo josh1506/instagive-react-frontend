@@ -1,11 +1,12 @@
 import React from 'react';
 import '../../../style/detailsPage/detailsPageContent.css'
+import banner1 from '../../../img/Landscape-Color.jpg'
 
 function DetailsPageContent(props) {
     return (
         <div>
             <div>
-                <img src="" alt="Photo" className='detailsPageImage' />
+                <img src={banner1} alt="Photo" className='detailsPageImage' />
             </div>
             {props.children}
             <p className='donationContent'>
@@ -49,7 +50,7 @@ function DetailsPageContent(props) {
                 So he huffed and he puffed and he blew the house down! The wolf was greedy and he tried to catch both pigs at once, but he was too greedy and got neither! His big jaws clamped down on nothing but air and the two little pigs scrambled away as fast as their little hooves would carry them.
             </p>
             <div className='donateNowContainer'>
-                <button>Donate Now</button>
+                <button className='donate-button'>Donate Now</button>
             </div>
         </div>
     );
