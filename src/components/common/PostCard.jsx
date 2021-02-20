@@ -7,6 +7,7 @@ import PostContext from './../../contex/postContext';
 
 function PostCard(props) {
     const postList = useContext(PostContext)
+
     return (
         <div className='postCardContainer'>
             {postList.map(data =>
@@ -18,7 +19,7 @@ function PostCard(props) {
                     <h3 style={{ paddingLeft: 5 }}>{data.postTitle.substring(0, 29)}{(data.postTitle.length > 29) ? '...' : ''}</h3>
                     <p style={{ paddingLeft: 10, paddingRight: 10 }}>{(data.postDetails.length > 100) ? `${data.postDetails.substring(0, 100)}...` : data.postDetails.substring(0, 100)}</p>
                     <div className="buttonContainer">
-                        <button className='buttonDetails'>Details</button>
+                        <button className='details-button' style={{ borderRadius: 7 }} onClick={() => props.history.push(`/details/${data.id}`)}>Details</button>
                     </div>
                 </div>
             )}
