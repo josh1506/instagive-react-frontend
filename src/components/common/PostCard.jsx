@@ -7,7 +7,6 @@ import PostContext from './../../contex/postContext';
 
 function PostCard(props) {
     const postList = useContext(PostContext)
-
     return (
         <div className='postCardContainer'>
             {postList.map(data =>
