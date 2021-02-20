@@ -56,7 +56,7 @@ function App() {
       <div className="App">
         <Nav />
         <Switch>
-          <Route path='/details' component={DetailsPage} />
+          <Route path='/details/:id' component={DetailsPage} />
           <Route path='/auth' component={AuthPage} />
           <Route path='/user' component={UserPage} />
           <Route path='/admin' component={AdminPage} />
