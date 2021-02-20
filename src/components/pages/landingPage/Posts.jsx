@@ -16,7 +16,7 @@ function Posts(props) {
                     <select name="" id="" ></select>
                 </div>
                 {/* post */}
-                <PostCard />
+                <PostCard {...props} />
             </div>
         </div>
     );
