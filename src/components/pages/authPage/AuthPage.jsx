@@ -13,9 +13,9 @@ function AuthPage(props) {
             </div>
             <div className='authForm'>
                 <div className='center'>
-                    <Route path='/login' component={Login} />
-                    <Route path='/register' component={Register} />
-                    <Route path='/forgot' component={ForgotPass} />
+                    <Route path='/auth/login' component={Login} />
+                    <Route path='/auth/register' component={Register} />
+                    <Route path='/auth/forgot' component={ForgotPass} />
                 </div>
             </div>
         </div>

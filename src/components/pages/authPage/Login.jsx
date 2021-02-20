@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../../style/authPage/login.css'
 
 function Login(props) {
+    const [] = useState({})
     return (
         <div className='LoginContainer'>
             <div>

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../../style/authPage/forgotPassword.css'
 
 function ForgotPass(props) {
+    const [email, setEmail] = useState({ email: '' })
     return (
         <div className='forgot-pass-container'>
             <div className='forgot-pass-title'>
