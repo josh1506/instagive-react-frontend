@@ -15,7 +15,7 @@ function Register(props) {
         repName: '',
         repId: '',
         orgDocuments: [],
-        orgDescription: ''
+        orgDescriptions: ''
     })
 
 
@@ -27,21 +27,21 @@ function Register(props) {
     const handleSubmit = e => {
         e.preventDefault();
         console.log(userForm);
-        // axios.post('http://localhost:5000/user/register', userForm)
+         axios.post('http://localhost:5000/user/register', userForm)
 
-        setUserForm({
-            email: '',
-            password: '',
-            city: '',
-            orgName: '',
-            orgAddress: '',
-            orgPhoto: '',
-            orgNumber: '',
-            repName: '',
-            repId: '',
-            orgDocuments: [],
-            orgDescription: ''
-        })
+        // setUserForm({
+        //     email: '',
+        //     password: '',
+        //     city: '',
+        //     orgName: '',
+        //     orgAddress: '',
+        //     orgPhoto: '',
+        //     orgNumber: '',
+        //     repName: '',
+        //     repId: '',
+        //     orgDocuments: [],
+        //     orgDescription: ''
+        // })
     }
 
     return (
@@ -95,8 +95,8 @@ function Register(props) {
                     <input type="file" id="orgPhoto" name="orgPhoto" value={userForm.orgPhoto} onChange={handleChange} className='form-input-file' />
                 </div>
                 <div className='register-org-description-container'>
-                    <label className='org-photo' htmlFor="orgDescription">Organization Description</label>
-                    <textarea name="orgDescription" value={userForm.orgDescription} onChange={handleChange} id="orgDescription" className='register-form-input-text'></textarea>
+                    <label className='org-photo' htmlFor="orgDescriptions">Organization Description</label>
+                    <textarea name="orgDescriptions" value={userForm.orgDescription} onChange={handleChange} id="orgDescription" className='register-form-input-text'></textarea>
                 </div>
                 <div className='form-button-container'>
                     <a href="" className='form-link'>Cancel</a>

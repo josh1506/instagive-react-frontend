@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import Nav from './components/common/Nav';
 import LandingPage from './components/pages/landingPage/LandingPage';
 import DetailsPage from './components/pages/detailsPage/DetailsPage';
@@ -54,11 +55,13 @@ function App() {
     <PostContext.Provider value={post}>
       <div className="App">
         <Nav />
-        <LandingPage />
-        {/* <DetailsPage /> */}
-        {/* <AuthPage /> */}
-        {/* <UserPage /> */}
-        {/* <AdminPage /> */}
+        <Switch>
+          <Route path='/details' component={DetailsPage} />
+          <Route path='/auth' component={AuthPage} />
+          <Route path='/user' component={UserPage} />
+          <Route path='/admin' component={AdminPage} />
+          <Route path='/' exact component={LandingPage} />
+        </Switch>
       </div>
     </PostContext.Provider>
   );
