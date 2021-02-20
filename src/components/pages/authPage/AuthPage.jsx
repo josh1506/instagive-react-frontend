@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom'
 import Login from './Login';
 import Register from './Register';
 import ForgotPass from './ForgotPass';
@@ -12,9 +13,9 @@ function AuthPage(props) {
             </div>
             <div className='authForm'>
                 <div className='center'>
-                    <Login />
-                    {/* <Register /> */}
-                    {/* <ForgotPass /> */}
+                    <Route path='/login' component={Login} />
+                    <Route path='/register' component={Register} />
+                    <Route path='/forgot' component={ForgotPass} />
                 </div>
             </div>
         </div>
