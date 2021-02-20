@@ -1,3 +1,17 @@
+.active-button {
+    height: 30px;
+    padding: 2px 10px;
+    letter-spacing: 2px;
+    margin-left: 5px;
+    font-size: 13.32px;
+    font-weight: bold;
+    border-radius: 5%;
+    cursor: pointer;
+    background: #f7f7f7;
+    color: #0275d8;
+    border: #0275d8 solid 2px;
+}
+
 .details-button {
     height: 30px;
     padding: 2px 10px;
