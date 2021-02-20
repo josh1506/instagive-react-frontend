@@ -9,13 +9,15 @@ function AuthPage(props) {
     return (
         <div className='auth-container'>
             <div className='authBackgroundImage'>
-                {/* <img src={image} alt="Image here" className='authImage' /> */}
             </div>
             <div className='authForm'>
                 <div className='center'>
-                    <Route path='/auth/login' component={Login} />
-                    <Route path='/auth/register' component={Register} />
-                    <Route path='/auth/forgot' component={ForgotPass} />
+                    <Switch>
+                        <Route path='/auth/login' component={Login} />
+                        <Route path='/auth/register' component={Register} />
+                        <Route path='/auth/forgot' component={ForgotPass} />
+                        <Redirect from='/auth' to='/auth/login' exact />
+                    </Switch>
                 </div>
             </div>
         </div>

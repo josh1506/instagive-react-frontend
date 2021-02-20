@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../../../style/authPage/register.css'
+import { Link } from 'react-router-dom';
 
 function Register(props) {
     const [checkPassword, setCheckPassword] = useState({ confirm_pass: '' })
@@ -15,33 +16,32 @@ function Register(props) {
         repName: '',
         repId: '',
         orgDocuments: [],
-        orgDescription: ''
+        orgDescriptions: ''
     })
 
 
     const handleChange = (event) => {
-
         setUserForm({ ...userForm, [event.currentTarget.name]: event.currentTarget.value })
     }
 
     const handleSubmit = e => {
         e.preventDefault();
         console.log(userForm);
-        // axios.post('http://localhost:5000/user/register', userForm)
+        axios.post('http://localhost:5000/user/register', userForm)
 
-        setUserForm({
-            email: '',
-            password: '',
-            city: '',
-            orgName: '',
-            orgAddress: '',
-            orgPhoto: '',
-            orgNumber: '',
-            repName: '',
-            repId: '',
-            orgDocuments: [],
-            orgDescription: ''
-        })
+        // setUserForm({
+        //     email: '',
+        //     password: '',
+        //     city: '',
+        //     orgName: '',
+        //     orgAddress: '',
+        //     orgPhoto: '',
+        //     orgNumber: '',
+        //     repName: '',
+        //     repId: '',
+        //     orgDocuments: [],
+        //     orgDescription: ''
+        // })
     }
 
     return (
@@ -77,29 +77,29 @@ function Register(props) {
                         <label className='form-label' htmlFor="orgAddress">Organization Address</label>
                         <input type="text" name="orgAddress" value={userForm.orgAddress} onChange={handleChange} id="orgAddress" placeholder='Organization Address' className='register-form-input-text' />
                     </div>
-                </div>
-                <div className='register-input-container2'>
-                    <label className='form-label' htmlFor="repName">Representative Name</label>
-                    <input type="text" name="repName" value={userForm.repName} onChange={handleChange} id="repName" placeholder='Representative Name' className='register-form-input-text' />
-                </div>
-                <div className='register-input-container2'>
-                    <label className='form-label' htmlFor="repId">Representative ID</label>
-                    <input type="file" id="repId" name="repId" value={userForm.repId} onChange={handleChange} className='form-input-file'></input>
-                </div>
-                <div className='register-input-container2'>
-                    <label className='form-label' htmlFor="orgDocuments">Organization Documents</label>
-                    <input type="file" id="orgDocuments" name="orgDocuments" value={userForm.orgDocuments} onChange={handleChange} multiple className='form-input-file'></input>
-                </div>
-                <div className='register-input-container2'>
-                    <label className='org-photo' htmlFor="orgPhoto">Organization Photo</label>
-                    <input type="file" id="orgPhoto" name="orgPhoto" value={userForm.orgPhoto} onChange={handleChange} className='form-input-file' />
+                    <div className='register-input-container2'>
+                        <label className='form-label' htmlFor="repName">Representative Name</label>
+                        <input type="text" name="repName" value={userForm.repName} onChange={handleChange} id="repName" placeholder='Representative Name' className='register-form-input-text' />
+                    </div>
+                    <div className='register-input-container2'>
+                        <label className='form-label' htmlFor="repId">Representative ID</label>
+                        <input type="file" id="repId" name="repId" value={userForm.repId} onChange={handleChange} className='form-input-file'></input>
+                    </div>
+                    <div className='register-input-container2'>
+                        <label className='form-label' htmlFor="orgDocuments">Organization Documents</label>
+                        <input type="file" id="orgDocuments" name="orgDocuments" value={userForm.orgDocuments} onChange={handleChange} multiple className='form-input-file'></input>
+                    </div>
+                    <div className='register-input-container2'>
+                        <label className='org-photo' htmlFor="orgPhoto">Organization Photo</label>
+                        <input type="file" id="orgPhoto" name="orgPhoto" value={userForm.orgPhoto} onChange={handleChange} className='form-input-file' />
+                    </div>
                 </div>
                 <div className='register-org-description-container'>
-                    <label className='org-photo' htmlFor="orgDescription">Organization Description</label>
-                    <textarea name="orgDescription" value={userForm.orgDescription} onChange={handleChange} id="orgDescription" className='register-form-input-text'></textarea>
+                    <label className='org-photo' htmlFor="orgDescriptions">Organization Description</label>
+                    <textarea name="orgDescriptions" value={userForm.orgDescription} onChange={handleChange} id="orgDescriptions" className='register-form-input-text'></textarea>
                 </div>
                 <div className='form-button-container'>
-                    <a href="" className='form-link'>Cancel</a>
+                    <Link to="/auth/login" className='form-link'>Cancel</Link>
                     <button className='form-button'>Send Registration</button>
                 </div>
             </form>
