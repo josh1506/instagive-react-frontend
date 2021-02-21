@@ -17,6 +17,7 @@ function AuthPage(props) {
                         <Route path='/auth/register' component={Register} />
                         <Route path='/auth/forgot' component={ForgotPass} />
                         <Redirect from='/auth' to='/auth/login' exact />
+                        <Redirect to='/not-found' />
                     </Switch>
                 </div>
             </div>
