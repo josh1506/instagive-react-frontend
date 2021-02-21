@@ -1,19 +1,19 @@
 import React from 'react';
-import '../../../style/landingPage/showContent.css'
+import '../../../style/landingPage/showContent.css';
 
 function ShowContent(props) {
-    return (
-        <div className='showContent'>
-            <div className='fadedBackground' >
-                <div className='contentDetailsContainer'>
-                    <div className="contentDetails">
-                        <h1 className='title'>Welcome to InstaGive</h1>
-                        <div className="details">A paragraph is a self-contained unit of discourse in writing dealing with a particular point or idea. A paragraph consists of one or more sentences. Though not required by the syntax of any language, paragraphs are usually an expected part of formal writing, used to organize longer prose.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+  return (
+    <div id='showcase'>
+      <div class='container showcase-container'>
+        <h1>Welcome to InstaGive</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo
+          repudiandae veritatis rem natus sapiente. Quas aspernatur cupiditate
+          voluptatibus quaerat reprehenderit!
+        </p>
+      </div>
+    </div>
+  );
 }
 
 export default ShowContent;
