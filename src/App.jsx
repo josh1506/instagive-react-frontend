@@ -8,6 +8,7 @@ import UserPage from './components/pages/userPage/UserPage';
 import AdminPage from './components/pages/adminPage/AdminPage';
 import PostContext from './contex/postContext'
 import './App.css';
+import NotFound from './components/common/NotFound';
 
 function App() {
   const [post, setPost] = useState([])
@@ -17,37 +18,43 @@ function App() {
     setPost([
       {
         id: '1',
-        img: {
-          src: 'https://i.pinimg.com/564x/8c/7c/f4/8c7cf4bbcb6a268cac135dc569275a71.jpg',
-          alt: 'photo 1'
-        },
-        postTitle: 'Help David Gulpilils siblings visit',
-        postDetails: 'Yolngu Elder David Gulpilil has been in Adelaide for some time receiving treatment for terminal cancer. As he is unable to travel back to his home of Ramingining, it has been some time since he last saw family'
-      }, {
+        User: 'asdasd',
+        Title: 'asdasd',
+        datePosted: 'asdasd',
+        profilePic: 'asdasd',
+        imageList: [],
+        description: 'asdasdasdasdasdasd',
+        totalAmount: 0,
+        currentAmount: 0,
+        totalDonors: 0,
+        totalUpdates: 0,
+      },
+      {
         id: '2',
-        img: {
-          src: 'https://i.pinimg.com/564x/8c/7c/f4/8c7cf4bbcb6a268cac135dc569275a71.jpg',
-          alt: 'photo 2'
-        },
-        postTitle: 'Please Help Ryoko Fight Stage 4 Cancer',
-        postDetails: 'My beloved sister, Ryoko has terminal cancer, stage 4. It was only discovered two months ago on July 16, 2020. Both of us are Japanese, but Ryoko has lived in Paris for 16 years and I live in Malaysia.'
-      }, {
+        User: 'zxczxc',
+        Title: 'zxczxc',
+        datePosted: 'czxczx',
+        profilePic: 'zxcxczc',
+        imageList: [],
+        description: 'zxczxczczxczxczxczxczxczxczxc',
+        totalAmount: 0,
+        currentAmount: 0,
+        totalDonors: 0,
+        totalUpdates: 0,
+      },
+      {
         id: '3',
-        img: {
-          src: 'https://i.pinimg.com/564x/8c/7c/f4/8c7cf4bbcb6a268cac135dc569275a71.jpg',
-          alt: 'photo 2'
-        },
-        postTitle: 'Typhoon Ulysses',
-        postDetails: 'Hello everyone! Cora here. Typhoons Ulysses and Rolly battered us with strong winds and submerged cities including Marikina, Rizal, Cam Sur and Tuguegarao in Cagayan. Thousands have been displaced from their homes and some are still waiting to be rescued.'
-      }, {
-        id: '4',
-        img: {
-          src: 'https://i.pinimg.com/564x/8c/7c/f4/8c7cf4bbcb6a268cac135dc569275a71.jpg',
-          alt: 'photo 2'
-        },
-        postTitle: 'Help Baby Khloe',
-        postDetails: 'We are in need of financial assistance to help Baby Khloe Vitto be released from Hospital. Currently unemployed we didnt know where to get any money to pay for her bills.'
-      }
+        User: 'qweqweqw',
+        Title: 'qweqweqwe',
+        datePosted: 'qweqweqweqwe',
+        profilePic: 'qweqweqw',
+        imageList: [],
+        description: 'qweqweqweweqweqweqweqweqweqwewe',
+        totalAmount: 0,
+        currentAmount: 0,
+        totalDonors: 0,
+        totalUpdates: 0,
+      },
     ])
   }, [])
 
@@ -59,8 +66,10 @@ function App() {
           <Route path='/details/:id' component={DetailsPage} />
           <Route path='/auth' component={AuthPage} />
           <Route path='/user' component={UserPage} />
+          <Route path='/not-found' component={NotFound} />
           <Route path='/admin' component={AdminPage} />
           <Route path='/' exact component={LandingPage} />
+          <Redirect to='/not-found' />
         </Switch>
       </div>
     </PostContext.Provider>
