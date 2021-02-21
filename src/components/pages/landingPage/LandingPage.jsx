@@ -6,7 +6,7 @@ function LandingPage(props) {
     return (
         <div>
             <ShowContent />
-            <Posts />
+            <Posts {...props} />
         </div>
     );
 }

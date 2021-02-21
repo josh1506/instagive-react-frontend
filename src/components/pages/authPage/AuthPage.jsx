@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom'
 import Login from './Login';
 import Register from './Register';
 import ForgotPass from './ForgotPass';
+import '../../../style/authPage/authPage.css'
 
 function AuthPage(props) {
     return (
-        <div>
-            <div>
-                <img src="" alt="Image here" />
+        <div className='auth-container'>
+            <div className='authBackgroundImage'>
             </div>
-            <div>
-                <Login />
-                <Register />
-                <ForgotPass />
+            <div className='authForm'>
+                <div className='center'>
+                    <Switch>
+                        <Route path='/auth/login' component={Login} />
+                        <Route path='/auth/register' component={Register} />
+                        <Route path='/auth/forgot' component={ForgotPass} />
+                        <Redirect from='/auth' to='/auth/login' exact />
+                    </Switch>
+                </div>
             </div>
         </div>
     );
