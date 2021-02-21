@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import '../../style/common/postCard.css'
@@ -7,7 +7,6 @@ import PostContext from './../../contex/postContext';
 
 function PostCard(props) {
     const postList = useContext(PostContext)
-    console.log(postList);
     return (
         <div className='postCardContainer'>
             {postList.map(post =>
