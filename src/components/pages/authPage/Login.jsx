@@ -6,12 +6,12 @@ import '../../../style/authPage/login.css'
 function Login(props) {
     const [auth, setAuth] = useState({ username: '', password: '' })
 
-    const handleSubmit = event => {
+    const handleSubmit = async event => {
         event.preventDefault()
 
-        axios.post('', auth)
+        // await axios.post('', auth)
+        props.history.replace('/')
     }
-
 
     return (
         <div className='LoginContainer'>
