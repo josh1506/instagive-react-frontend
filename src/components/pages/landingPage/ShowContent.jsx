@@ -4,7 +4,7 @@ import '../../../style/landingPage/showContent.css';
 function ShowContent(props) {
   return (
     <div id='showcase'>
-      <div class='container showcase-container'>
+      <div className='container showcase-container'>
         <h1>Welcome to InstaGive</h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo
