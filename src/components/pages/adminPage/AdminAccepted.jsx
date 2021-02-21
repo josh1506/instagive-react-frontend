@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
-import Table from './../../common/Table';
-import AccountList from './../../../contex/accountList';
+import AccountList from './../../../context/accountList';
 
 function AdminAccepted(props) {
     const accountList = useContext(AccountList)

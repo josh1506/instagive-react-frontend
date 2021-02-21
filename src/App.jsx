@@ -6,10 +6,10 @@ import DetailsPage from './components/pages/detailsPage/DetailsPage';
 import AuthPage from './components/pages/authPage/AuthPage';
 import UserPage from './components/pages/userPage/UserPage';
 import AdminPage from './components/pages/adminPage/AdminPage';
-import PostContext from './contex/postContext'
+import PostContext from './context/postContext'
 import './App.css';
 import NotFound from './components/common/NotFound';
-import AccountList from './contex/accountList';
+import AccountList from './context/accountList';
 
 function App() {
   const [post, setPost] = useState([])

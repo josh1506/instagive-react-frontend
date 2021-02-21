@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
-import Table from './../../common/Table';
-import AccountList from './../../../contex/accountList';
+import AccountList from './../../../context/accountList';
 
 function AdminRejected(props) {
     const accountList = useContext(AccountList)

@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
-import Table from './../../common/Table';
-import AccountList from './../../../contex/accountList';
+import AccountList from './../../../context/accountList';
 
 function AdminPending(props) {
     const accountList = useContext(AccountList)

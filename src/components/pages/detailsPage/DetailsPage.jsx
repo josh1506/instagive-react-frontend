@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import DetailsPageContent from './DetailsPageContent';
 import DetailsUpdatePage from './DetailsUpdatePage';
 import '../../../style/detailsPage/detailsPage.css'
-import PostContext from './../../../contex/postContext';
+import PostContext from './../../../context/postContext';
 
 function DetailsPage(props) {
     const postList = useContext(PostContext)
