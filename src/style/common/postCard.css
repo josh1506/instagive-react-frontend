@@ -15,6 +15,26 @@
     border-radius: 3%;
 }
 
+
+
+.postCard:hover{
+    transform: scale(1.01);
+
+}
+
+.category{
+
+    margin : 0 0 0.5rem 0.5rem;
+    padding: 0.3rem;
+    border: green 1px solid;
+    display: inline-block;
+    color: white;
+    background: green;
+    border-radius: 5%;
+}
+
+
+
 .buttonContainer {
     display: flex;
     justify-content: flex-end;

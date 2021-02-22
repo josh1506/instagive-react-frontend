@@ -69,19 +69,25 @@ function Register(props) {
 
     await axios.post('http://localhost:5000/user/register', formdata);
 
-    // setUserForm({
-    //     email: '',
-    //     password: '',
-    //     city: '',
-    //     orgName: '',
-    //     orgAddress: '',
-    //     orgPhoto: '',
-    //     orgNumber: '',
-    //     repName: '',
-    //     repId: '',
-    //     orgDocuments: [],
-    //     orgDescription: ''
-    // })
+    setUserForm({
+        email: '',
+        password: '',
+        city: '',
+        orgName: '',
+        orgAddress: '',
+        orgPhoto: '',
+        orgNumber: '',
+        repName: '',
+        repId: '',
+        orgDocuments: [],
+        orgDescriptions: ''
+    })
+
+    setFiles({
+      orgPhoto: '',
+    orgDocuments: '',
+    repId: '',
+    })
   };
 
   return (
@@ -255,7 +261,7 @@ function Register(props) {
           </label>
           <textarea
             name='orgDescriptions'
-            value={userForm.orgDescription}
+            value={userForm.orgDescriptions}
             onChange={handleChange}
             id='orgDescriptions'
             className='register-form-input-text'
