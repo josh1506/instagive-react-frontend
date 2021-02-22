@@ -15,7 +15,6 @@ function Posts(props) {
                     <p className='postFilter'>Filter by:</p>
                     <select name="" id="" ></select>
                 </div>
-                {/* post */}
                 <PostCard {...props} />
             </div>
         </div>

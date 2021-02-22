@@ -6,19 +6,10 @@ import '../../../style/authPage/login.css'
 
 function Login(props) {
     const [auth, setAuth] = useState({ username: '', password: '' })
-
     const handleSubmit = event => {
-     
-     
-     
         event.preventDefault()
-
- axios.post('http://localhost:5000/user/login', auth)
+        axios.post('http://localhost:5000/user/login', auth)
     }
-
-
-    
-
     
     return (
         <div className='LoginContainer'>

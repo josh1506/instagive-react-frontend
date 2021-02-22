@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Login from './Login';
 import Register from './Register';
@@ -17,6 +17,7 @@ function AuthPage(props) {
                         <Route path='/auth/register' component={Register} />
                         <Route path='/auth/forgot' component={ForgotPass} />
                         <Redirect from='/auth' to='/auth/login' exact />
+                        <Redirect to='/not-found' />
                     </Switch>
                 </div>
             </div>

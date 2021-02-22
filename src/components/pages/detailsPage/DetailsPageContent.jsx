@@ -12,7 +12,7 @@ function DetailsPageContent(props) {
             </div>
             {props.children}
             <p className='donationContent'>
-                {props.onSelectedPost ? props.onSelectedPost.postDetails : ''}
+                {props.onSelectedPost ? props.onSelectedPost.description : ''}
             </p>
             <div className='donateNowContainer'>
                 <button className='donate-button'>Donate Now</button>

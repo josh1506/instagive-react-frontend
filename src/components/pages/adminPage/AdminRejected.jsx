@@ -1,11 +1,48 @@
-import React from 'react';
-import Table from './../../common/Table';
+import React, { useContext } from 'react';
+import AccountList from './../../../context/accountList';
 
 function AdminRejected(props) {
+    const accountList = useContext(AccountList)
+    const data = accountList.filter(account => account.accountStatus === 'pending')
+    const theadData = [
+        {
+            label: 'Organization',
+            name: 'orgName'
+        },
+        {
+            label: 'Email',
+            name: 'email'
+        },
+        {
+            label: 'City',
+            name: 'city'
+        },
+        {
+            label: 'Rep. Name',
+            name: 'repName'
+        },
+    ]
     return (
         <div>
-            <h1>Rejected</h1>
-            <Table />
+            <h1 className='admin-page-title'>Rejected</h1>
+            <table className='table-container'>
+                <thead>
+                    <tr>
+                        {theadData.map(tableHead =>
+                            <th key={tableHead.name} className='table-header'>{tableHead.label}</th>
+                        )}
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map(account =>
+                        <tr key={account.id}>
+                            {theadData.map(tableHead =>
+                                <td key={tableHead.name} className='table-item'>{account[tableHead.name]}</td>
+                            )}
+                        </tr>
+                    )}
+                </tbody>
+            </table>
         </div>
     );
 }
