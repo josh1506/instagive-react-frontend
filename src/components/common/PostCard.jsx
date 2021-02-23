@@ -7,19 +7,11 @@ import PostContext from './../../context/postContext';
 
 function PostCard(props) {
   const postList = useContext(PostContext);
-  console.log(postList);
   return (
     <div className='postCardContainer'>
       {postList.map((post) => (
         <div className='postCard' key={post.id}>
-          <div className='deleteButtonContainer'>
-            <FontAwesomeIcon
-              icon={faTimes}
-              className='deleteButton'
-              size='lg'
-            />
-          </div>
-          <div className="category">San Fernando</div>
+          <div className="category">{post.location}</div>
           <img src={post.imageList[0]} alt='Photo' width='100%' />
           <h3 style={{ paddingLeft: 5 }}>
             {post.Title.substring(0, 29)}
