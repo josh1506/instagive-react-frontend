@@ -13,7 +13,11 @@ import AccountList from './context/accountList';
 
 function App() {
   const [post, setPost] = useState([])
-  const [accountList, setAccountList] = useState([])
+  const [accountList, setAccountList] = useState({
+    accepted: [],
+    pending: [],
+    rejected: []
+  })
 
   useEffect(() => {
     // Run API here
