@@ -27,30 +27,19 @@ function AdminAccepted(props) {
         },
     ]
 
-
     const handleEditButton = (account) => {
         console.log(account);
-        
+
         window.location.reload();
- 
- 
     }
 
     const handleDeleteButton = async (account) => {
         console.log(account);
         await axios
-        .post(`http://localhost:5000/admin/changestatus/${account}/rejected`)
-      
-      
-      
+            .post(`http://localhost:5000/admin/changestatus/${account}/rejected`)
+
         window.location.reload();
-
-  
-  
-  
     }
-
-
 
     return (
         <div>
