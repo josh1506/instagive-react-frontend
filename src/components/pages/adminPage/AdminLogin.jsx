@@ -8,6 +8,7 @@ function AdminLogin(props) {
         event.preventDefault()
 
         // await axios.post('', auth)
+        // .then(() => localStorage.setItem('admin', DATAHERE))
     }
 
     return (
