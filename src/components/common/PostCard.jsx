@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import '../../style/common/postCard.css';
-import PostContext from './../../contex/postContext';
+import PostContext from './../../context/postContext';
 
 
 function PostCard(props) {
