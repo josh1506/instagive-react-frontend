@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import UserLedger from './../../../../context/userLedger';
 
 function LedgerList(props) {
+    const userLedger = useContext(UserLedger)
     return (
         <div>
             <div>
