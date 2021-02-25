@@ -22,6 +22,7 @@ function AdminRejected(props) {
             name: 'repName'
         },
     ]
+
     return (
         <div>
             <h1 className='admin-page-title'>Rejected</h1>
