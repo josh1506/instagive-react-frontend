@@ -9,8 +9,9 @@ function Login(props) {
     const handleSubmit = event => {
         event.preventDefault()
         axios.post('http://localhost:5000/user/login', auth)
+        // .then(() => localStorage.setItem('user', DATAHERE))
     }
-    
+
     return (
         <div className='LoginContainer'>
             <div>
@@ -24,8 +25,8 @@ function Login(props) {
                 <div style={{ width: '100%' }}>
                     <Link to="/auth/forgot" className='form-link'>Forgot Password</Link>
                     <div className='form-button-container'>
-                        <button  className='form-button'  >Login</button>
-                        <button  className='form-button' onClick={() => props.history.push('/auth/register')}>Sign up</button>
+                        <button className='form-button'  >Login</button>
+                        <button className='form-button' onClick={() => props.history.push('/auth/register')}>Sign up</button>
                     </div>
                 </div>
             </form>
