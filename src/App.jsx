@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Nav from './components/common/Nav';
 import LandingPage from './components/pages/landingPage/LandingPage';
 import DetailsPage from './components/pages/detailsPage/DetailsPage';
 import AuthPage from './components/pages/authPage/AuthPage';
 import UserPage from './components/pages/userPage/UserPage';
 import AdminPage from './components/pages/adminPage/AdminPage';
-import PostContext from './context/postContext'
+import PostContext from './context/postContext';
 import './App.css';
 import NotFound from './components/common/NotFound';
 import AccountList from './context/accountList';
+
+const axios = require('axios');
 
 function App() {
   const [post, setPost] = useState([])
@@ -23,14 +25,21 @@ function App() {
     // Run API here
     // axios post
     // axios list
-    setPost([])
-    setAccountList([])
-  }, [])
+    setPost([]);
+    const userList = async () => {
+      await axios
+        .get('http://localhost:5000/admin/getusers')
+        .then((data) => setAccountList(data.data));
+        await axios.get('http://localhost:5000/landing').then((data) => console.log(data.data))
+    };
+    
+    userList();
+  }, []);
 
   return (
     <PostContext.Provider value={post}>
       <AccountList.Provider value={accountList}>
-        <div className="App">
+        <div className='App'>
           <Nav />
           <Switch>
             <Route path='/details/:id' component={DetailsPage} />
