@@ -5,6 +5,10 @@ import PostCard from './../../common/PostCard';
 import '../../../style/landingPage/post.css'
 
 
+
+
+
+
 function Posts(props) {
     return (
         <div className='postContainer'>

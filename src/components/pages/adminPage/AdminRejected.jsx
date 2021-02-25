@@ -3,7 +3,7 @@ import AccountList from './../../../context/accountList';
 
 function AdminRejected(props) {
     const accountList = useContext(AccountList)
-    const data = accountList.filter(account => account.accountStatus === 'pending')
+    const data = accountList.rejected ? accountList.rejected : [];
     const theadData = [
         {
             label: 'Organization',

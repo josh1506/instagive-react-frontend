@@ -1,12 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import AccountList from './../../../context/accountList';
 
 function AdminPending(props) {
-    const accountList = useContext(AccountList)
-    const data = accountList.filter(account => account.accountStatus === 'pending')
+    let accountList = useContext(AccountList)
+    let data = accountList.pending ? accountList.pending : [];
+
+
+
+  
+
+
 
     const theadData = [
         {
@@ -27,14 +33,34 @@ function AdminPending(props) {
         },
     ]
 
-    const handleApproveAccount = (event, account) => {
-        console.log(account);
+    const  handleApproveAccount = async (account) => {
+        await axios
+        .post(`http://localhost:5000/admin/changestatus/${account}/approved`).then(() => accountList = [])
+
+        window.location.reload();
+        
+    };
+
+   
+   
+   
+   
+    
+
+
+    const handleRejectAccount =async  (account) => {
+      
+        await axios
+        .post(`http://localhost:5000/admin/changestatus/${account}/rejected`).then(() => accountList = [])
+
+        window.location.reload();
+        
+   
+   
     }
 
 
-    const handleRejectAccount = (event, account) => {
-        console.log(account);
-    }
+  
 
 
 
@@ -63,13 +89,13 @@ function AdminPending(props) {
                                     icon={faCheck}
                                     className='table-icon'
                                     size='lg'
-                                    onClick={e => handleApproveAccount(e, account)}
+                                    onClick={() =>handleApproveAccount(account._id)}
                                 />
                                 <FontAwesomeIcon
                                     icon={faTimes}
                                     className='table-icon'
                                     size='lg'
-                                    onClick={e => handleRejectAccount(e, account)}
+                                    onClick={() => handleRejectAccount(account._id)}
                                 />
                             </td>
                         </tr>

@@ -6,7 +6,7 @@ import AccountList from './../../../context/accountList';
 
 function AdminAccepted(props) {
     const accountList = useContext(AccountList)
-    const data = accountList.filter(account => account.accountStatus === 'pending')
+    const data = accountList.approved ? accountList.approved : [];
 
     const theadData = [
         {
@@ -28,12 +28,26 @@ function AdminAccepted(props) {
     ]
 
 
-    const handleEditButton = (event, account) => {
+    const handleEditButton = (account) => {
         console.log(account);
+        
+        window.location.reload();
+ 
+ 
     }
 
-    const handleDeleteButton = (event, account) => {
+    const handleDeleteButton = async (account) => {
         console.log(account);
+        await axios
+        .post(`http://localhost:5000/admin/changestatus/${account}/rejected`)
+      
+      
+      
+        window.location.reload();
+
+  
+  
+  
     }
 
 
@@ -66,14 +80,14 @@ function AdminAccepted(props) {
                                     icon={faEdit}
                                     className='table-icon'
                                     size='lg'
-                                    onClick={e => handleEditButton(e, account)}
+                                    onClick={e => handleEditButton(account._id)}
                                     style={{ cursor: 'pointer' }}
                                 />
                                 <FontAwesomeIcon
                                     icon={faTrash}
                                     className='table-icon'
                                     size='lg'
-                                    onClick={e => handleDeleteButton(e, account)}
+                                    onClick={e => handleDeleteButton(account._id)}
                                     style={{ cursor: 'pointer' }}
                                 />
                             </td>

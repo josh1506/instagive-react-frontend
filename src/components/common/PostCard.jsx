@@ -5,6 +5,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import '../../style/common/postCard.css';
 import PostContext from './../../contex/postContext';
 
+
 function PostCard(props) {
   const postList = useContext(PostContext);
 
