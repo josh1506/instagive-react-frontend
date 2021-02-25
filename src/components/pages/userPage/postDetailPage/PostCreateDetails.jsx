@@ -14,10 +14,17 @@ function PostCreateDetails(props) {
         profilePic: '',
     });
 
+    const handleSubmit = () => {
+        // axios for postForm
+        // axios.post('',postForm)
+        // axios for files
+        // axios.post('',files)
+    }
+
     return (
         <div>
             <h1>Creating new post</h1>
-            <form className='post-container'>
+            <form className='post-container' onSubmit={handleSubmit}>
                 <div className="post-create-container">
                     <label className='form-label' htmlFor='post-profile-pic'>
                         Cover Photo
