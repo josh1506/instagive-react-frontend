@@ -14,33 +14,27 @@ import AccountList from './context/accountList';
 const axios = require('axios');
 
 function App() {
-  const [post, setPost] = useState([]);
-  const [accountList, setAccountList] = useState([]);
+  const [post, setPost] = useState([])
+  const [accountList, setAccountList] = useState({
+    accepted: [],
+    pending: [],
+    rejected: []
+  })
 
   useEffect(() => {
     // Run API here
     // axios post
     // axios list
     setPost([]);
-
     const userList = async () => {
       await axios
         .get('http://localhost:5000/admin/getusers')
         .then((data) => setAccountList(data.data));
         await axios.get('http://localhost:5000/landing').then((data) => console.log(data.data))
     };
-
-
+    
     userList();
-
-
-
   }, []);
-
-
-
-
-
 
   return (
     <PostContext.Provider value={post}>

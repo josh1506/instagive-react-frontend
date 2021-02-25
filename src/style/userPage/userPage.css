@@ -1,0 +1,14 @@
+.post-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-create-container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-content: center;
+    justify-content: center;
+}
