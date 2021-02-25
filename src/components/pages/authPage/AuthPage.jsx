@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Login from './Login';
 import Register from './Register';
@@ -6,6 +6,27 @@ import ForgotPass from './ForgotPass';
 import '../../../style/authPage/authPage.css'
 
 function AuthPage(props) {
+    const [userAuthID, setUserAuthID] = useState()
+
+    useEffect(() => {
+        // check if there's a user in coockies
+        localStorage.setItem('user', 'zxczxcqweqwe')
+        const authID = localStorage.getItem('user')
+
+        const validateAuthID = async () => {
+            // Same logic for user login
+            // axios for validating ID
+            // await axios.post('', authID)
+            // .then(() => {
+            //     setUserAuthID(authID)
+            //     props.history.replace('/user')
+            // }) 
+            // .catch (() => localStorage.removeItem('user'))
+        }
+
+        validateAuthID()
+    }, [])
+
     return (
         <div className='auth-container'>
             <div className='authBackgroundImage'>
