@@ -4,30 +4,30 @@ import PostList from './PostList';
 import LedgerPage from './ledgerPage/LedgerPage';
 import PostCreate from './postDetailPage/PostCreate';
 import UserPostDetails from './postDetailPage/UserPostDetails';
+import axios from 'axios'
 
 function UserPage(props) {
-    const [userAuthID, setUserAuthID] = useState()
-
     useEffect(() => {
         // check if there's a user in local storage
-        const userAuthID = localStorage.getItem('user')
+        const userToken = { token: localStorage.getItem('user') }
 
         const validateAuthID = async () => {
             // Same logic for user login
             // axios for validating ID
-            // await axios.post('', authID)
-            // .then(() => {
-            // setUserAuthID(authID)
-            // }) 
-            // .catch (() => {
-            // localStorage.removeItem('user')
-            // props.history.push(/auth)
-            // })
+            await axios.post('/checkusertoken', userToken)
+                .then(({ data }) => {
+                    // data.repName
+                })
+                .catch(({ data }) => {
+                    // if data.valid{
+                    // localStorage.removeItem('user')
+                    // props.history.push('/auth')
+                    // }
+                })
         }
 
-        if (!userAuthID) props.history.replace('/auth')
-
         validateAuthID()
+        if (!userToken) props.history.replace('/auth')
     }, [])
 
     return (
