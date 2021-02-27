@@ -1,4 +1,3 @@
-import { faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -19,6 +18,9 @@ function Login(props) {
     } else {
       // Set Item
       console.log(valid.data.token);
+      localStorage.setItem('user', valid.data.token)
+      window.location.reload();
+
       window.alert('Login Success');
     }
 

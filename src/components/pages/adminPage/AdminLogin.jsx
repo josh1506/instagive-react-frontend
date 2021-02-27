@@ -1,14 +1,33 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
-
+import axios from 'axios'
 function AdminLogin(props) {
     const [auth, setAuth] = useState({ username: '', password: '' })
 
     const handleSubmit = async event => {
         event.preventDefault()
 
-        // await axios.post('', auth)
-        // .then(() => localStorage.setItem('admin', DATAHERE))
+        const valid = await axios.post('http://localhost:5000/admin/login', auth);
+      
+        if (valid.data.valid !== true) 
+            window.alert(valid.data.valid);
+    
+        else{
+
+
+            console.log(valid.data.token);
+      localStorage.setItem('admin', valid.data.token)
+      window.location.reload();
+
+      window.alert('Login Success');
+
+        }
+  
+  
+  
+  
+  
+  
     }
 
     return (
