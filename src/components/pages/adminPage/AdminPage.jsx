@@ -27,7 +27,7 @@ function AdminPage(props) {
     useEffect(() => {
         // check if there's a user in coockies
         localStorage.setItem('admin', 'aaksdjklxzczqw312nxcpiqwe123')
-        const authID = localStorage.getItem('admin')
+        setAdminAuthID(localStorage.getItem('admin'))
 
         const validateAuthID = async () => {
             // Same logic for user login
@@ -49,7 +49,8 @@ function AdminPage(props) {
                         <Route path='/admin/pending' component={AdminPending} />
                         <Route path='/admin/accepted' component={AdminAccepted} />
                         <Route path='/admin/rejected' component={AdminRejected} />
-                        <Redirect to='/admin/pending' />
+                        <Redirect from='/admin' to='/admin/pending' exact />
+                        <Redirect to='/not-found' />
                     </Switch>
                 </div>
             </div>

@@ -10,18 +10,11 @@ function AuthPage(props) {
 
     useEffect(() => {
         // check if there's a user in coockies
-        localStorage.setItem('user', 'zxczxcqweqwe')
-        const authID = localStorage.getItem('user')
+        const userAuthID = localStorage.getItem('user')
 
         const validateAuthID = async () => {
             // Same logic for user login
-            // axios for validating ID
-            // await axios.post('', authID)
-            // .then(() => {
-            //     setUserAuthID(authID)
-            //     props.history.replace('/user')
-            // }) 
-            // .catch (() => localStorage.removeItem('user'))
+            if (userAuthID) props.history.replace('/user')
         }
 
         validateAuthID()

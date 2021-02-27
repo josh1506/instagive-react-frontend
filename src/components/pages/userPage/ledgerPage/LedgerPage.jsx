@@ -9,6 +9,7 @@ function LedgerPage(props) {
             <Switch>
                 <Route path='/user/ledger/create' component={LedgerCreate} />
                 <Route path='/user/ledger' exact component={LedgerList} />
+                <Redirect to='/not-found' />
             </Switch>
         </div>
     );

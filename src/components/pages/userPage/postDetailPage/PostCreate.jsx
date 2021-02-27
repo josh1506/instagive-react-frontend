@@ -8,6 +8,7 @@ function PostCreate(props) {
             <div>
                 <Switch>
                     <Route path='/user/post-create' component={PostCreateDetails} />
+                    <Redirect to='/not-found' />
                 </Switch>
             </div>
         </div>

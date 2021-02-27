@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import UserLedger from './../../../../context/userLedger';
 
 function LedgerList(props) {
@@ -9,7 +11,12 @@ function LedgerList(props) {
                 <input type="text" />
             </div>
             <div>
-                <button>Icon Plus</button>
+                <FontAwesomeIcon
+                    icon={faPlusCircle}
+                    className='deleteButton'
+                    size='lg'
+                    onClick={() => props.history.push('/user/ledger/create')}
+                />
             </div>
             <div style={{ overflowX: 'auto' }}>
                 <table>

@@ -22,11 +22,17 @@ function Nav(props) {
                 </span>
             </span>
             <span className='navLogin'>
-                {userAuth ? <NavLink to='/' className='navLink' onClick={() => {
-                    localStorage.removeItem('user')
-                    localStorage.removeItem('admin')
-                    setUserAuth('')
-                }}>Logout</NavLink> :
+                {userAuth ?
+                    <span>
+
+                        <NavLink to="/user/ledger" className='navLink'>Ledger</NavLink>
+                        <NavLink to="/user" className='navLink'>Dashboard</NavLink>
+                        <NavLink to='/' className='navLink' onClick={() => {
+                            localStorage.removeItem('user')
+                            localStorage.removeItem('admin')
+                            setUserAuth('')
+                        }}>Logout</NavLink>
+                    </span> :
                     <span>
                         <NavLink to="/auth/register" className='navLink'>Signup</NavLink>
                         |

@@ -10,8 +10,7 @@ function UserPage(props) {
 
     useEffect(() => {
         // check if there's a user in local storage
-        localStorage.setItem('user', 'zxczxcqweqwe')
-        const authID = localStorage.getItem('user')
+        const userAuthID = localStorage.getItem('user')
 
         const validateAuthID = async () => {
             // Same logic for user login
@@ -22,9 +21,11 @@ function UserPage(props) {
             // }) 
             // .catch (() => {
             // localStorage.removeItem('user')
-            // props.history.push(/auth/login)
+            // props.history.push(/auth)
             // })
         }
+
+        if (!userAuthID) props.history.replace('/auth')
 
         validateAuthID()
     }, [])
@@ -37,6 +38,7 @@ function UserPage(props) {
                     <Route path='/user/post-details' component={UserPostDetails} />
                     <Route path='/user/ledger' component={LedgerPage} />
                     <Route path='/user/' exact component={PostList} />
+                    <Redirect to='/not-found' />
                 </Switch>
             </div>
         </div>

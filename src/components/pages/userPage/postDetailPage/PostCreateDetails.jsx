@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'
 import "../../../../style/userPage/userPage.css";
 import { cityLocation } from '../../../others/cityLocation'
 
@@ -111,7 +112,7 @@ function PostCreateDetails(props) {
                         className=''
                     ></input>
                     <div>
-                        <a href="#">Cancel</a>
+                        <Link to="/user">Cancel</Link>
                         <button>Save</button>
                     </div>
                 </div>
