@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 function LedgerCreate(props) {
+    const [dateValue, setDateValue] = useState(new Date())
     const [ledgerForm, setLedgerForm] = useState({
         postId: '',
         donorName: '',
@@ -14,10 +16,10 @@ function LedgerCreate(props) {
         date: new Date()
     })
 
-    const handleSubmit = () => {
+    const handleSubmit = async event => {
 
+        event.preventDefault()
     }
-
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -73,10 +75,10 @@ function LedgerCreate(props) {
                 </div>
                 <div>
                     <label htmlFor="">Date</label>
-                    <Calendar
-                        onChange={date => setLedgerForm({ ...ledgerForm, date })}
-                        value={ledgerForm.date}
-                    />
+                    <DatePicker selected={dateValue} onChange={date => {
+                        setDateValue(date)
+                        setLedgerForm({ ...ledgerForm, date: date.toString().split(' ').slice(1, 4).toString().replaceAll(',', ' ') })
+                    }} />
                 </div>
                 <div>
                     <Link to='/user/ledger'>Cancel</Link>

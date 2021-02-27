@@ -9,7 +9,7 @@ function Nav(props) {
     useEffect(() => {
         setUserAuth(localStorage.getItem('user') || localStorage.getItem('admin'))
     })
-    console.log(userAuth);
+
     return (
         <nav className="navBar">
             <span>

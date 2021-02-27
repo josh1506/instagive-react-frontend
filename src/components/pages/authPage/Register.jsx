@@ -67,7 +67,8 @@ function Register(props) {
     formdata.append('repName', userForm.repName);
     formdata.append('orgDescriptions', userForm.orgDescriptions);
 
-    await axios.post('http://localhost:5000/user/register', formdata);
+   const data =   await axios.post('http://localhost:5000/user/register', formdata);
+   console.log(data)
 
     setUserForm({
         email: '',
@@ -88,6 +89,15 @@ function Register(props) {
     orgDocuments: '',
     repId: '',
     })
+
+
+    document.getElementById('repId').value=   null;
+    document.getElementById('orgDocuments').value=   null;
+    document.getElementById('orgPhoto').value=   null;
+
+
+
+
   };
 
   return (
