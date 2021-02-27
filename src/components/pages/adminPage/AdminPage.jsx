@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Sidebar from '../../common/Sidebar';
 import AdminPending from './AdminPending';
@@ -8,11 +8,7 @@ import AdminLogin from './AdminLogin';
 import '../../../style/adminPage/adminPage.css'
 
 function AdminPage(props) {
-    // check if there's a user in coockies
-    localStorage.setItem('admin', 'aaksdjklxzczqw312nxcpiqwe123')
-    const adminAuthID = localStorage.getItem('admin')
-
-
+    const [adminAuthID, setAdminAuthID] = useState()
     const adminSideBarItems = [
         {
             label: 'Pending',
@@ -28,6 +24,22 @@ function AdminPage(props) {
         },
     ]
 
+    useEffect(() => {
+        // check if there's a user in coockies
+        localStorage.setItem('admin', 'aaksdjklxzczqw312nxcpiqwe123')
+        setAdminAuthID(localStorage.getItem('admin'))
+
+        const validateAuthID = async () => {
+            // Same logic for user login
+            // axios for validating ID
+            // await axios.post('', authID)
+            // .then(() => setAdminAuthID(authID)) 
+            // .catch (() => localStorage.removeItem('admin'))
+        }
+
+        validateAuthID()
+    }, [])
+
     const renderContent = () => {
         return !adminAuthID ? <AdminLogin /> :
             <div className='admin-page-container'>
@@ -37,7 +49,8 @@ function AdminPage(props) {
                         <Route path='/admin/pending' component={AdminPending} />
                         <Route path='/admin/accepted' component={AdminAccepted} />
                         <Route path='/admin/rejected' component={AdminRejected} />
-                        <Redirect to='/admin/pending' />
+                        <Redirect from='/admin' to='/admin/pending' exact />
+                        <Redirect to='/not-found' />
                     </Switch>
                 </div>
             </div>

@@ -8,12 +8,6 @@ function AdminPending(props) {
     let accountList = useContext(AccountList)
     let data = accountList.pending ? accountList.pending : [];
 
-
-
-  
-
-
-
     const theadData = [
         {
             label: 'Organization',
@@ -33,36 +27,19 @@ function AdminPending(props) {
         },
     ]
 
-    const  handleApproveAccount = async (account) => {
-        await axios
-        .post(`http://localhost:5000/admin/changestatus/${account}/approved`).then(() => accountList = [])
+    const handleApproveAccount = async (account) => {
+        await axios.post(`http://localhost:5000/admin/changestatus/${account}/approved`)
+            .then(() => accountList = [])
 
         window.location.reload();
-        
     };
 
-   
-   
-   
-   
-    
-
-
-    const handleRejectAccount =async  (account) => {
-      
-        await axios
-        .post(`http://localhost:5000/admin/changestatus/${account}/rejected`).then(() => accountList = [])
+    const handleRejectAccount = async (account) => {
+        await axios.post(`http://localhost:5000/admin/changestatus/${account}/rejected`)
+            .then(() => accountList = [])
 
         window.location.reload();
-        
-   
-   
     }
-
-
-  
-
-
 
     return (
         <div>
@@ -89,7 +66,7 @@ function AdminPending(props) {
                                     icon={faCheck}
                                     className='table-icon'
                                     size='lg'
-                                    onClick={() =>handleApproveAccount(account._id)}
+                                    onClick={() => handleApproveAccount(account._id)}
                                 />
                                 <FontAwesomeIcon
                                     icon={faTimes}

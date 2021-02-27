@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'
 import "../../../../style/userPage/userPage.css";
 import { cityLocation } from '../../../others/cityLocation'
 
@@ -14,10 +15,17 @@ function PostCreateDetails(props) {
         profilePic: '',
     });
 
+    const handleSubmit = () => {
+        // axios for postForm
+        // axios.post('',postForm)
+        // axios for files
+        // axios.post('',files)
+    }
+
     return (
         <div>
             <h1>Creating new post</h1>
-            <form className='post-container'>
+            <form className='post-container' onSubmit={handleSubmit}>
                 <div className="post-create-container">
                     <label className='form-label' htmlFor='post-profile-pic'>
                         Cover Photo
@@ -104,7 +112,7 @@ function PostCreateDetails(props) {
                         className=''
                     ></input>
                     <div>
-                        <a href="#">Cancel</a>
+                        <Link to="/user">Cancel</Link>
                         <button>Save</button>
                     </div>
                 </div>

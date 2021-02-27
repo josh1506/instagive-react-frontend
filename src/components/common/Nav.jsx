@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../style/common/Nav.css'
 import logo from '../../img/Instagive-logo-2.png'
 import { Link, NavLink } from 'react-router-dom';
 
 function Nav(props) {
+    const [userAuth, setUserAuth] = useState()
+
+    useEffect(() => {
+        setUserAuth(localStorage.getItem('user') || localStorage.getItem('admin'))
+    })
+    console.log(userAuth);
     return (
         <nav className="navBar">
             <span>
@@ -16,9 +22,23 @@ function Nav(props) {
                 </span>
             </span>
             <span className='navLogin'>
-                <NavLink to="/auth/register" className='navLink'>Signup</NavLink>
-                |
-                <NavLink to="/auth/login" className='navLink'>Login</NavLink>
+                {userAuth ?
+                    <span>
+
+                        <NavLink to="/user/ledger" className='navLink'>Ledger</NavLink>
+                        <NavLink to="/user" className='navLink'>Dashboard</NavLink>
+                        <NavLink to='/' className='navLink' onClick={() => {
+                            localStorage.removeItem('user')
+                            localStorage.removeItem('admin')
+                            setUserAuth('')
+                        }}>Logout</NavLink>
+                    </span> :
+                    <span>
+                        <NavLink to="/auth/register" className='navLink'>Signup</NavLink>
+                        |
+                        <NavLink to="/auth/login" className='navLink'>Login</NavLink>
+                    </span>
+                }
             </span>
         </nav>
     );

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import PostCard from './../../common/PostCard';
+import PostContext from './../../../context/postContext';
 
 function PostList(props) {
+    const postList = useContext(PostContext);
     return (
         <div>
             <div className='user-items-right-container'>
@@ -14,7 +16,7 @@ function PostList(props) {
                     onClick={() => props.history.push('/user/post-create')}
                 />
             </div>
-            <PostCard />
+            <PostCard {...props} postList={postList} />
         </div>
     );
 }
