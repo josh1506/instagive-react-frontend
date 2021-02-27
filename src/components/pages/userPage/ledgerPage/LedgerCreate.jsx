@@ -13,7 +13,7 @@ function LedgerCreate(props) {
         paymentAddress: '',
         amount: 0,
         remarks: '',
-        date: new Date()
+        date: ''
     })
 
     const handleSubmit = async event => {

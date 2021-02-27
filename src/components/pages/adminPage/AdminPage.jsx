@@ -26,7 +26,6 @@ function AdminPage(props) {
 
     useEffect(() => {
         // check if there's a user in coockies
-        localStorage.setItem('admin', 'aaksdjklxzczqw312nxcpiqwe123')
         setAdminAuthID(localStorage.getItem('admin'))
 
         const validateAuthID = async () => {
