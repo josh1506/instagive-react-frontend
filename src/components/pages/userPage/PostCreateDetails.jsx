@@ -22,3 +22,5 @@ function PostCreateDetails(props) {
 }
 
 export default PostCreateDetails;
+
+
