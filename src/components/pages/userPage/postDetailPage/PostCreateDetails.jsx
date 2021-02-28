@@ -8,10 +8,11 @@ function PostCreateDetails(props) {
         Title: '',
         description: '',
         location: '',
-        donationType: ''
+        donationType: '',
+        totalAmount: 0,
     })
     const [files, setFiles] = useState({
-        postImg: '',
+        imageList: [],
         profilePic: '',
     });
 
@@ -88,6 +89,17 @@ function PostCreateDetails(props) {
                             />
                             <label htmlFor="post-radio-both">Both</label>
                         </div>
+                        <div>
+                            <label htmlFor="totalAmount">Total amount:</label>
+                            <input
+                                type="number"
+                                name="totalAmount"
+                                id="totalAmount"
+                                value={postForm.totalAmount}
+                                onChange={e =>
+                                    setPostForm({ ...postForm, totalAmount: e.target.value })}
+                            />
+                        </div>
                     </div>
                     <label htmlFor="details">Details:</label>
                     <textarea
@@ -106,7 +118,7 @@ function PostCreateDetails(props) {
                         name='postImages'
                         onChange={(e) => {
                             const multifiles = e.target.files;
-                            setFiles({ ...files, postImg: multifiles });
+                            setFiles({ ...files, imageList: multifiles });
                         }}
                         multiple
                         className=''
