@@ -17,7 +17,6 @@ function LedgerCreate(props) {
     })
 
     const handleSubmit = async event => {
-
         event.preventDefault()
     }
     return (
