@@ -14,7 +14,10 @@ function Login(props) {
     const valid = await axios.post('http://localhost:5000/user/login', auth);
 
     if (valid.data.valid !== true) {
+    
       window.alert(valid.data.valid);
+ 
+
     } else {
       // Set Item
       console.log(valid.data.token);
