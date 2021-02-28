@@ -10,7 +10,7 @@ function Nav(props) {
         const token = localStorage.getItem('user') || localStorage.getItem('admin')
         const type = localStorage.key(token)
         setUserAuth({ token, type })
-    })
+    }, [])
 
     return (
         <nav className="navBar">
