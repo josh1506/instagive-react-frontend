@@ -27,7 +27,6 @@ function PostCreateDetails(props) {
     for (const key in files.imageList) {
       formdata.append('imageList', files.imageList[key]);
     }
-
     formdata.append('Title', postForm.Title);
     formdata.append('description', postForm.description);
     formdata.append('location', postForm.location);
