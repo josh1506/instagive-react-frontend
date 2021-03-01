@@ -5,19 +5,22 @@ import '../../style/common/postCard.css';
 function PostCard(props) {
     const postList = props.postList
     return (
+        
         <div className='postCardContainer'>
-            {postList.map((post) => (
+         
+      
+            {postList ? postList.map((post) => (
                 <div className='postCard' key={post.id}>
                     <div className="category">{post.location}</div>
-                    <img src={post.imageList[0]} alt='Photo' width='100%' />
+                    <img src={`/docs/${post.profilePic}`} alt='Photo' width='100%' />
                     <h3 style={{ paddingLeft: 5 }}>
-                        {post.Title.substring(0, 29)}
-                        {post.Title.length > 29 ? '...' : ''}
+                        {post.Title}
+                        {post.Title}
                     </h3>
                     <p style={{ paddingLeft: 10, paddingRight: 10 }}>
                         {post.description.length > 100
-                            ? `${post.description.substring(0, 100)}...`
-                            : post.description.substring(0, 100)}
+                            ? `${post.description}...`
+                            : post.description}
                     </p>
                     <div className='buttonContainer'>
                         <button
@@ -29,8 +32,14 @@ function PostCard(props) {
             </button>
                     </div>
                 </div>
-            ))}
-        </div>
+            )): ''}
+      
+                          
+      
+      
+      
+      
+        </div>  
     );
 }
 
