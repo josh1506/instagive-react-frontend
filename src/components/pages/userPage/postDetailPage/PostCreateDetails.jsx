@@ -25,7 +25,7 @@ function PostCreateDetails(props) {
 
     return (
         <div>
-            <h1>Creating new post</h1>
+            <h1 className='user-header'>Creating new post</h1>
             <form className='post-container' onSubmit={handleSubmit}>
                 <div className="post-create-container">
                     <label className='form-label' htmlFor='post-profile-pic'>
@@ -46,15 +46,17 @@ function PostCreateDetails(props) {
                         type="text"
                         name="title"
                         id="title"
+                        className='user-form-input'
                         value={postForm.Title}
                         onChange={e => setPostForm({ ...postForm, Title: e.target.value })}
                     />
                     <div>
                         <div>
-                            <label htmlFor="title">Location</label>
+                            <label htmlFor="title">Location:</label>
                             <select
                                 name="city"
                                 id="city"
+                                className='user-form-dropdown'
                                 value={postForm.location}
                                 onChange={e =>
                                     setPostForm({ ...postForm, location: e.target.value })}
@@ -67,27 +69,33 @@ function PostCreateDetails(props) {
                             </select>
                         </div>
                         <div>
-                            <input type="radio"
-                                id="post-radio-cash"
-                                name="donation-type"
-                                value="cash"
-                                onClick={e => setPostForm({ ...postForm, donationType: e.target.value })}
-                            />
-                            <label htmlFor="post-radio-cash">Cash</label>
-                            <input type="radio"
-                                id="post-radio-in-kind"
-                                name="donation-type"
-                                value="in-kind"
-                                onClick={e => setPostForm({ ...postForm, donationType: e.target.value })}
-                            />
-                            <label htmlFor="post-radio-in-kind">In-kind</label>
-                            <input type="radio"
-                                id="post-radio-both"
-                                name="donation-type"
-                                value="both"
-                                onClick={e => setPostForm({ ...postForm, donationType: e.target.value })}
-                            />
-                            <label htmlFor="post-radio-both">Both</label>
+                            <label>Donation type:</label>
+                            <div className='user-form-radio-container'>
+                                <input type="radio"
+                                    id="post-radio-cash"
+                                    name="donation-type"
+                                    value="cash"
+                                    className='user-form-radio'
+                                    onClick={e => setPostForm({ ...postForm, donationType: e.target.value })}
+                                />
+                                <label htmlFor="post-radio-cash">Cash</label>
+                                <input type="radio"
+                                    id="post-radio-in-kind"
+                                    name="donation-type"
+                                    value="in-kind"
+                                    className='user-form-radio'
+                                    onClick={e => setPostForm({ ...postForm, donationType: e.target.value })}
+                                />
+                                <label htmlFor="post-radio-in-kind">In-kind</label>
+                                <input type="radio"
+                                    id="post-radio-both"
+                                    name="donation-type"
+                                    value="both"
+                                    className='user-form-radio'
+                                    onClick={e => setPostForm({ ...postForm, donationType: e.target.value })}
+                                />
+                                <label htmlFor="post-radio-both">Both</label>
+                            </div>
                         </div>
                         <div>
                             <label htmlFor="totalAmount">Total amount:</label>
@@ -95,6 +103,7 @@ function PostCreateDetails(props) {
                                 type="number"
                                 name="totalAmount"
                                 id="totalAmount"
+                                className='user-form-input'
                                 value={postForm.totalAmount}
                                 onChange={e =>
                                     setPostForm({ ...postForm, totalAmount: e.target.value })}
@@ -107,7 +116,7 @@ function PostCreateDetails(props) {
                         value={postForm.postDetails}
                         onChange={e => setPostForm({ ...postForm, postDetails: e.target.value })}
                         id='postDetails'
-                        className=''
+                        className='user-form-textarea'
                     ></textarea>
                     <label className='form-label' htmlFor='postImages'>
                         Images:

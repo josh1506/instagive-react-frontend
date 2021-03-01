@@ -67,33 +67,33 @@ function Register(props) {
     formdata.append('repName', userForm.repName);
     formdata.append('orgDescriptions', userForm.orgDescriptions);
 
-   const data =   await axios.post('http://localhost:5000/user/register', formdata);
-   console.log(data)
+    const data = await axios.post('http://localhost:5000/user/register', formdata);
+    console.log(data)
 
     setUserForm({
-        email: '',
-        password: '',
-        city: '',
-        orgName: '',
-        orgAddress: '',
-        orgPhoto: '',
-        orgNumber: '',
-        repName: '',
-        repId: '',
-        orgDocuments: [],
-        orgDescriptions: ''
+      email: '',
+      password: '',
+      city: '',
+      orgName: '',
+      orgAddress: '',
+      orgPhoto: '',
+      orgNumber: '',
+      repName: '',
+      repId: '',
+      orgDocuments: [],
+      orgDescriptions: ''
     })
 
     setFiles({
       orgPhoto: '',
-    orgDocuments: '',
-    repId: '',
+      orgDocuments: '',
+      repId: '',
     })
 
 
-    document.getElementById('repId').value=   null;
-    document.getElementById('orgDocuments').value=   null;
-    document.getElementById('orgPhoto').value=   null;
+    document.getElementById('repId').value = null;
+    document.getElementById('orgDocuments').value = null;
+    document.getElementById('orgPhoto').value = null;
 
 
 
