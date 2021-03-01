@@ -4,11 +4,13 @@ import logo from '../../img/Instagive-logo-2.png'
 import { Link, NavLink } from 'react-router-dom';
 
 function Nav(props) {
-    const [userAuth, setUserAuth] = useState()
+    const [userAuth, setUserAuth] = useState({ token: '', type: '' })
 
     useEffect(() => {
-        setUserAuth(localStorage.getItem('user') || localStorage.getItem('admin'))
-    })
+        const token = localStorage.getItem('user') || localStorage.getItem('admin')
+        const type = localStorage.key(token)
+        setUserAuth({ token, type })
+    }, [])
 
     return (
         <nav className="navBar">
@@ -22,11 +24,15 @@ function Nav(props) {
                 </span>
             </span>
             <span className='navLogin'>
-                {userAuth ?
+                {userAuth.token ?
                     <span>
-
-                        <NavLink to="/user/ledger" className='navLink'>Ledger</NavLink>
-                        <NavLink to="/user" className='navLink'>Dashboard</NavLink>
+                        {userAuth.type === 'user' ?
+                            <span>
+                                <NavLink to="/user/ledger" className='navLink'>Ledger</NavLink>
+                                <NavLink to="/user" className='navLink'>Dashboard</NavLink>
+                                <NavLink to="/user/change-password" className='navLink'>ChangePassword</NavLink>
+                            </span> : ''
+                        }
                         <NavLink to='/' className='navLink' onClick={() => {
                             localStorage.removeItem('user')
                             localStorage.removeItem('admin')
