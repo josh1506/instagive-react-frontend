@@ -33,26 +33,26 @@ function App() {
       // Getting all data for landing page
       await axios.get('http://localhost:5000/landing')
         .then(({ data }) => setPost(data))
+    };
 
+    const validateAuthID = async () => {
+      // Validating if token is valid
+      await axios.post('/checkusertoken', token)
+        .catch(({ data }) => {
+          // if (!data.valid) {
+          //   localStorage.removeItem(auth.type)
+          // }
+        })
+    }
 
-      const validateAuthID = async () => {
-        // Validating if token is valid
-        await axios.post('/checkusertoken', token)
-          .catch(({ data }) => {
-            // if (!data.valid) {
-            //   localStorage.removeItem(auth.type)
-            // }
-          })
-      }
+    // check if there's a user in local storage
+    const token = localStorage.getItem('user')
+    const type = localStorage.key(token)
+    setAuth({ token, type })
 
-      // check if there's a user in local storage
-      const token = localStorage.getItem('user')
-      const type = localStorage.key(token)
-      setAuth({ token, type })
-
-      validateAuthID()
-      getAllData();
-    }, []);
+    validateAuthID()
+    getAllData();
+  }, []);
 
 
   return (

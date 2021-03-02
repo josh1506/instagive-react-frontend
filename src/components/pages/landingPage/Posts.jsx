@@ -7,7 +7,6 @@ import PostContext from './../../../context/postContext';
 
 function Posts(props) {
     const postList = useContext(PostContext);
-
     return (
         <div className='postContainer'>
             <h2 className='postTitle'>Posts</h2>
