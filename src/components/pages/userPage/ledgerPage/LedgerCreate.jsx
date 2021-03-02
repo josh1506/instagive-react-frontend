@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import UserContext from './../../../../context/userContext';
+import axios from 'axios';
 
 
 
@@ -10,13 +11,11 @@ import UserContext from './../../../../context/userContext';
 function LedgerCreate(props) {
   
   const postData = useContext(UserContext)
-  
-    console.log(postData)
+
+    
 
 
-    console.log(postData.post ? postData.post : '')
-
-    const [dateValue, setDateValue] = useState(new Date())
+    const [dateValue, setDateValue] = useState()
     const [ledgerForm, setLedgerForm] = useState({
         postId: '',
         donorName: '',
@@ -29,6 +28,14 @@ function LedgerCreate(props) {
 
     const handleSubmit = async event => {
         event.preventDefault()
+    if(ledgerForm.postId === 'Select Post' || ledgerForm.postId === '')  return alert('Select Post first') 
+    if(ledgerForm.date === '') return alert('Select Date first') 
+
+
+    await axios.post(`http://localhost:5000/ledger/${ledgerForm.postId}`, {...ledgerForm, token: localStorage.getItem('user')} )
+
+
+
     }
     return (
         <div>
@@ -40,13 +47,12 @@ function LedgerCreate(props) {
                         onChange={e => setLedgerForm({ ...ledgerForm, postId: e.target.value })}
                     >
 
-                
-
-                        <option value=''>Post 1</option>
-                        <option value=''>Post 2</option>
-                        <option value=''>Post 3</option>
+                            <option>Select Post</option>
+                    {postData.post && postData.post.map(post => 
+                        <option key={post.id} value={post._id}>{post.Title}</option>
+                       
                  
-                 
+                        )}
                  
                  
                     </select>
@@ -63,12 +69,17 @@ function LedgerCreate(props) {
                     <input type="text" name="" id="" />
                 </div>
                 <div>
+                   
                     <label htmlFor="donationType">Donation Type</label>
-                    <select id='donationType'>
+                    <select onChange id='donationType'>
                         <option>Cash</option>
                         <option>In-kind</option>
                     </select>
                 </div>
+
+
+
+
                 <div>
                     <label htmlFor="paymentAddress">Payment Method(if money donation)</label>
                     <input type="text" name="paymentAddress" id="paymentAddress"
