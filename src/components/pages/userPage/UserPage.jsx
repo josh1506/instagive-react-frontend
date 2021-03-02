@@ -15,7 +15,7 @@ function UserPage(props) {
     const [userToken, setUserToken] = useState()
     const [user, setUser] = useState({
         ledger: [],
-        posts: []
+        post: []
     })
 
     useEffect(() => {
@@ -24,15 +24,18 @@ function UserPage(props) {
 
         const getUserData = async () => {
             // Getting all data for ledger
-            await axios.get(`/getledger/${userToken}`)
-                .then(({ data }) => setUser({ ...user, ledger: data }));
+            // await axios.get(`/getledger/${userToken}`)
+            //     .then(({ data }) => setUser({ ...user, ledger: data }));
 
             // Getting all data for post
-            await axios.get('')
+            await axios.post('http://localhost:5000/post/userpost', {token: localStorage.getItem('user')})
                 .then(({ data }) => setUser({ ...user, post: data }));
-        }
+            
+            }
 
         getUserData()
+
+
     }, [])
 
     return (

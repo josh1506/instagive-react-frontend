@@ -1,9 +1,9 @@
 export const cityLocation = [
+    
     'Angeles City',
     'Apalit',
     'Arayat',
     'Bacolor',
-    'Basa airbase',
     'Candaba',
     'Floridablanca',
     'Guagua',
@@ -18,8 +18,9 @@ export const cityLocation = [
     'San Fernando',
     'San Luis',
     'San simon',
-    'Sexmoan',
+    'Sasmuan',
     'Sta. Ana',
     'Sta. Rita',
     'Sto. Tomas',
+    
 ]

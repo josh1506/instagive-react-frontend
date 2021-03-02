@@ -38,6 +38,11 @@ function PostCreateDetails(props) {
       'http://localhost:5000/post/createpost',
       formdata
     );
+
+    window.location.replace('http://localhost:5001/user');
+
+      
+
   };
 
   return (

@@ -5,8 +5,11 @@ import PostCard from './../../common/PostCard';
 import UserContext from './../../../context/userContext';
 
 function PostList(props) {
-    const postList = useContext(UserContext);
+    const userData = useContext(UserContext);
 
+
+
+    
     return (
         <div>
             <div className='user-items-right-container'>
@@ -18,7 +21,7 @@ function PostList(props) {
                 />
             </div>
             <div className='postCardContainer'>
-                {postList.map((post) => (
+                 {userData.post ? userData.post.map((post) => (
                     <div className='postCard' key={post._id}>
                         <div className="category">{post.location}</div>
                         <img src={`/docs/${post.profilePic}`} alt='Photo' width='100%' />
@@ -36,7 +39,7 @@ function PostList(props) {
                             >Details</button>
                         </div>
                     </div>
-                ))}
+                )): ''}
             </div>
         </div>
     );

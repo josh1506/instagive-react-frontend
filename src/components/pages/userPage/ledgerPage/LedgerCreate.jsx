@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import UserContext from './../../../../context/userContext';
+
+
 
 
 function LedgerCreate(props) {
+  
+  const postData = useContext(UserContext)
+  
+    console.log(postData)
+
+
+    console.log(postData.post ? postData.post : '')
+
     const [dateValue, setDateValue] = useState(new Date())
     const [ledgerForm, setLedgerForm] = useState({
         postId: '',
@@ -14,7 +25,7 @@ function LedgerCreate(props) {
         amount: 0,
         remarks: '',
         date: ''
-    })
+    }) 
 
     const handleSubmit = async event => {
         event.preventDefault()
@@ -28,9 +39,16 @@ function LedgerCreate(props) {
                         value={ledgerForm.postId}
                         onChange={e => setLedgerForm({ ...ledgerForm, postId: e.target.value })}
                     >
+
+                
+
                         <option value=''>Post 1</option>
                         <option value=''>Post 2</option>
                         <option value=''>Post 3</option>
+                 
+                 
+                 
+                 
                     </select>
                 </div>
                 <div>
