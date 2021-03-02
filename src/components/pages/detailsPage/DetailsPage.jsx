@@ -7,15 +7,15 @@ import PostContext from './../../../context/postContext';
 
 function DetailsPage(props) {
     const postList = useContext(PostContext)
-    const selectedPost = postList.filter(post => post.id === props.match.params.id)[0]
+    const selectedPost = postList.filter(post => post._id === props.match.params.id)[0]
 
     console.log(selectedPost);
     const renderContent = (
         <div className='details-header-container'>
             <h1 className='details-title'>{selectedPost ? selectedPost.Title : ''}</h1>
             <div className='details-button-container'>
-                <button className='details-button' onClick={() => props.history.push(`/details/${selectedPost.id}`)}>Description</button>
-                <button className='details-button' onClick={() => props.history.push(`/details/${selectedPost.id}/updates`)}>Updates</button>
+                <button className='details-button' onClick={() => props.history.push(`/details/${selectedPost._id}`)}>Description</button>
+                <button className='details-button' onClick={() => props.history.push(`/details/${selectedPost._id}/updates`)}>Updates</button>
             </div>
         </div>
     )

@@ -32,7 +32,7 @@ function App() {
 
       // Getting all data for landing page
       await axios.get('http://localhost:5000/landing')
-        .then((data) => console.log(data.data))
+        .then(({ data }) => setPost(data))
     };
 
     const validateAuthID = async () => {
