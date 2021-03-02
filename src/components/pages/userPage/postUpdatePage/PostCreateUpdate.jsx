@@ -4,9 +4,9 @@ function PostCreateUpdate(props) {
     return (
         <div>
             <h3>Create Update</h3>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <button>Add Image</button>
             <img src="" alt="" />
+            <button>Add Image</button>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
             <div>
                 <button>Cancel</button>
                 <button>Save</button>

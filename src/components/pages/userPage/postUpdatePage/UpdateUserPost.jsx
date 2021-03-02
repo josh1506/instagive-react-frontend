@@ -7,8 +7,8 @@ function UpdateUserPost(props) {
     return (
         <div>
             <Switch>
-                <Route path='/user/update-details/create' component={PostCreateUpdate} />
-                <Route path='/user/update-details' component={PostDetailUpdate} />
+                <Route path='/user/update-details/:id/create' component={PostCreateUpdate} />
+                <Route path='/user/update-details/:id' component={PostDetailUpdate} />
             </Switch>
         </div>
     );
