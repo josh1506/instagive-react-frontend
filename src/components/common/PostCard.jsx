@@ -7,16 +7,28 @@ function PostCard(props) {
 
     console.log(postList);
     return (
+        
         <div className='postCardContainer'>
-            {postList.map((post) => (
+         
+      
+            {postList ? postList.map((post) => (
                 <div className='postCard' key={post.id}>
                     <div className="category">{post.location}</div>
-                    <img src={post.imageList[0]} alt='Photo' width='100%' />
+                    <img src={`/docs/${post.profilePic}`} alt='Photo' width='100%' />
                     <h3 style={{ paddingLeft: 5 }}>
                         {post.Title}
+<<<<<<< HEAD
                     </h3>
                     <p style={{ paddingLeft: 10, paddingRight: 10 }}>
                         {post.description}
+=======
+                        {post.Title}
+                    </h3>
+                    <p style={{ paddingLeft: 10, paddingRight: 10 }}>
+                        {post.description.length > 100
+                            ? `${post.description}...`
+                            : post.description}
+>>>>>>> e495dec2eb007eef1cf00dc81fecab8f451d71e3
                     </p>
                     <div className='buttonContainer'>
                         <button
@@ -28,8 +40,14 @@ function PostCard(props) {
             </button>
                     </div>
                 </div>
-            ))}
-        </div>
+            )): ''}
+      
+                          
+      
+      
+      
+      
+        </div>  
     );
 }
 
