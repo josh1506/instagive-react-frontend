@@ -8,9 +8,25 @@ function PostCard(props) {
     return (
         <div className='postCardContainer'>
             {postList ? postList.map((post) => (
-                <div className='postCard' key={post._id}>
+                <div className='postCard'  key={post._id}>
                     <div className="category">{post.location}</div>
-                    <img src={`/docs/${post.profilePic}`} alt='Photo' width='100%' />
+                
+                
+                
+                
+                    <div style={{ height: '100px', background: `url("/docs/${post.profilePic}")`}} alt='Photo' width='100%' />
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
                     <h3 style={{ paddingLeft: 5 }}>
                         {post.Title}
                     </h3>

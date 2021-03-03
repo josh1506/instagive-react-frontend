@@ -28,16 +28,32 @@ function UserPage(props) {
             //     .then(({ data }) => setUser({ ...user, ledger: data }));
 
             // Getting all data for post
-            await axios.post('http://localhost:5000/post/userpost', {token: localStorage.getItem('user')})
-                .then(({ data }) => setUser({ ...user, post: data }));
+           
+
+           const {data:ledger} = await axios.post('http://localhost:5000/ledger/getall' ,{token: localStorage.getItem('user')})
+
+
+
+
+
+           const {data:post} = await axios.post('http://localhost:5000/post/userpost', {token: localStorage.getItem('user')})
             
+            
+                setUser({
+                    ledger,
+                    post
+
+                })
+
             }
 
-        getUserData()
 
 
-    }, [])
 
+            getUserData()
+            
+        }, [])
+        
     return (
         <div>
             <UserContext.Provider value={user}>

@@ -19,7 +19,7 @@ function LedgerCreate(props) {
     const [ledgerForm, setLedgerForm] = useState({
         postId: '',
         donorName: '',
-        donationType: '',
+        donationType: 'cash',
         paymentAddress: '',
         amount: 0,
         remarks: '',
@@ -33,6 +33,11 @@ function LedgerCreate(props) {
 
 
     await axios.post(`http://localhost:5000/ledger/${ledgerForm.postId}`, {...ledgerForm, token: localStorage.getItem('user')} )
+
+
+
+    window.location.replace('http://localhost:5001/user/ledger');
+
 
 
 
@@ -71,7 +76,7 @@ function LedgerCreate(props) {
                 <div>
                    
                     <label htmlFor="donationType">Donation Type</label>
-                    <select onChange id='donationType'>
+                    <select value={ledgerForm.donationType} onChange={e => setLedgerForm({ ...ledgerForm, donationType: e.target.value })} id='donationType'>
                         <option>Cash</option>
                         <option>In-kind</option>
                     </select>
