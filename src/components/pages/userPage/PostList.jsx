@@ -20,6 +20,10 @@ function PostList(props) {
                     onClick={() => props.history.push('/user/post-create')}
                 />
             </div>
+          
+          
+          
+          
             <div className='postCardContainer'>
                  {userData.post ? userData.post.map((post) => (
                     <div className='postCard' key={post._id}>
