@@ -9,15 +9,16 @@ import UserPostDetails from './postDetailPage/UserPostDetails';
 import ChangePass from './changePassPage/ChangePass';
 import UpdateUserPost from './postUpdatePage/UpdateUserPost';
 import { authRemove } from '../../../app/auth'
-import { userLedgerFetch, userPostFetch } from '../../../app/user'
+import { userDataFetch } from '../../../app/user'
 
 function UserPage(props) {
     useEffect(() => {
         if (!localStorage.getItem('user')) return props.history.push('/auth')
-        props.userLedgerFetch(props.auth.token)
-        props.userPostFetch(props.auth.token)
+        if (props.auth.token) {
+            props.userDataFetch(props.auth.token)
+        }
 
-    }, [])
+    }, [props.auth.token])
 
     return (
         <div>
@@ -38,7 +39,8 @@ function UserPage(props) {
 
 
 const mapStateToProps = (state) => {
+    console.log(state);
     return state
 }
 
-export default connect(mapStateToProps, { authRemove, userLedgerFetch, userPostFetch })(UserPage);
+export default connect(mapStateToProps, { authRemove, userDataFetch })(UserPage);
