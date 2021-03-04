@@ -1,28 +1,30 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
+
+import { authAdd } from '../../../app/auth'
+import route from '../../../route/instagive'
 import '../../../style/authPage/login.css';
 
 function Login(props) {
   const [auth, setAuth] = useState({ username: '', password: '' });
-
   const [error, setError] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const valid = await axios.post('http://localhost:5000/user/login', auth);
+    const { data } = await route.post('/user/login', auth);
 
-    if (valid.data.valid !== true) {
-    
-      window.alert(valid.data.valid);
- 
+    if (data.valid !== true) {
+      window.alert(data.valid);
+
 
     } else {
       // Set Item
-      console.log(valid.data.token);
-      localStorage.setItem('user', valid.data.token)
-      window.location.reload();
+      localStorage.setItem('user', data.token)
+      props.authAdd(data.token, 'user')
+      props.history.push('/user')
 
       window.alert('Login Success');
     }
@@ -84,4 +86,5 @@ function Login(props) {
   );
 }
 
-export default Login;
+
+export default connect(null, { authAdd })(Login);

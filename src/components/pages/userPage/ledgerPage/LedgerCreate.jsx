@@ -1,20 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import UserContext from './../../../../context/userContext';
-import axios from 'axios';
-
+import { connect } from 'react-redux'
+import { userLedgerAdded } from '../../../../app/user'
 
 
 
 function LedgerCreate(props) {
-  
-  const postData = useContext(UserContext)
-
-    
-
-
     const [dateValue, setDateValue] = useState()
     const [ledgerForm, setLedgerForm] = useState({
         postId: '',
@@ -24,24 +17,15 @@ function LedgerCreate(props) {
         amount: 0,
         remarks: '',
         date: ''
-    }) 
+    })
 
     const handleSubmit = async event => {
         event.preventDefault()
-    if(ledgerForm.postId === 'Select Post' || ledgerForm.postId === '')  return alert('Select Post first') 
-    if(ledgerForm.date === '') return alert('Select Date first') 
-
-
-    await axios.post(`http://localhost:5000/ledger/${ledgerForm.postId}`, {...ledgerForm, token: localStorage.getItem('user')} )
-
-
-
-    window.location.replace('http://localhost:5001/user/ledger');
-
-
-
-
+        // if (ledgerForm.postId === 'Select Post' || ledgerForm.postId === '') return alert('Select Post first')
+        // if (ledgerForm.date === '') return alert('Select Date first')
+        props.userLedgerAdded(ledgerForm, props.userToken)
     }
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -52,14 +36,14 @@ function LedgerCreate(props) {
                         onChange={e => setLedgerForm({ ...ledgerForm, postId: e.target.value })}
                     >
 
-                            <option>Select Post</option>
-                    {postData.post && postData.post.map(post => 
-                        <option key={post.id} value={post._id}>{post.Title}</option>
-                       
-                 
+                        <option>Select Post</option>
+                        {props.post && props.post.map(post =>
+                            <option key={post._id} value={post._id}>{post.Title}</option>
+
+
                         )}
-                 
-                 
+
+
                     </select>
                 </div>
                 <div>
@@ -74,7 +58,7 @@ function LedgerCreate(props) {
                     <input type="text" name="" id="" />
                 </div>
                 <div>
-                   
+
                     <label htmlFor="donationType">Donation Type</label>
                     <select value={ledgerForm.donationType} onChange={e => setLedgerForm({ ...ledgerForm, donationType: e.target.value })} id='donationType'>
                         <option>Cash</option>
@@ -122,4 +106,13 @@ function LedgerCreate(props) {
     );
 }
 
-export default LedgerCreate;
+
+const mapStateToProps = state => {
+    console.log(state);
+    return {
+        post: state.postList,
+        userToken: state.auth.token
+    }
+}
+
+export default connect(mapStateToProps, { userLedgerAdded })(LedgerCreate);

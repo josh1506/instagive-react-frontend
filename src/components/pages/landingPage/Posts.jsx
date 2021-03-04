@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import { connect } from 'react-redux'
+
 import PostCard from './../../common/PostCard';
 import '../../../style/landingPage/post.css'
-import PostContext from './../../../context/postContext';
 
 function Posts(props) {
-    const postList = useContext(PostContext);
+    const postList = props.post
     return (
         <div className='postContainer'>
             <h2 className='postTitle'>Posts</h2>
@@ -22,4 +23,9 @@ function Posts(props) {
     );
 }
 
-export default Posts;
+
+const mapStateToProps = state => {
+    return { post: state.postList }
+}
+
+export default connect(mapStateToProps)(Posts);

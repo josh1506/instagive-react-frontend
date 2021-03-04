@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import UserLedger from '../../../../context/userContext';
 
 function LedgerList(props) {
-  const userLedger = useContext(UserLedger);
+  // const userLedger = useContext(UserLedger);
 
   console.log('Ledger')
 
@@ -35,7 +34,7 @@ function LedgerList(props) {
             <th></th>
           </tr>
 
-          {userLedger.ledger &&
+          {/* {userLedger.ledger &&
             userLedger.ledger.map((data) => (
               <tr>
                 <td>{data.postId}</td>
@@ -51,7 +50,7 @@ function LedgerList(props) {
                   <button>Delete</button>
                 </td>
               </tr>
-            ))}
+            ))} */}
         </table>
       </div>
     </div>

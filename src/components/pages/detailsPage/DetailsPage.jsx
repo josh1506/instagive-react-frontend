@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+
 import DetailsPageContent from './DetailsPageContent';
 import DetailsUpdatePage from './DetailsUpdatePage';
 import '../../../style/detailsPage/detailsPage.css'
-import PostContext from './../../../context/postContext';
+
 
 function DetailsPage(props) {
-    const postList = useContext(PostContext)
+    const postList = props.postList
     const selectedPost = postList.filter(post => post._id === props.match.params.id)[0]
 
     console.log(selectedPost);
@@ -31,4 +33,9 @@ function DetailsPage(props) {
     );
 }
 
-export default DetailsPage;
+
+const mapStateToProps = ({ postList }) => {
+    return { postList }
+}
+
+export default connect(mapStateToProps)(DetailsPage);
