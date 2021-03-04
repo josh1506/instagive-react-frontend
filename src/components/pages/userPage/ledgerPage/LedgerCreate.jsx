@@ -16,7 +16,8 @@ function LedgerCreate(props) {
         paymentAddress: '',
         amount: 0,
         remarks: '',
-        date: ''
+        date: '' ,
+        email: ''
     })
 
     const handleSubmit = async event => {
@@ -55,9 +56,12 @@ function LedgerCreate(props) {
                 </div>
                 <div>
                     <label htmlFor="">Email(optional)</label>
-                    <input type="text" name="" id="" />
+                    <input type="text" name="" id=""  onChange={e => setLedgerForm({ ...ledgerForm, email: e.target.value })} />
                 </div>
                 <div>
+
+
+
 
                     <label htmlFor="donationType">Donation Type</label>
                     <select value={ledgerForm.donationType} onChange={e => setLedgerForm({ ...ledgerForm, donationType: e.target.value })} id='donationType'>

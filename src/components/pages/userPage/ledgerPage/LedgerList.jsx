@@ -5,6 +5,9 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 function LedgerList(props) {
   // const userLedger = useContext(UserLedger);
 
+
+  console.log(props)
+
   console.log('Ledger')
 
   return (
@@ -34,8 +37,8 @@ function LedgerList(props) {
             <th></th>
           </tr>
 
-          {/* {userLedger.ledger &&
-            userLedger.ledger.map((data) => (
+          {props.ledger &&
+            props.ledger.map((data) => (
               <tr>
                 <td>{data.postId}</td>
                 <td>{data.donorName}</td>
@@ -50,7 +53,7 @@ function LedgerList(props) {
                   <button>Delete</button>
                 </td>
               </tr>
-            ))} */}
+            ))}
         </table>
       </div>
     </div>

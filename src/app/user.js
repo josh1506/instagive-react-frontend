@@ -18,6 +18,9 @@ const userDataFetch = (token) => async dispatch => {
     const { data: ledger } = await route.post('/ledger/getall', {token})
     const { data: post } = await route.post('/post/userpost', { token })
 
+    console.log(`Ledger Redux ${ledger}`)
+
+
     dispatch({
         type: USER_DATA_FETCH,
         payload: {ledger, post} 
