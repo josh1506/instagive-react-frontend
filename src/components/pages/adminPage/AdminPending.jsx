@@ -1,12 +1,13 @@
-import React, { useContext, useEffect } from 'react';
-import axios from 'axios'
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
-import AccountList from './../../../context/accountList';
+import axios from 'axios'
+import { connect } from 'react-redux'
+
+import { accountApproved, accountRejected } from '../../../app/accounts'
+
 
 function AdminPending(props) {
-    let accountList = useContext(AccountList)
-    let data = accountList.pending ? accountList.pending : [];
 
     const theadData = [
         {
@@ -28,17 +29,14 @@ function AdminPending(props) {
     ]
 
     const handleApproveAccount = async (account) => {
-        await axios.post(`http://localhost:5000/admin/changestatus/${account}/approved`)
-            .then(() => accountList = [])
-
-        window.location.reload();
+        // await axios.post(`http://localhost:5000/admin/changestatus/${account}/approved`)
+        //     .then(() => accountList = [])
+        props.accountApproved(account)
+        // window.location.reload();
     };
 
     const handleRejectAccount = async (account) => {
-        await axios.post(`http://localhost:5000/admin/changestatus/${account}/rejected`)
-            .then(() => accountList = [])
-
-        window.location.reload();
+        props.accountRejected(account)
     }
 
     return (
@@ -54,8 +52,8 @@ function AdminPending(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map(account =>
-                        <tr key={account.id}>
+                    {props.accountPending.map(account =>
+                        <tr key={account._id}>
                             {theadData.map(tableHead =>
                                 <td key={tableHead.name} className='table-item'>
                                     {account[tableHead.name]}
@@ -66,13 +64,13 @@ function AdminPending(props) {
                                     icon={faCheck}
                                     className='table-icon'
                                     size='lg'
-                                    onClick={() => handleApproveAccount(account._id)}
+                                    onClick={() => handleApproveAccount(account)}
                                 />
                                 <FontAwesomeIcon
                                     icon={faTimes}
                                     className='table-icon'
                                     size='lg'
-                                    onClick={() => handleRejectAccount(account._id)}
+                                    onClick={() => handleRejectAccount(account)}
                                 />
                             </td>
                         </tr>
@@ -83,4 +81,8 @@ function AdminPending(props) {
     );
 }
 
-export default AdminPending;
+
+const mapStateToProps = state => {
+    return { accountPending: state.accounts.pending }
+}
+export default connect(mapStateToProps, { accountApproved, accountRejected })(AdminPending);

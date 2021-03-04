@@ -1,9 +1,7 @@
-import React, { useContext } from 'react';
-import AccountList from './../../../context/accountList';
+import React from 'react';
+import { connect } from 'react-redux';
 
 function AdminRejected(props) {
-    const accountList = useContext(AccountList)
-    const data = accountList.rejected ? accountList.rejected : [];
     const theadData = [
         {
             label: 'Organization',
@@ -22,7 +20,6 @@ function AdminRejected(props) {
             name: 'repName'
         },
     ]
-
     return (
         <div>
             <h1 className='admin-page-title'>Rejected</h1>
@@ -35,8 +32,8 @@ function AdminRejected(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map(account =>
-                        <tr key={account.id}>
+                    {props.accRejected.map(account =>
+                        <tr key={account._id}>
                             {theadData.map(tableHead =>
                                 <td key={tableHead.name} className='table-item'>{account[tableHead.name]}</td>
                             )}
@@ -48,4 +45,10 @@ function AdminRejected(props) {
     );
 }
 
-export default AdminRejected;
+
+const mapStateToProps = state => {
+    console.log(state);
+    return { accRejected: state.accounts.rejected }
+}
+
+export default connect(mapStateToProps)(AdminRejected);
