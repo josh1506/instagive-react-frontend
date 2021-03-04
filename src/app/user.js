@@ -1,7 +1,7 @@
 import route from '../route/instagive'
 
 // Action Types
-const USER_LEDGER_FETCH = 'userLedgerFetch'
+const USER_DATA_FETCH = 'userDataFetch'
 const USER_LEDGER_ADDED = 'userLedgerAdded'
 const USER_LEDGER_REMOVED = 'userLedgerRemoved'
 const USER_LEDGER_UPDATED = 'userLedgerUpdated'
@@ -13,16 +13,17 @@ const USER_POST_UPDATED = 'userPostUpdated'
 
 
 // Action
-
 // Ledger
-const userLedgerFetch = (token) => async dispatch => {
-    const { data } = await route.post('/ledger/getall', {token})
+const userDataFetch = (token) => async dispatch => {
+    const { data: ledger } = await route.post('/ledger/getall', {token})
+    const { data: post } = await route.post('/post/userpost', { token })
 
     dispatch({
-        type: USER_LEDGER_FETCH,
-        payload: data 
+        type: USER_DATA_FETCH,
+        payload: {ledger, post} 
     })
 }
+
 
 const userLedgerAdded = (ledgerForm, token) => async dispatch => {
     await route.post(`/ledger/${ledgerForm.postId}`, {...ledgerForm, token})
@@ -33,15 +34,9 @@ const userLedgerAdded = (ledgerForm, token) => async dispatch => {
     })
 }
 
-// Post
-const userPostFetch = (token) => async dispatch => {
-    const { data } = await route.post('/post/userpost', { token:token })
 
-    dispatch({
-        type: USER_POST_FETCH,
-        payload: data 
-    })
-}
+// Post
+
 
 // Data
 const userData = {
@@ -53,32 +48,29 @@ const userData = {
 // Reducer
 export default (state=userData, action) => {
     switch (action.type) {
-        case USER_LEDGER_FETCH:
-            return {
-                ...userData,
-                ledger: action.payload
-            }
+        case USER_DATA_FETCH:
+            return action.payload
     
         case USER_LEDGER_ADDED:
             return {...state, ledger: [...state.ledger, action.payload]}
     
         case USER_LEDGER_REMOVED:
-            return state
+            return {
+                ...state,
+                ledger: state.ledger.filter(ledger => ledger._id !== action.payload._id)
+            }
     
         case USER_LEDGER_UPDATED:
             return state
     
-        case USER_POST_FETCH:
-            return {
-                ...userData,
-                post: action.payload
-            }
-    
         case USER_POST_ADDED:
-            return state
+            return {...state, post: [...state.post, action.payload]}
     
         case USER_POST_REMOVED:
-            return state
+            return {
+                ...state,
+                post: state.post.filter(post => post._id !== action.payload._id)
+            }
     
         case USER_POST_UPDATED:
             return state
@@ -89,7 +81,6 @@ export default (state=userData, action) => {
 }
 
 export {
-    userLedgerFetch,
-    userLedgerAdded,
-    userPostFetch
+    userDataFetch,
+    userLedgerAdded
 }
