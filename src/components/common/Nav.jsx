@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import '../../style/common/Nav.css'
-import logo from '../../img/Instagive-logo-2.png'
 import { Link, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux'
+
+import { authRemove } from '../../app/auth'
+import logo from '../../img/Instagive-logo-2.png'
+import '../../style/common/Nav.css'
 
 function Nav(props) {
-    const [userAuth, setUserAuth] = useState({ token: '', type: '' })
-
-    useEffect(() => {
-        const token = localStorage.getItem('user') || localStorage.getItem('admin')
-        const type = localStorage.key(token)
-        setUserAuth({ token, type })
-    }, [])
-
     return (
         <nav className="navBar">
             <span>
@@ -24,9 +19,9 @@ function Nav(props) {
                 </span>
             </span>
             <span className='navLogin'>
-                {userAuth.token ?
+                {props.auth.token ?
                     <span>
-                        {userAuth.type === 'user' ?
+                        {props.auth.type === 'user' ?
                             <span>
                                 <NavLink to="/user/ledger" className='navLink'>Ledger</NavLink>
                                 <NavLink to="/user" className='navLink'>Dashboard</NavLink>
@@ -36,7 +31,7 @@ function Nav(props) {
                         <NavLink to='/' className='navLink' onClick={() => {
                             localStorage.removeItem('user')
                             localStorage.removeItem('admin')
-                            setUserAuth('')
+                            props.authRemove()
                         }}>Logout</NavLink>
                     </span> :
                     <span>
@@ -50,4 +45,9 @@ function Nav(props) {
     );
 }
 
-export default Nav;
+
+const mapStateToProps = state => {
+    return { auth: state.auth }
+}
+
+export default connect(mapStateToProps, { authRemove })(Nav);
