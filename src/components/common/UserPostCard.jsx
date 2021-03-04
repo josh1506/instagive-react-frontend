@@ -1,12 +1,11 @@
 
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 // import '../../style/common/userPostCard.css';
-import PostContext from './../../context/postContext';
+import { connect } from 'react-redux';
 
 function UserPostCard(props) {
-    const postList = useContext(PostContext);
     return (
         <div className='postCardContainer'>
             {postList.map((post) => (
@@ -44,4 +43,8 @@ function UserPostCard(props) {
     );
 }
 
-export default UserPostCard;
+
+const mapStateToProps = state => {
+    console.log(state);
+}
+export default connect(mapStateToProps)(UserPostCard);
