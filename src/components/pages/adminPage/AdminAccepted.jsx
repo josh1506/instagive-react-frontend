@@ -1,13 +1,11 @@
-import React, { useContext } from 'react';
-import axios from 'axios'
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
-import AccountList from './../../../context/accountList';
+import { connect } from 'react-redux'
+
+import { accountRejected } from '../../../app/accounts'
 
 function AdminAccepted(props) {
-    const accountList = useContext(AccountList)
-    const data = accountList.approved ? accountList.approved : [];
-
     const theadData = [
         {
             label: 'Organization',
@@ -29,16 +27,10 @@ function AdminAccepted(props) {
 
     const handleEditButton = (account) => {
         console.log(account);
-
-        window.location.reload();
     }
 
     const handleDeleteButton = async (account) => {
-        console.log(account);
-        await axios
-            .post(`http://localhost:5000/admin/changestatus/${account}/rejected`)
-
-        window.location.reload();
+        props.accountRejected(account)
     }
 
     return (
@@ -55,8 +47,8 @@ function AdminAccepted(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map(account =>
-                        <tr key={account.id}>
+                    {props.accApproved.map(account =>
+                        <tr key={account._id}>
                             {theadData.map(tableHead =>
                                 <td key={tableHead.name} className='table-item'>
                                     {account[tableHead.name]}</td>
@@ -69,14 +61,14 @@ function AdminAccepted(props) {
                                     icon={faEdit}
                                     className='table-icon'
                                     size='lg'
-                                    onClick={e => handleEditButton(account._id)}
+                                    onClick={e => handleEditButton(account)}
                                     style={{ cursor: 'pointer' }}
                                 />
                                 <FontAwesomeIcon
                                     icon={faTrash}
                                     className='table-icon'
                                     size='lg'
-                                    onClick={e => handleDeleteButton(account._id)}
+                                    onClick={e => handleDeleteButton(account)}
                                     style={{ cursor: 'pointer' }}
                                 />
                             </td>
@@ -88,4 +80,9 @@ function AdminAccepted(props) {
     );
 }
 
-export default AdminAccepted;
+
+const mapStateToProps = state => {
+    return { accApproved: state.accounts.approved }
+}
+
+export default connect(mapStateToProps, { accountRejected })(AdminAccepted);
