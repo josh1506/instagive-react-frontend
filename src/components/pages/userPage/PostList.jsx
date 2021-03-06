@@ -1,9 +1,37 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 
 function PostList(props) {
+    const useStyles = makeStyles({
+        root: {
+            maxWidth: 345,
+        },
+        media: {
+            height: 140,
+        },
+        pos: {
+            marginBottom: 12,
+        },
+    });
+    const classes = useStyles();
+
+    if (!props.post) return (
+        <div className='postCardContainer'>
+            <CircularProgress color="inherit" />
+        </div>
+    )
+
     return (
         <div>
             <div className='user-items-right-container'>
@@ -15,25 +43,38 @@ function PostList(props) {
                 />
             </div>
             <div className='postCardContainer'>
-                {props.post ? props.post.map((post) => (
-                    <div className='postCard' key={post._id}>
-                        <div className="category">{post.location}</div>
-                        <img src={`/docs/${post.profilePic}`} alt='Photo' width='100%' />
-                        <h3 style={{ paddingLeft: 5 }}>
-                            {post.Title}
-                        </h3>
-                        <p style={{ paddingLeft: 10, paddingRight: 10 }}>
-                            {post.description}
-                        </p>
-                        <div className='buttonContainer'>
-                            <button
-                                className='details-button'
-                                style={{ borderRadius: 7 }}
-                                onClick={() => props.history.push(`/user/post-details/${post._id}`)}
-                            >Details</button>
-                        </div>
-                    </div>
-                )) : ''}
+                {props.post.map((post) => (
+                    <Card className={classes.root} style={{ margin: '20px' }}>
+                        <CardActionArea>
+                            <CardMedia
+                                component="img"
+                                alt={post.profilePic}
+                                height="140"
+                                image={`/docs/${post.profilePic}`}
+                                title={post.profilePic}
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                    {post.Title.substring(0, 20)}
+                                    {post.Title.length > 20 ? '...' : ''}
+                                </Typography>
+                                <Typography className={classes.pos} color="textSecondary">
+                                    {post.location} | {post.donationType === 'both' ? 'Cash, In-kind' :
+                                        post.donationType === 'cash' ? "Cash" : "In-kind"}
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    {post.description.substring(0, 255)}
+                                    {post.description.length > 250 ? '...' : ''}
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                        <CardActions>
+                            <Button size="small" color="primary" onClick={() => props.history.push(`/user/post-details/${post._id}`)}>
+                                Learn More
+                            </Button>
+                        </CardActions>
+                    </Card>
+                ))}
             </div>
         </div>
     );
