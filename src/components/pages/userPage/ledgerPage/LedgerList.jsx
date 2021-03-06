@@ -1,14 +1,21 @@
 import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 function LedgerList(props) {
   // const userLedger = useContext(UserLedger);
 
+  console.log(props);
 
-  console.log(props)
-
-  console.log('Ledger')
+  console.log('Ledger');
 
   return (
     <div>
@@ -24,7 +31,7 @@ function LedgerList(props) {
         />
       </div>
       <div style={{ overflowX: 'auto' }}>
-        <table>
+        {/* <table>
           <tr>
             <th>Post</th>
             <th>Name</th>
@@ -55,6 +62,43 @@ function LedgerList(props) {
               </tr>
             ))}
         </table>
+      */}
+        <TableContainer component={Paper}>
+          <Table
+            className={{ table: { minWidth: 650 } }}
+            aria-label='simple table'
+          >
+            <TableHead>
+              <TableRow>
+                <TableCell align='right'>POST</TableCell>
+                <TableCell align='right'>NAME</TableCell>
+                <TableCell align='right'>EMAIL</TableCell>
+                <TableCell align='right'>DONATION TYPE</TableCell>
+                <TableCell align='right'>
+                  Payment Method (If Cash Donation)
+                </TableCell>
+                <TableCell align='right'>AMOUNT / ITEM QUANTITY</TableCell>
+                <TableCell align='right'>REMARKS</TableCell>
+                <TableCell align='right'>DATE</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {props.ledger &&
+                props.ledger.map((data) => (
+                  <TableRow key={data._id}>
+                    <TableCell align='right'>{data.postId}</TableCell>
+                    <TableCell align='right'>{data.donorName}</TableCell>
+                    <TableCell align='right'>{data.email}</TableCell>
+                    <TableCell align='right'>{data.donationType}</TableCell>
+                    <TableCell align='right'>{data.paymentAddress}</TableCell>
+                    <TableCell align='right'>{data.amount}</TableCell>
+                    <TableCell align='right'>{data.remarks}</TableCell>
+                    <TableCell align='right'>{data.date}</TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
     </div>
   );

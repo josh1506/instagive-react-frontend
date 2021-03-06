@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
 import { cityLocation } from '../../../others/cityLocation'
+import axios from 'axios'
+
+
 
 function UserPostDetails(props) {
     const post = props.post
@@ -8,7 +11,7 @@ function UserPostDetails(props) {
     const [postForm, setPostForm] = useState({
         Title: '',
         description: '',
-        location: '',
+        location: 'Angeles City',
         donationType: ''
     })
 
@@ -21,11 +24,27 @@ function UserPostDetails(props) {
         })
     }, [post])
 
-    const handleSubmit = () => {
-        // axios for handling postForm
-        // axios.post('', postForm)
-        // axios for handling files
-        // axios.post('', files)
+    const handleSubmit = (e) => {
+       
+        e.preventDefault();
+
+
+        console.log(post)
+
+        const saveUpdate = async () => {
+
+
+
+
+           await axios.put(`http://localhost:5000/post/edit/${post._id}`, {...postForm, token: localStorage.getItem('user')})
+
+
+
+        }
+
+        saveUpdate();
+
+   
     }
 
     if (!props.post) {
@@ -40,7 +59,7 @@ function UserPostDetails(props) {
         <div>
             <h1>Post Details</h1>
             {!editPost ? <button onClick={() => setEditPost(true)}>Edit</button> : ''}
-            <form className='post-container'>
+            <form className='post-container' onSubmit={handleSubmit}>
                 <div className="post-create-container">
                     <label className='form-label' htmlFor='post-profile-pic'>
                         Cover Photo

@@ -80,6 +80,8 @@ function PostCreateDetails(props) {
           />
           <div>
             <div>
+           
+           
               <label htmlFor='title'>Location:</label>
               <select
                 name='city'
@@ -90,8 +92,14 @@ function PostCreateDetails(props) {
                   setPostForm({ ...postForm, location: e.target.value })
                 }
               >
+             
+             
+             
+             
+                  <option>Select Location:</option>
                 {cityLocation.map((city) => (
-                  <option value={city} key={city}>
+                
+                <option value={city} key={city}>
                     {city}
                   </option>
                 ))}
