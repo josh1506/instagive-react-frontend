@@ -29,7 +29,7 @@ function PostList(props) {
                             <button
                                 className='details-button'
                                 style={{ borderRadius: 7 }}
-                                onClick={() => props.history.push(`/details/${post._id}`)}
+                                onClick={() => props.history.push(`/user/post-details/${post._id}`)}
                             >Details</button>
                         </div>
                     </div>

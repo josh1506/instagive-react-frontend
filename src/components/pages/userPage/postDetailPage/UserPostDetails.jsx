@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux'
 import { cityLocation } from '../../../others/cityLocation'
 
 function UserPostDetails(props) {
+    const post = props.post
     const [editPost, setEditPost] = useState(false)
     const [postForm, setPostForm] = useState({
         Title: '',
@@ -10,10 +11,15 @@ function UserPostDetails(props) {
         location: '',
         donationType: ''
     })
-    const [files, setFiles] = useState({
-        postImg: '',
-        profilePic: '',
-    });
+
+    useEffect(() => {
+        if (post) setPostForm({
+            Title: post.Title,
+            description: post.description,
+            location: post.location,
+            donationType: post.donationType,
+        })
+    }, [post])
 
     const handleSubmit = () => {
         // axios for handling postForm
@@ -21,6 +27,14 @@ function UserPostDetails(props) {
         // axios for handling files
         // axios.post('', files)
     }
+
+    if (!props.post) {
+        return (
+            <div>Loading...</div>
+        )
+    }
+
+    console.log(props);
 
     return (
         <div>
@@ -31,11 +45,11 @@ function UserPostDetails(props) {
                     <label className='form-label' htmlFor='post-profile-pic'>
                         Cover Photo
                     </label>
-                    <img src="" alt="Profile Photo Here" />
+                    <img src={`/docs/${post.imageName}`} alt="Profile Photo Here" />
 
                     <label htmlFor="title">Title:</label>
                     {!editPost ?
-                        <p></p> :
+                        <p>{post.Title}</p> :
                         <input
                             type="text"
                             name="title"
@@ -45,16 +59,11 @@ function UserPostDetails(props) {
                         />
                     }
 
-
-
-
-
-
                     <div>
                         <div>
-                            <label htmlFor="title">Location</label>
+                            <label htmlFor="title">Location:</label>
                             {!editPost ?
-                                <p></p> :
+                                <p>{post.location}</p> :
                                 <select
                                     name="city"
                                     id="city"
@@ -75,12 +84,14 @@ function UserPostDetails(props) {
                         <div>
                             <label htmlFor="">Donation Type:</label>
                             {!editPost ?
-                                <p></p> :
+                                <p>{post.donationType}</p> :
                                 <div>
                                     <input type="radio"
                                         id="post-radio-cash"
                                         name="donation-type"
                                         value="cash"
+                                        defaultChecked={postForm.donationType === "cash" ?
+                                            true : false}
                                         onClick={e => setPostForm({ ...postForm, donationType: e.target.value })}
                                     />
                                     <label htmlFor="post-radio-cash">Cash</label>
@@ -88,6 +99,8 @@ function UserPostDetails(props) {
                                         id="post-radio-in-kind"
                                         name="donation-type"
                                         value="in-kind"
+                                        defaultChecked={postForm.donationType === 'in-kind'
+                                            ? true : false}
                                         onClick={e => setPostForm({ ...postForm, donationType: e.target.value })}
                                     />
                                     <label htmlFor="post-radio-in-kind">In-kind</label>
@@ -95,6 +108,8 @@ function UserPostDetails(props) {
                                         id="post-radio-both"
                                         name="donation-type"
                                         value="both"
+                                        defaultChecked={postForm.donationType === "both"
+                                            ? true : false}
                                         onClick={e => setPostForm({ ...postForm, donationType: e.target.value })}
                                     />
                                     <label htmlFor="post-radio-both">Both</label>
@@ -104,11 +119,11 @@ function UserPostDetails(props) {
                     </div>
                     <label htmlFor="details">Details:</label>
                     {!editPost ?
-                        <p></p> :
+                        <p>{post.description}</p> :
                         <textarea
                             name='postDetails'
-                            value={postForm.postDetails}
-                            onChange={e => setPostForm({ ...postForm, postDetails: e.target.value })}
+                            value={post.description}
+                            onChange={e => setPostForm({ ...postForm, description: e.target.value })}
                             id='postDetails'
                             className=''
                         ></textarea>
@@ -129,13 +144,18 @@ function UserPostDetails(props) {
                     }
                 </div>
             </form>
-            {!editPost ?
+            {!editPost &&
                 <div>
-                    <button>View Post List</button>
-                </div> : ''
+                    <button onClick={() => props.history.push('/user')}>View Post List</button>
+                </div>
             }
         </div>
     );
 }
 
-export default UserPostDetails;
+
+const mapStateToProps = (state, myProps) => {
+    return { post: state.user.post.find(post => post._id === myProps.match.params.id) }
+}
+
+export default connect(mapStateToProps)(UserPostDetails);

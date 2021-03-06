@@ -57,13 +57,13 @@ function AdminAccepted(props) {
 
                             </td>
                             <td className='table-item'>
-                                <FontAwesomeIcon
+                                {/* <FontAwesomeIcon
                                     icon={faEdit}
                                     className='table-icon'
                                     size='lg'
                                     onClick={e => handleEditButton(account)}
                                     style={{ cursor: 'pointer' }}
-                                />
+                                /> */}
                                 <FontAwesomeIcon
                                     icon={faTrash}
                                     className='table-icon'

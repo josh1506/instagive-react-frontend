@@ -39,7 +39,6 @@ function UserPage(props) {
 
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return state
 }
 
