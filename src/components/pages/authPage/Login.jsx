@@ -7,9 +7,20 @@ import { authAdd } from '../../../app/auth'
 import route from '../../../route/instagive'
 import '../../../style/authPage/login.css';
 
+import {TextField, Button} from '@material-ui/core'
+
+
+
 function Login(props) {
   const [auth, setAuth] = useState({ username: '', password: '' });
-  const [error, setError] = useState(false);
+  const [error, setError] = useState({
+
+    valid: false,
+    msg: ''
+
+  });
+  
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -17,8 +28,7 @@ function Login(props) {
     const { data } = await route.post('/user/login', auth);
 
     if (data.valid !== true) {
-      window.alert(data.valid);
-
+      setError({valid: true, msg: data.valid })
 
     } else {
       // Set Item
@@ -26,42 +36,65 @@ function Login(props) {
       props.authAdd(data.token, 'user')
       props.history.push('/user')
 
-      window.alert('Login Success');
     }
 
     // If there is error in auth, set the error to TRUE
+    setAuth({username: '', password: ''})
   };
+
+
+
+
+
+
 
   return (
     <div className='LoginContainer'>
       {/* Show this if the error is true */}
-      {error && <div>Error</div>}
+   
+   
 
       <div>
         <h1 className='authTitle'>Welcome!</h1>
+
+
+
       </div>
-      <form action='#' className='form-container' onSubmit={handleSubmit}>
-        <label htmlFor='username' className='form-label'>
-          Username
-        </label>
-        <input
+      <form className='form-container' >
+      
+      {error && <p style={{
+        color: 'red',
+        alignSelf: 'center',
+        fontSize: '1.6rem'
+        
+        
+      }}>{error.msg}</p>}
+
+        <TextField
           type='text'
-          name='username'
-          id='username'
-          placeholder='Username'
+          name='email'
+          id='email'
           className='form-input-text'
-          required
+          margin="normal"
+
+          variant="outlined"
+          label="Enter Email"
+          autoFocus
+          
+          required={true}
           value={auth.username}
           onChange={(e) => setAuth({ ...auth, username: e.target.value })}
         />
-        <label htmlFor='password' className='form-label'>
-          Password
-        </label>
-        <input
+    
+        <TextField
           type='password'
+          margin="normal"
+          required={true}
+          fullWidth
           name='password'
           id='password'
-          placeholder='Password'
+          variant="outlined"
+          label="Enter Password"
           className='form-input-text'
           required
           value={auth.password}
@@ -72,13 +105,13 @@ function Login(props) {
             Forgot Password
           </Link>
           <div className='form-button-container'>
-            <button className='form-button'>Login</button>
-            <button
-              className='form-button'
+            <Button fullWidth style={{margin: '10px'}} color="primary" variant="contained" onClick={handleSubmit}>Login</Button>
+           
+            <Button  style={{margin: '10px'}} fullWidth variant="contained"
               onClick={() => props.history.push('/auth/register')}
             >
               Sign up
-            </button>
+            </Button>
           </div>
         </div>
       </form>

@@ -10,10 +10,18 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+
+import {connect} from 'react-redux'
+
 function LedgerList(props) {
   // const userLedger = useContext(UserLedger);
 
-  console.log(props);
+
+
+
+  console.log(props.ledger);
+  console.log(props.post)
+
 
   console.log('Ledger');
 
@@ -78,22 +86,23 @@ function LedgerList(props) {
                   Payment Method (If Cash Donation)
                 </TableCell>
                 <TableCell align='right'>AMOUNT / ITEM QUANTITY</TableCell>
-                <TableCell align='right'>REMARKS</TableCell>
-                <TableCell align='right'>DATE</TableCell>
+                <TableCell align='center'>REMARKS</TableCell>
+                <TableCell align='center'>DATE</TableCell>
+                
               </TableRow>
             </TableHead>
             <TableBody>
               {props.ledger &&
                 props.ledger.map((data) => (
                   <TableRow key={data._id}>
-                    <TableCell align='right'>{data.postId}</TableCell>
+                    <TableCell  align='right'>{ props.post.filter(postData => postData._id === data.postId )[0].Title }</TableCell>
                     <TableCell align='right'>{data.donorName}</TableCell>
                     <TableCell align='right'>{data.email}</TableCell>
                     <TableCell align='right'>{data.donationType}</TableCell>
                     <TableCell align='right'>{data.paymentAddress}</TableCell>
                     <TableCell align='right'>{data.amount}</TableCell>
-                    <TableCell align='right'>{data.remarks}</TableCell>
-                    <TableCell align='right'>{data.date}</TableCell>
+                    <TableCell style={{maxWidth: '20vw'}} align='center'>{data.remarks}</TableCell>
+                    <TableCell align='left'>{(data.date)}</TableCell>
                   </TableRow>
                 ))}
             </TableBody>
@@ -104,4 +113,15 @@ function LedgerList(props) {
   );
 }
 
-export default LedgerList;
+
+
+const mapStateToProps = (state) => {
+
+
+return {ledger: state.user.ledger, post: state.user.post}
+
+}
+
+
+
+export default connect(mapStateToProps)(LedgerList);

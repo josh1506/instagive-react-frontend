@@ -34,14 +34,7 @@ function DetailsUpdatePage(props) {
 
     return (
         <div>
-                 <div className='user-items-right-container'>
-                <FontAwesomeIcon
-                    icon={faPlusCircle}
-                    className='deleteButton'
-                    size='lg'
-                    onClick={() => props.history.push(`/user/update-details/${props.match.params.id}/create`)}
-                />
-            </div>
+                
           
             {/* {props.children}
             <div className="update-container">
