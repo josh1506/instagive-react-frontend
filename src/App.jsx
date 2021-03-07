@@ -13,6 +13,7 @@ import UserPage from './components/pages/userPage/UserPage';
 import AdminPage from './components/pages/adminPage/AdminPage';
 import NotFound from './components/common/NotFound';
 import './App.css';
+import AllPostList from './components/pages/landingPage/AllPostList';
 
 
 function App(props) {
@@ -31,7 +32,7 @@ function App(props) {
     }
 
     // check if there's a user in local storage
-    const token = localStorage.getItem('user')
+    const token = localStorage.getItem('user') || localStorage.getItem('admin')
     const type = localStorage.key(token)
 
     validateAuthID()
@@ -43,6 +44,7 @@ function App(props) {
     <div className='App'>
       <Nav />
       <Switch>
+        <Route path='/post-list' component={AllPostList} />
         <Route path='/details/:id' component={DetailsPage} />
         <Route path='/auth' component={AuthPage} />
         <Route path='/user' component={UserPage} />
