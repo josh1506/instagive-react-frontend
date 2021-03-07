@@ -49,6 +49,9 @@ function ForgotPass(props) {
             </div>
             <form className='form-container'>
             
+                {showMessage && <p style={{alignSelf: 'center', color: 'green', fontSize:'1.6rem'}}> Temporary Password Sent Successfully!</p> }
+                {errorMessage && <p style={{alignSelf: 'center', color: 'red', fontSize:'1.6rem'}}>Email Not Found</p> }
+          
               
               
                 <TextField variant="outlined" label="Enter Your Email" fullWidth type="email" name="email" id="email" value={email} style={{marginBottom: "10px"}}  onChange={e => {setEmail(e.target.value); console.log(email)}} />
@@ -57,12 +60,9 @@ function ForgotPass(props) {
              
              
              
-                {showMessage && <p style={{alignSelf: 'center', color: 'green', fontSize:'1.6rem'}}> Temporary Password Sent Successfully!</p> }
-                {errorMessage && <p style={{alignSelf: 'center', color: 'red', fontSize:'1.6rem'}}>Email Not Found</p> }
           
           
-          
-                <Button variant="contained" color="primary" style={{alignSelf: "center", width: "30%"}} onClick={handleSubmit}>Send</Button>
+                <Button variant="contained" color="primary" fullWidth onClick={handleSubmit}>Send</Button>
 
           
             </form>

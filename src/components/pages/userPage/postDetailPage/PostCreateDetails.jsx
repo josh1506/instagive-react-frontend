@@ -88,9 +88,13 @@ function PostCreateDetails(props) {
 
   return (
     <div>
-      <Container component='main' maxWidth='sm'>
+      <Container component='main' maxWidth='md'>
         <CssBaseline />
         <div className={classes.paper}>
+         
+         <div  style={{padding: '50px 25px 50px 25px'}} className="shadow-container">
+         
+         
           <Typography component='h1' variant='h5'>
             Creating New Post{' '}
           </Typography>
@@ -124,6 +128,8 @@ function PostCreateDetails(props) {
               }
             />
 
+
+
             <FormControl fullWidth className={classes.formControl}>
               <InputLabel style={{ marginLeft: '12px' }} id='city'>
                 Select Location
@@ -145,6 +151,14 @@ function PostCreateDetails(props) {
                 ))}
               </Select>
             </FormControl>
+
+
+
+
+
+
+
+
 
             <FormControl
               component='fieldset'
@@ -271,6 +285,7 @@ function PostCreateDetails(props) {
               <Button variant='contained' color='primary' onClick={handleSubmit}>Save</Button>
             </div>
           </form>
+        </div>
         </div>
       </Container>
     </div>

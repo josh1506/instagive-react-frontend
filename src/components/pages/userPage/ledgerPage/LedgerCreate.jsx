@@ -5,8 +5,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { connect } from 'react-redux'
 import { userLedgerAdded } from '../../../../app/user'
 
-
-
 function LedgerCreate(props) {
     const [dateValue, setDateValue] = useState()
     const [ledgerForm, setLedgerForm] = useState({
@@ -46,6 +44,10 @@ function LedgerCreate(props) {
 
 
                     </select>
+              
+              
+              
+              
                 </div>
                 <div>
                     <label htmlFor="donorName">Name</label>
@@ -55,10 +57,24 @@ function LedgerCreate(props) {
                     />
                 </div>
                 <div>
+
+
+
+
+
+
+
                     <label htmlFor="">Email(optional)</label>
                     <input type="text" name="" id=""  onChange={e => setLedgerForm({ ...ledgerForm, email: e.target.value })} />
                 </div>
                 <div>
+
+
+
+
+
+
+
 
 
 
@@ -73,6 +89,9 @@ function LedgerCreate(props) {
 
 
 
+
+
+
                 <div>
                     <label htmlFor="paymentAddress">Payment Method(if money donation)</label>
                     <input type="text" name="paymentAddress" id="paymentAddress"
@@ -80,6 +99,13 @@ function LedgerCreate(props) {
                         onChange={e => setLedgerForm({ ...ledgerForm, paymentAddress: e.target.value })}
                     />
                 </div>
+
+
+
+
+
+
+                
                 <div>
                     <label htmlFor="amount">Amoung/Item</label>
                     <input type="text" name="amount" id="amount"
@@ -87,6 +113,16 @@ function LedgerCreate(props) {
                         onChange={e => setLedgerForm({ ...ledgerForm, amount: e.target.value })}
                     />
                 </div>
+
+
+
+
+
+
+
+
+
+
                 <div>
                     <label htmlFor="remarks">Remarks</label>
                     <input type="text" name="remarks" id="remarks"
@@ -94,6 +130,15 @@ function LedgerCreate(props) {
                         onChange={e => setLedgerForm({ ...ledgerForm, remarks: e.target.value })}
                     />
                 </div>
+
+
+
+
+
+
+
+
+
                 <div>
                     <label htmlFor="">Date</label>
                     <DatePicker selected={dateValue} onChange={date => {
@@ -101,6 +146,18 @@ function LedgerCreate(props) {
                         setLedgerForm({ ...ledgerForm, date: date.toString().split(' ').slice(1, 4).toString().replaceAll(',', ' ') })
                     }} />
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
                 <div>
                     <Link to='/user/ledger'>Cancel</Link>
                     <button>Save</button>

@@ -87,6 +87,10 @@ function ChangePass(props) {
   <CssBaseline/>
   <div className={classes.paper}>
    
+  <div  style={{padding: '50px 25px 50px 25px'}} className="shadow-container">
+
+
+
   <Typography component="h1" variant="h5">
           Change Password
         </Typography>     
@@ -159,6 +163,7 @@ function ChangePass(props) {
         
 
 
+          </div>
 
       </Container>
     </div>

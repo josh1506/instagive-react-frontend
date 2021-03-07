@@ -26,9 +26,10 @@ function ShowContent(props) {
           Online donation platform for the residence of Pampanga
         </p>
         <Button
+        classes
           variant="contained"
           size="large"
-          style={{ opacity: 0.6 }}
+          style={{ opacity: 0.9 }}
           color="primary" className={classes.margin}
           onClick={() => props.history.push('/post-list')}>
           Browse Donations

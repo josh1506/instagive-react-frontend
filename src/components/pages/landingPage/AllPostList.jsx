@@ -33,7 +33,8 @@ function AllPostList(props) {
             </div>
         );
     return (
-        <React.Fragment>
+
+        <div className="shadow-container">
             <div className='postFilterContainer'>
                 <FontAwesomeIcon icon={faFilter} size="xs" />
                 <p className='postFilter'>Filter by:</p>
@@ -83,7 +84,7 @@ function AllPostList(props) {
                     </Card>
                 ))}
             </div>
-        </React.Fragment>
+        </div>
     );
 }
 

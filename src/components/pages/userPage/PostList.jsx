@@ -47,7 +47,8 @@ onClick={() => props.history.push('/user/post-create')}
     }
       >Create Post</Button>
 
-      <div className='postCardContainer'>
+      <div className='postCardContainer shadow-container'>
+
         {props.post.map((post) => (
           <Card className={classes.root} style={{ margin: '20px' }}>
             <CardActionArea>
@@ -85,7 +86,7 @@ onClick={() => props.history.push('/user/post-create')}
                   props.history.push(`/user/post-details/${post._id}`)
                 }
               >
-                Learn More
+               View Post
               </Button>
             </CardActions>
           </Card>

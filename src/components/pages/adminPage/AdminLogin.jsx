@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import {Container, TextField,  Typography,  CssBaseline, Button} from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
+
 function AdminLogin(props) {
     const [auth, setAuth] = useState({ username: '', password: '' })
 
@@ -30,21 +33,79 @@ function AdminLogin(props) {
   
     }
 
+    const useStyles = makeStyles((theme) => ({
+        paper: {
+          marginTop: theme.spacing(8),
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center'
+        },
+        avatar: {
+          margin: theme.spacing(1),
+          backgroundColor: theme.palette.secondary.main,
+        },
+        form: {
+          width: '100%', 
+          marginTop: theme.spacing(1),
+        },
+        submit: {
+          margin: theme.spacing(3, 0, 2),
+        },
+      }));
+    
+    
+    
+      const classes = useStyles();
+    
+    
+    
+    
+    
     return (
-        <div className='LoginContainer'>
-            <div>
-                <h1 className='authTitle'>Admin Login</h1>
-            </div>
-            <form action="#" className='form-container' onSubmit={handleSubmit}>
-                <label htmlFor="username" className='form-label'>Username</label>
-                <input type="text" name="username" id="username" placeholder='Username' className='form-input-text' value={auth.username} onChange={e => setAuth({ ...auth, username: e.target.value })} />
-                <label htmlFor="password" className='form-label'>Password</label>
-                <input type="password" name="password" id="password" placeholder='Password' className='form-input-text' value={auth.password} onChange={e => setAuth({ ...auth, password: e.target.value })} />
-                <div style={{ width: '100%' }}>
-                    <button className='form-button' style={{ width: '100%' }}>Login</button>
-                </div>
+
+
+
+
+
+
+
+
+
+        
+        <Container component="main" maxWidth="sm" >
+
+
+
+
+<CssBaseline/>
+
+
+
+
+  <div className={classes.paper}>
+   
+  
+
+            <div style={{padding: '5px 25px 50px 25px'}} className="shadow-container">
+                <h1 style={{position:'relative', left:'30%'}} className='authTitle'>Admin Login</h1>
+          
+            
+          
+            <form action="#" className='form-container' >
+                <TextField style={{marginBottom: '12px'}}variant="outlined" type="text" name="username" id="username" label='Enter Username: ' className='form-input-text' value={auth.username} onChange={e => setAuth({ ...auth, username: e.target.value })} />
+                <TextField style={{marginBottom: '12px'}} variant="outlined" type="password" name="password" id="password" label='Enter Password' className='form-input-text' value={auth.password} onChange={e => setAuth({ ...auth, password: e.target.value })} />
+              
+              
+              
+              
+              
+                    <Button variant="contained" color="primary"  onClick={handleSubmit} fullWidth>Login</Button>
             </form>
-        </div>
+            </div>
+            </div>
+            </Container>
+            
     );
 }
 

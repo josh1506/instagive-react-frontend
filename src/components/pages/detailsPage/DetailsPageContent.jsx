@@ -15,22 +15,22 @@ import axios from 'axios'
 
 function DetailsPageContent(props) {
   
-    const [openModal, setModal] = useState(false);
-
-    const [donateForm, setDonateForm] = useState({
-
-        name: '',
-        amount: '',
-        message: '',
-        email: '',
-
-
-
-    })
-    const [hasAmount , setHasAmount] = useState (false)
-
-
-
+  
+  const [donateForm, setDonateForm] = useState({
+    
+    name: '',
+    amount: '',
+    message: '',
+    email: '',
+    
+    
+    
+  })
+  const [hasAmount , setHasAmount] = useState (false)
+  
+  
+  const [openModal, setModal] = useState(false);
+  
     const handleClickOpen = () => {
         setModal(true);
       };
