@@ -3,13 +3,29 @@ import { Link } from 'react-router-dom';
 import '../../../../style/userPage/userPage.css';
 import { cityLocation } from '../../../others/cityLocation';
 import axios from 'axios';
+import {
+  Container,
+  TextField,
+  Typography,
+  CssBaseline,
+  Button,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 function PostCreateDetails(props) {
   const [postForm, setPostForm] = useState({
     Title: '',
     description: '',
     location: '',
-    donationType: '',
+    donationType: 'Cash',
     totalAmount: 0,
   });
   const [files, setFiles] = useState({
@@ -34,159 +50,229 @@ function PostCreateDetails(props) {
     formdata.append('totalAmount', postForm.totalAmount);
     formdata.append('token', localStorage.getItem('user'));
     console.log(...formdata);
+   
+   
     const data = await axios.post(
       'http://localhost:5000/post/createpost',
       formdata
     );
 
+
     window.location.replace('http://localhost:5001/user');
-
-      
-
   };
+
+  const useStyles = makeStyles((theme) => ({
+    paper: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+      width: '100%',
+      marginTop: theme.spacing(1),
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+    },
+    formControl: {
+      minWidth: 120,
+    },
+  }));
+
+  const classes = useStyles();
 
   return (
     <div>
-      <h1 className='user-header'>Creating new post</h1>
-      <form
-        encType='multipart/form-data'
-        className='post-container'
-        onSubmit={handleSubmit}
-      >
-        <div className='post-create-container'>
-          <label className='form-label' htmlFor='post-profile-pic'>
-            Cover Photo
-          </label>
-          <input
-            type='file'
-            id='post-profile-pic'
-            name='post-profile-pic'
-            onChange={(e) => {
-              const file = e.target.files[0];
-              setFiles({ ...files, profilePic: file });
-            }}
-            className=''
-          ></input>
-          <label htmlFor='title'>Title:</label>
-          <input
-            type='text'
-            name='title'
-            id='title'
-            className='user-form-input'
-            value={postForm.Title}
-            onChange={(e) =>
-              setPostForm({ ...postForm, Title: e.target.value })
-            }
-          />
-          <div>
-            <div>
-           
-           
-              <label htmlFor='title'>Location:</label>
-              <select
+      <Container component='main' maxWidth='sm'>
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Typography component='h1' variant='h5'>
+            Creating New Post{' '}
+          </Typography>
+
+          <form encType='multipart/form-data' className={classes.form}>
+            <Button variant='outlined' color='primary' component='label' >
+              Upload Cover Photo
+              <input
+                hidden
+                type='file'
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  setFiles({ ...files, profilePic: file });
+                }}
+              ></input>
+            </Button>
+
+            <TextField
+              color='primary'
+              margin='normal'
+              fullWidth
+              variant='outlined'
+              label='Enter Post Title'
+              type='text'
+              name='title'
+              id='title'
+              className='user-form-input'
+              value={postForm.Title}
+              onChange={(e) =>
+                setPostForm({ ...postForm, Title: e.target.value })
+              }
+            />
+
+            <FormControl fullWidth className={classes.formControl}>
+              <InputLabel style={{ marginLeft: '12px' }} id='city'>
+                Select Location
+              </InputLabel>
+
+              <Select
+                variant='outlined'
+                label='city'
                 name='city'
                 id='city'
-                className='user-form-dropdown'
+                fullWidth
                 value={postForm.location}
                 onChange={(e) =>
                   setPostForm({ ...postForm, location: e.target.value })
                 }
               >
-             
-             
-             
-             
-                  <option>Select Location:</option>
                 {cityLocation.map((city) => (
-                
-                <option value={city} key={city}>
-                    {city}
-                  </option>
+                  <MenuItem key={city} value={city}>{city}</MenuItem>
                 ))}
-              </select>
-            </div>
-            <div>
-              <label>Donation type:</label>
-              <div className='user-form-radio-container'>
-                <input
-                  type='radio'
-                  id='post-radio-cash'
-                  name='donation-type'
-                  value='cash'
-                  className='user-form-radio'
-                  onClick={(e) =>
-                    setPostForm({ ...postForm, donationType: e.target.value })
-                  }
-                />
-                <label htmlFor='post-radio-cash'>Cash</label>
-                <input
-                  type='radio'
-                  id='post-radio-in-kind'
-                  name='donation-type'
-                  value='in-kind'
-                  className='user-form-radio'
-                  onClick={(e) =>
-                    setPostForm({ ...postForm, donationType: e.target.value })
-                  }
-                />
-                <label htmlFor='post-radio-in-kind'>In-kind</label>
-                <input
-                  type='radio'
-                  id='post-radio-both'
-                  name='donation-type'
-                  value='both'
-                  className='user-form-radio'
-                  onClick={(e) =>
-                    setPostForm({ ...postForm, donationType: e.target.value })
-                  }
-                />
-                <label htmlFor='post-radio-both'>Both</label>
-              </div>
-            </div>
-            <div>
-              <label htmlFor='totalAmount'>Total amount:</label>
-              <input
-                type='number'
-                name='totalAmount'
-                id='totalAmount'
-                className='user-form-input'
-                value={postForm.totalAmount}
+              </Select>
+            </FormControl>
+
+            <FormControl
+              component='fieldset'
+              style={{ margin: '12px 0 0 12px' }}
+            >
+              <FormLabel component='legend'>Select Donation Type</FormLabel>
+              <RadioGroup
+                aria-label='gender'
+                name='gender1'
+                value={postForm.donationType}
                 onChange={(e) =>
-                  setPostForm({ ...postForm, totalAmount: e.target.value })
+                  setPostForm({ ...postForm, donationType: e.target.value })
                 }
-              />
+              >
+                <FormControlLabel
+                  value='Cash'
+                  control={<Radio />}
+                  label='Cash'
+                />
+                <FormControlLabel
+                  value='In-Kind'
+                  control={<Radio />}
+                  label='In-Kind'
+                />
+                <FormControlLabel
+                  value='Both'
+                  control={<Radio />}
+                  label='Both'
+                />
+              </RadioGroup>
+            </FormControl>
+
+            <TextField
+              color='primary'
+              margin='normal'
+              fullWidth
+              variant='outlined'
+              label='Enter Amount'
+              type='number'
+              name='totalAmount'
+              id='totalAmount'
+              className='user-form-input'
+              value={postForm.totalAmount}
+              onChange={(e) =>
+                setPostForm({ ...postForm, totalAmount: e.target.value })
+              }
+            />
+
+
+
+
+
+
+
+
+            <TextField
+                      variant="outlined"
+                      rows={10}
+                      type='text'
+                      multiline
+                      id='description'
+              fullWidth
+           
+           
+           
+              label="Enter your Post Description, You can include your own payment option and account, (etc, GCASH, BPI, PAYPAL) or  your address for In-Kind Donation"
+              name='description'
+              value={postForm.description}
+              onChange={(e) =>
+                setPostForm({ ...postForm, description: e.target.value })
+              }
+          
+
+
+              
+            />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <Button variant='outlined' color='primary' component='label' style={{marginTop:'12px'}}>
+                Upload Reference Picture (Can Have Multiple Pictures)
+            <input
+            hidden
+              type='file'
+              id='postImages'
+              name='postImages'
+              onChange={(e) => {
+                const multifiles = e.target.files;
+                setFiles({ ...files, imageList: multifiles });
+              }}
+              multiple
+              
+            ></input>
+                      </Button>
+
+          
+          
+          
+          
+          
+          
+          
+            <div style={{marginTop: '12px', display: 'flex'}}>
+             <Button variant='outlined' color="default" style={{marginRight: '12px'}}> <Link to='/user'>Cancel</Link> </Button>
+            
+            
+            
+              <Button variant='contained' color='primary' onClick={handleSubmit}>Save</Button>
             </div>
-          </div>
-          <label htmlFor='description'>Details:</label>
-          <textarea
-            name='description'
-            value={postForm.description}
-            onChange={(e) =>
-              setPostForm({ ...postForm, description: e.target.value })
-            }
-            id='description'
-            className='user-form-textarea'
-          ></textarea>
-          <label className='form-label' htmlFor='postImages'>
-            Images:
-          </label>
-          <input
-            type='file'
-            id='postImages'
-            name='postImages'
-            onChange={(e) => {
-              const multifiles = e.target.files;
-              setFiles({ ...files, imageList: multifiles });
-            }}
-            multiple
-            className=''
-          ></input>
-          <div>
-            <Link to='/user'>Cancel</Link>
-            <button>Save</button>
-          </div>
+          </form>
         </div>
-      </form>
+      </Container>
     </div>
   );
 }

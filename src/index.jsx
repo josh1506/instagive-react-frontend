@@ -10,9 +10,7 @@ import configStore from './app/configStore'
 ReactDOM.render(
   <Provider store={configStore}>
     <BrowserRouter>
-      <React.StrictMode>
         <App />
-      </React.StrictMode>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

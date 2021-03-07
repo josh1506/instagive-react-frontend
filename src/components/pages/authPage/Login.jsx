@@ -101,9 +101,9 @@ function Login(props) {
           onChange={(e) => setAuth({ ...auth, password: e.target.value })}
         />
         <div style={{ width: '100%' }}>
-          <Link to='/auth/forgot' className='form-link'>
+         <Button variant="text"> <Link to='/auth/forgot' className='form-link'>
             Forgot Password
-          </Link>
+          </Link> </Button>
           <div className='form-button-container'>
             <Button fullWidth style={{margin: '10px'}} color="primary" variant="contained" onClick={handleSubmit}>Login</Button>
            

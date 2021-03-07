@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import '../../../style/authPage/forgotPassword.css'
 import axios from 'axios'
+import {TextField, Button} from '@material-ui/core'
 
 
 function ForgotPass(props) {
@@ -44,17 +45,24 @@ function ForgotPass(props) {
         <div className='forgot-pass-container'>
             <div className='forgot-pass-title'>
                 <h1 className='authTitle'>Forgot Password</h1>
-                <p className='authDetails'>You can change your password for security reasons or reset it if you forget it. Your Google Account password is used to access many Google products, like Gmail and YouTube.</p>
+                <p className='authDetails'>Will send your temporary password in your email, Please change it after you logged in</p>
             </div>
-            <form action="" className='form-container' onSubmit={handleSubmit}>
-                <label htmlFor="email" className='form-label'>Email</label>
-                <input type="email" name="email" id="email" value={email} className='form-input-text' onChange={e => {setEmail(e.target.value); console.log(email)}} />
-                {showMessage && <p>We sent a temporary password in your email, please change it after you logged in</p> }
-                {errorMessage && <p>Email Not Found</p> }
+            <form className='form-container'>
+            
+              
+              
+                <TextField variant="outlined" label="Enter Your Email" fullWidth type="email" name="email" id="email" value={email} style={{marginBottom: "10px"}}  onChange={e => {setEmail(e.target.value); console.log(email)}} />
+             
+             
+             
+             
+             
+                {showMessage && <p style={{alignSelf: 'center', color: 'green', fontSize:'1.6rem'}}> Temporary Password Sent Successfully!</p> }
+                {errorMessage && <p style={{alignSelf: 'center', color: 'red', fontSize:'1.6rem'}}>Email Not Found</p> }
           
           
           
-                <button className='form-button'>Send</button>
+                <Button variant="contained" color="primary" style={{alignSelf: "center", width: "30%"}} onClick={handleSubmit}>Send</Button>
 
           
             </form>
@@ -64,8 +72,8 @@ function ForgotPass(props) {
             
             <div style={{ width: '100%' }} className='form-button-container'>
                 <div>
-                    <Link to="/auth/login" className='form-link'>Login</Link>
-                    <Link to="/auth/register" className='form-link'>Signup</Link>
+                   <Button variant="text"><Link to="/auth/login" className='form-link'>Login</Link></Button> 
+                   <Button variant="text">  <Link to="/auth/register" className='form-link'>Signup</Link> </Button> 
                 </div>
                
             </div>

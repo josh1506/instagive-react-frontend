@@ -38,8 +38,9 @@ function PostList(props) {
   return (
     <div>
       <Button
-        className='user-items-right-container'
-        onClick={() => props.history.push('/user/post-create')}
+          style={{margin: '12px'}}
+
+onClick={() => props.history.push('/user/post-create')}
         variant='contained'
         color='primary'
         endIcon={<Icon fontSize="small">add_circle</Icon>

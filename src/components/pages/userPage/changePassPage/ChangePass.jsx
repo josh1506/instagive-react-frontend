@@ -81,7 +81,6 @@ function ChangePass(props) {
   return (
     <div>
   
-  {/* #f6f8fc */}
 
   <Container component="main" maxWidth="sm" >
   
