@@ -7,7 +7,9 @@ import { authAdd } from '../../../app/auth'
 import route from '../../../route/instagive'
 import '../../../style/authPage/login.css';
 
-import {TextField, Button} from '@material-ui/core'
+import {TextField, Button, Snackbar} from '@material-ui/core'
+import MuiAlert from '@material-ui/lab/Alert';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 
@@ -16,7 +18,8 @@ function Login(props) {
   const [error, setError] = useState({
 
     valid: false,
-    msg: ''
+    msg: '',
+    severity: ''
 
   });
   
@@ -28,7 +31,11 @@ function Login(props) {
     const { data } = await route.post('/user/login', auth);
 
     if (data.valid !== true) {
-      setError({valid: true, msg: data.valid })
+    
+      if(data.valid === 'Credentials Error') 
+      setError({valid: true, msg: data.valid, severity: 'warning' })
+      else  setError({valid: true, msg: data.valid, severity: 'info' })
+
 
     } else {
       // Set Item
@@ -43,15 +50,46 @@ function Login(props) {
   };
 
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return; 
+    }
 
+    setError({...error, valid: false});
+  };
+
+
+
+
+
+
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
 
 
 
   return (
+
+
+
+
     <div className='LoginContainer'>
-      {/* Show this if the error is true */}
    
+    
+   <Snackbar open={error.valid} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={error.severity}>
+         {error.msg}
+        </Alert>
+      </Snackbar>
+      
+
+
+
+
+
    
 
       <div>
@@ -62,13 +100,7 @@ function Login(props) {
       </div>
       <form className='form-container' >
       
-      {error && <p style={{
-        color: 'red',
-        alignSelf: 'center',
-        fontSize: '1.6rem'
-        
-        
-      }}>{error.msg}</p>}
+    
 
         <TextField
           type='text'

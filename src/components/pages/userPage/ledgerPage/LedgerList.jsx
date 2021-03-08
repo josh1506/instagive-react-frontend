@@ -300,7 +300,10 @@ const handleClickOpen = async () => {
  <TextField style={{marginBottom: '12px'}} variant="outlined" fullWidth={true} label="Enter Payment Method" type="text" name="paymentAddress" id="paymentAddress"
                         value={ledgerForm.paymentAddress}
                         onChange={e => setLedgerForm({ ...ledgerForm, paymentAddress: e.target.value })}
-                    />
+              
+              
+              
+              />
 
 <TextField style={{marginBottom: '12px'}} variant="outlined" fullWidth={true} label="Enter Amount(Cash) / Item Quantity(In-Kind)" type="text" name="amount" id="amount"
                         value={ledgerForm.amount}

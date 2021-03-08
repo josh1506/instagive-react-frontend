@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import '../../../style/authPage/forgotPassword.css'
 import axios from 'axios'
-import {TextField, Button} from '@material-ui/core'
+import {TextField, Button, Snackbar} from '@material-ui/core'
+import MuiAlert from '@material-ui/lab/Alert';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 function ForgotPass(props) {
     const [email, setEmail] = useState('')
-    const [showMessage, setShowMessage] = useState(false)
-    const [errorMessage, setErrorMessage] = useState(false)
-    
- 
+
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -23,16 +22,14 @@ function ForgotPass(props) {
         console.log(forgotPass.data.valid)
 
         if(forgotPass.data.valid === false) {
-            setErrorMessage(true); 
-            setShowMessage(false);
+            setOpen({open: true, severity: 'error', msg: 'Email Not Found!'  })
         }
         else if(forgotPass.data.valid === true){ 
-             setShowMessage(true);
-             setErrorMessage(false)
+            setOpen({open: true, severity: 'success', msg: 'Temporary Password Sent Successfully'  })
+            
         } 
 
         setEmail('');
-
 
 
     }
@@ -41,7 +38,56 @@ function ForgotPass(props) {
         
     }
 
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+      }
+      
+      const useStyles = makeStyles((theme) => ({
+        root: {
+          width: '100%',
+          '& > * + *': {
+            marginTop: theme.spacing(2),
+          },
+        },
+      }));
+
+      const classes = useStyles();
+      const [open, setOpen] = React.useState({open: false, severity: '', msg: ''});
+    
+    
+    
+      const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return; 
+        }
+    
+        setOpen({...open, open: false});
+      };
+    
+
+
+
+
+
     return (
+
+        <div>
+
+      <Snackbar open={open.open} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={open.severity}>
+         {open.msg}
+        </Alert>
+      </Snackbar>
+      
+
+
+
+
+
+
+
+
         <div className='forgot-pass-container'>
             <div className='forgot-pass-title'>
                 <h1 className='authTitle'>Forgot Password</h1>
@@ -49,9 +95,6 @@ function ForgotPass(props) {
             </div>
             <form className='form-container'>
             
-                {showMessage && <p style={{alignSelf: 'center', color: 'green', fontSize:'1.6rem'}}> Temporary Password Sent Successfully!</p> }
-                {errorMessage && <p style={{alignSelf: 'center', color: 'red', fontSize:'1.6rem'}}>Email Not Found</p> }
-          
               
               
                 <TextField variant="outlined" label="Enter Your Email" fullWidth type="email" name="email" id="email" value={email} style={{marginBottom: "10px"}}  onChange={e => {setEmail(e.target.value); console.log(email)}} />
@@ -77,6 +120,8 @@ function ForgotPass(props) {
                 </div>
                
             </div>
+        </div>
+
         </div>
     );
 }

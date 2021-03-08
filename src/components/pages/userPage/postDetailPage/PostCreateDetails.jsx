@@ -113,6 +113,7 @@ function PostCreateDetails(props) {
             </Button>
 
             <TextField
+
               color='primary'
               margin='normal'
               fullWidth
@@ -190,6 +191,10 @@ function PostCreateDetails(props) {
                 />
               </RadioGroup>
             </FormControl>
+
+
+
+
 
             <TextField
               color='primary'

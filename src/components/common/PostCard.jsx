@@ -46,7 +46,7 @@ function PostCard(props) {
                             title={post.profilePic}
                         />
                         <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2">
+                            <Typography color="primary" gutterBottom variant="h5" component="h2">
                                 {post.Title.substring(0, 20)}
                                 {post.Title.length > 20 ? '...' : ''}
                             </Typography>

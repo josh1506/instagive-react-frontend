@@ -2,18 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
 import { cityLocation } from '../../../others/cityLocation'
 import axios from 'axios'
+import {TextField, Button, Icon, FormControl, InputLabel, Select, Radio, RadioGroup, FormLabel, FormControlLabel, MenuItem, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar, 
+} from '@material-ui/core/'
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+
+import MuiAlert from '@material-ui/lab/Alert';
 
 
 
 function UserPostDetails(props) {
     const post = props.post
-    const [editPost, setEditPost] = useState(false)
     const [postForm, setPostForm] = useState({
         Title: '',
         description: '',
-        location: 'Angeles City',
+        location: '',
         donationType: ''
     })
+
+    
 
     useEffect(() => {
         if (post) setPostForm({
@@ -37,8 +43,9 @@ function UserPostDetails(props) {
 
 
            await axios.put(`http://localhost:5000/post/edit/${post._id}`, {...postForm, token: localStorage.getItem('user')})
-
-
+            handleClose()
+            handleClickAlert()
+                
 
         }
 
@@ -47,27 +54,277 @@ function UserPostDetails(props) {
    
     }
 
+
+
+
+
+
+
+
+    
+  const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+        '& > * + *': {
+          marginTop: theme.spacing(2),
+        },
+      },
+    paper: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+      width: '100%',
+      marginTop: theme.spacing(1),
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+    },
+    formControl: {
+      minWidth: 120,
+    },
+  }));  
+  
+  
+  const classes = useStyles();
+
+
+  const [openModal, setModal] = useState(false);
+  
+  const handleClickOpen = async () => {
+      setModal(true);
+    };
+  
+    const handleClose = () => {
+      setModal(false);
+    };
+  
+  const [snacker, setSnacker] = useState(false);
+    
+
+
+
+  const handleClickAlert = () => {
+    setSnacker(true);
+  };
+
+  const handleCloseAlert = (event, reason) => {
+    if (reason === 'clickaway') {
+      return; 
+    }
+
+    setSnacker(false);
+  };
+
+
+
+
+
+
+
+
+
+
     if (!props.post) {
         return (
             <div>Loading...</div>
         )
     }
 
-    console.log(props);
+    const Alert =(props)  => {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+      }
+
+
+
+
+
+
 
     return (
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div>
+
+
+        
+<div className={classes.root}>
+      
+        <Snackbar open={snacker} autoHideDuration={2000} onClose={handleCloseAlert}>
+          <Alert onClose={handleCloseAlert} severity="success">
+                       Successfully Saved!
+          </Alert>
+
+
+        </Snackbar>
+        
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+            <Button onClick={handleClickOpen} style={{margin: '12px'}} variant="contained" color="primary">Edit Post</Button>
+           
+           
+           
+
+
+           
+<Dialog open={openModal} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='sm' fullWidth={true}>
+        <DialogTitle id="form-dialog-title"  style={{alignSelf: 'center', fontSize: '50px'}}>Edit Post</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please Fill the Inputs Bellow: 
+          </DialogContentText>
+
+
+                        <TextField
+                            style={{marginBottom: '12px'}} variant="outlined" fullWidth={true}
+                            label="Title"
+                            type="text"
+                            name="title"
+                            id="title"
+                            value={postForm.Title}
+                            onChange={e => setPostForm({ ...postForm, Title: e.target.value })}
+                        />
+                    
+
+                    <FormControl fullWidth className={classes.formControl}>
+              <InputLabel style={{ marginLeft: '12px' }} id='city'>
+                Select Location
+              </InputLabel>
+
+              <Select
+                variant='outlined'
+                label='city'
+                name='city'
+                id='city'
+                fullWidth
+                value={postForm.location}
+                onChange={(e) =>
+                  setPostForm({ ...postForm, location: e.target.value })
+                }
+              >
+                {cityLocation.map((city) => (
+                  <MenuItem key={city} value={city}>{city}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+
+            <FormControl
+              component='fieldset'
+              style={{ margin: '12px 0 0 12px' }}
+            >
+              <FormLabel component='legend'>Select Donation Type</FormLabel>
+              <RadioGroup
+                aria-label='gender'
+                name='gender1'
+                value={postForm.donationType}
+                onChange={(e) =>
+                  setPostForm({ ...postForm, donationType: e.target.value })
+                }
+              >
+                <FormControlLabel
+                  value='Cash'
+                  control={<Radio />}
+                  label='Cash'
+                />
+                <FormControlLabel
+                  value='In-Kind'
+                  control={<Radio />}
+                  label='In-Kind'
+                />
+                <FormControlLabel
+                  value='Both'
+                  control={<Radio />}
+                  label='Both'
+                />
+              </RadioGroup>
+            </FormControl>
+
+
+
+                        <TextField
+                            rows={15}
+                            multiline
+                               style={{marginBottom: '12px'}} label="Description" variant="outlined" fullWidth={true}
+                               type="text"
+                            name='postDetails'
+                            value={post.description}
+                            onChange={e => setPostForm({ ...postForm, description: e.target.value })}
+                            id='postDetails'
+                            className=''
+                        />
+
+                   
+
+
+
+
+
+
+
+
+
+
+          </DialogContent>
+        <DialogActions>
+          <Button  onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button variant="contained" onClick={handleSubmit} color="primary">
+            SAVE
+          </Button>
+        </DialogActions>
+    
+      </Dialog>
+
+
+
+
+
+           
+           
+           
+           
+           
             <h1>Post Details</h1>
-            {!editPost ? <button onClick={() => setEditPost(true)}>Edit</button> : ''}
             <form className='post-container' onSubmit={handleSubmit}>
                 <div className="post-create-container">
                     <label className='form-label' htmlFor='post-profile-pic'>
                         Cover Photo
                     </label>
-                    <img src={`/docs/${post.imageName}`} alt="Profile Photo Here" />
+                    <img src={`/docs/${post.profilePic}`} alt="Profile Photo Here" />
 
                     <label htmlFor="title">Title:</label>
-                    {!editPost ?
+                    
+                    
                         <p>{post.Title}</p> :
                         <input
                             type="text"
@@ -76,12 +333,14 @@ function UserPostDetails(props) {
                             value={postForm.Title}
                             onChange={e => setPostForm({ ...postForm, Title: e.target.value })}
                         />
-                    }
+                    
 
+                   
+                   
+                   
                     <div>
                         <div>
                             <label htmlFor="title">Location:</label>
-                            {!editPost ?
                                 <p>{post.location}</p> :
                                 <select
                                     name="city"
@@ -96,13 +355,13 @@ function UserPostDetails(props) {
                                         </option>
                                     )}
                                 </select>
-                            }
+                            
 
 
                         </div>
                         <div>
                             <label htmlFor="">Donation Type:</label>
-                            {!editPost ?
+                           
                                 <p>{post.donationType}</p> :
                                 <div>
                                     <input type="radio"
@@ -113,6 +372,8 @@ function UserPostDetails(props) {
                                             true : false}
                                         onClick={e => setPostForm({ ...postForm, donationType: e.target.value })}
                                     />
+
+
                                     <label htmlFor="post-radio-cash">Cash</label>
                                     <input type="radio"
                                         id="post-radio-in-kind"
@@ -133,11 +394,31 @@ function UserPostDetails(props) {
                                     />
                                     <label htmlFor="post-radio-both">Both</label>
                                 </div>
-                            }
+                            
                         </div>
                     </div>
                     <label htmlFor="details">Details:</label>
-                    {!editPost ?
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+
+
+
+
+
+
+
+
+
+
+
+
+                   
+                 
                         <p>{post.description}</p> :
                         <textarea
                             name='postDetails'
@@ -146,7 +427,7 @@ function UserPostDetails(props) {
                             id='postDetails'
                             className=''
                         ></textarea>
-                    }
+                    
                     <label className='form-label' htmlFor='postImages'>
                         Images:
                     </label>
@@ -155,19 +436,19 @@ function UserPostDetails(props) {
                     <img src="" alt="Image 2" />
                     <img src="" alt="Image 3" />
 
-                    {editPost ?
+             
                         <div>
-                            <button onClick={() => setEditPost(false)}>Cancel</button>
                             <button>Save</button>
                         </div> : ''
-                    }
+                    
                 </div>
             </form>
-            {!editPost &&
+            
                 <div>
                     <button onClick={() => props.history.push('/user')}>View Post List</button>
                 </div>
             }
+
         </div>
     );
 }
