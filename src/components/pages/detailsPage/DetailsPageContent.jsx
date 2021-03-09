@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import '../../../style/detailsPage/detailsPageContent.css'
 import banner1 from '../../../img/Landscape-Color.jpg'
 import Button from '@material-ui/core/Button';
@@ -14,86 +14,80 @@ import axios from 'axios'
 
 
 function DetailsPageContent(props) {
-  
-  
+
+
   const [donateForm, setDonateForm] = useState({
-    
+
     name: '',
     amount: '',
     message: '',
     email: '',
-    
-    
-    
+
+
+
   })
-  const [hasAmount , setHasAmount] = useState (false)
-  
-  
+  const [hasAmount, setHasAmount] = useState(false)
+
+
   const [openModal, setModal] = useState(false);
-  
-    const handleClickOpen = () => {
-        setModal(true);
-      };
-    
-      const handleClose = () => {
-        setHasAmount(false)
-        setModal(false);
-      };
-    
-  
-      const handleSubmit = async () => {
 
-        if(donateForm.amount === '') return setHasAmount(true);
+  const handleClickOpen = () => {
+    setModal(true);
+  };
 
-else await axios.post(`http://localhost:5000/donate/${props.match.params.id}`, donateForm)
+  const handleClose = () => {
+    setHasAmount(false)
+    setModal(false);
+  };
 
 
-      }
+  const handleSubmit = async () => {
+
+    if (donateForm.amount === '') return setHasAmount(true);
+
+    else await axios.post(`http://localhost:5000/donate/${props.match.params.id}`, donateForm)
+
+
+  }
 
 
 
-  
-    if (!props.onSelectedPost) return <div>Loading</div>
+
+  if (!props.onSelectedPost) return <div>Loading</div>
 
 
-    return (
+  return (
+    <div className='details-page-content-container'>
+      <div className='post-image-container'>
+        <img src={`/docs/${props.onSelectedPost.profilePic}`} alt="Photo" className='display-page-image' />
+      </div>
+
+      <div className='details-post-container'>
+        {props.children}
+        <p className='donationContent'>
+          {props.onSelectedPost ? props.onSelectedPost.description : ''}
+        </p>
         <div>
-            <div>
-                <img src={`/docs/${props.onSelectedPost.profilePic}`} alt="Photo" className='detailsPageImage' />
-            </div>
-            {props.children}
-            <p className='donationContent'>
-                {props.onSelectedPost ? props.onSelectedPost.description : ''}
-            </p>
-           
-            <div>
-                {props.onSelectedPost.imageList.map(imageName => 
-                    
-                    
-                    <img src={`/docs/${imageName}`}  alt="Photo" className='detailsPageImage' />
+          {props.onSelectedPost.imageList.map(imageName =>
+            <img src={`/docs/`} alt="Photo" className='detailsPageImage' />
+          )}
+        </div>
+        <div className='donateNowContainer'>
+          <button className='donate-button' onClick={handleClickOpen}>Donate Now</button>
+        </div>
+      </div>
 
-                    
-                    
-                    )}
-           
-                    </div>
-           
-           
-            <div className='donateNowContainer'>
-                <button className='donate-button' onClick={handleClickOpen}>Donate Now</button>
-            </div>
-       
-            <Dialog open={openModal} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='sm' fullWidth='true'>
-        <DialogTitle id="form-dialog-title"  style={{alignSelf: 'center', fontSize: '50px'}}>Donate</DialogTitle>
+      <Dialog open={openModal} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='sm' fullWidth='true'>
+        <DialogTitle id="form-dialog-title" style={{ alignSelf: 'center', fontSize: '50px' }}>Donate</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please Fill the Inputs Bellow: 
+            Please Fill the Inputs Bellow:
           </DialogContentText>
-       
-       
-       
+
+
+
           <TextField
-          variant="outlined"
+            variant="outlined"
             autoFocus
             margin="dense"
             id="name"
@@ -101,15 +95,15 @@ else await axios.post(`http://localhost:5000/donate/${props.match.params.id}`, d
             type="text"
             fullWidth
             onChange={(e) =>
-                setDonateForm({ ...donateForm, name: e.target.value })
-              }
+              setDonateForm({ ...donateForm, name: e.target.value })
+            }
           />
-       
 
 
-    {hasAmount && <h4 style={{color: 'red', marginLeft:'2px'}}>Amount is required</h4>}
-       <TextField
-          variant="outlined"
+
+          {hasAmount && <h4 style={{ color: 'red', marginLeft: '2px' }}>Amount is required</h4>}
+          <TextField
+            variant="outlined"
             margin="dense"
             id="amount"
             label="Enter Amount: (Required) "
@@ -117,16 +111,16 @@ else await axios.post(`http://localhost:5000/donate/${props.match.params.id}`, d
             type="number"
             fullWidth
             onChange={(e) =>
-                setDonateForm({ ...donateForm, amount: e.target.value })
-              }
+              setDonateForm({ ...donateForm, amount: e.target.value })
+            }
           />
-       
 
 
 
-       <TextField
-        
-          variant="outlined"
+
+          <TextField
+
+            variant="outlined"
             autoFocus
             margin="dense"
             id="email"
@@ -134,12 +128,12 @@ else await axios.post(`http://localhost:5000/donate/${props.match.params.id}`, d
             type="email"
             fullWidth
             onChange={(e) =>
-                setDonateForm({ ...donateForm, email: e.target.value })
-              }
+              setDonateForm({ ...donateForm, email: e.target.value })
+            }
           />
-       
-       <TextField
-          variant="outlined"
+
+          <TextField
+            variant="outlined"
             autoFocus
             margin="dense"
             id="outlined-multiline-static"
@@ -149,17 +143,17 @@ else await axios.post(`http://localhost:5000/donate/${props.match.params.id}`, d
             multiline
             fullWidth
             onChange={(e) =>
-                setDonateForm({ ...donateForm, message: e.target.value })
-              }
+              setDonateForm({ ...donateForm, message: e.target.value })
+            }
           />
-       
-       
-       
 
 
-       
-       
-       
+
+
+
+
+
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -170,10 +164,10 @@ else await axios.post(`http://localhost:5000/donate/${props.match.params.id}`, d
           </Button>
         </DialogActions>
       </Dialog>
-   
-       
-        </div>
-    );
+
+
+    </div>
+  );
 }
 
 export default DetailsPageContent;
