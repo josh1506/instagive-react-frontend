@@ -29,12 +29,8 @@ function UserPage(props) {
                     <Route path='/user/post-details/:id' component={UserPostDetails} />
                     <Route path='/user/ledger' component={LedgerPage} />
                     <Route path='/user/update-details/:id' component={UpdateUserPost} />
-
-                   
                     <Route path='/user/' exact component={PostList} />
                     <Redirect to='/not-found' />
-              
-              
                 </Switch>
             </div>
         </div>

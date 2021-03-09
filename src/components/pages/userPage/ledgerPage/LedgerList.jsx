@@ -9,9 +9,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container'
-import {TextField, Button, Icon, FormControl, InputLabel, Select, Radio, RadioGroup, FormLabel, FormControlLabel, MenuItem, Snackbar
+import {
+  TextField, Button, Icon, FormControl, InputLabel, Select, Radio, RadioGroup, FormLabel, FormControlLabel, MenuItem, Snackbar
 } from '@material-ui/core/'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -20,6 +21,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios'
 import MuiAlert from '@material-ui/lab/Alert';
+import { userLedgerAdded } from '../../../../app/user'
 
 
 
@@ -43,14 +45,14 @@ function LedgerList(props) {
       fontSize: 14,
     },
   }))(TableCell);
-  
+
   const StyledTableRow = withStyles((theme) => ({
     root: {
       '&:nth-of-type(odd)': {
         backgroundColor: theme.palette.action.hover,
       },
     },
-  
+
   }))(TableRow)
 
 
@@ -85,10 +87,10 @@ function LedgerList(props) {
         marginTop: theme.spacing(2),
       },
     },
-    
-  }));  
-  
-  
+
+  }));
+
+
   const classes = useStyles();
 
 
@@ -97,38 +99,36 @@ function LedgerList(props) {
 
 
 
-// Modal
+  // Modal
 
-const [dateValue, setDateValue] = useState()
-const [ledgerForm, setLedgerForm] = useState({
+  const [ledgerForm, setLedgerForm] = useState({
     postId: '',
     donorName: '',
     donationType: 'Cash',
     paymentAddress: '',
     amount: '',
     remarks: '',
-    date: '' ,
+    date: '',
     email: ''
-})
+  })
 
-const handleSubmit = async event => {
+  const handleSubmit = async event => {
     event.preventDefault()
     // if (ledgerForm.postId === 'Select Post' || ledgerForm.postId === '') return alert('Select Post first')
     // if (ledgerForm.date === '') return alert('Select Date first')
 
-
-    await axios.post(`http://localhost:5000/ledger/${ledgerForm.postId}`, {...ledgerForm, token: localStorage.getItem('user')})
+    props.userLedgerAdded(ledgerForm, props.userToken)
     handleClose()
     setOpen(true)
 
-}
+  }
 
 
 
 
-const [openModal, setModal] = useState(false);
-  
-const handleClickOpen = async () => {
+  const [openModal, setModal] = useState(false);
+
+  const handleClickOpen = async () => {
     setModal(true);
   };
 
@@ -138,12 +138,12 @@ const handleClickOpen = async () => {
 
 
   const [open, setOpen] = React.useState(false);
-    
-    
-    
+
+
+
   const handleCloseAlert = (event, reason) => {
     if (reason === 'clickaway') {
-      return; 
+      return;
     }
 
     setOpen(false);
@@ -154,18 +154,17 @@ const handleClickOpen = async () => {
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
-  
+
 
   return (
 
     <div>
-   
-   <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseAlert}>
+
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseAlert}>
         <Alert onClose={handleCloseAlert} severity="success">
           Data Successfully Added
         </Alert>
       </Snackbar>
-      
 
 
 
@@ -178,16 +177,17 @@ const handleClickOpen = async () => {
 
 
 
-   <Button
-        style={{margin: '12px'}}
+
+      <Button
+        style={{ margin: '12px' }}
         onClick={handleClickOpen}
         variant='contained'
         color='primary'
         endIcon={<Icon fontSize="small">add_circle</Icon>
-    }
+        }
       >Add Data</Button>
 
-      
+
 
 
       <Container component='main' maxWidth='xl' className="shadow-container">
@@ -195,53 +195,53 @@ const handleClickOpen = async () => {
 
 
 
-      <div>
-      
-        <TextField variant='outlined' style={{width: '50%', display: 'relative', left:'25%', marginBottom: '30px'}}label="Search Here"/>
+        <div>
+
+          <TextField variant='outlined' style={{ width: '50%', display: 'relative', left: '25%', marginBottom: '30px' }} label="Search Here" />
 
 
-      </div>
+        </div>
 
-      <div style={{ overflowX: 'auto' }}>
-        
-        
-        <TableContainer component={Paper}>
-          <Table className={classes.table}
-            aria-label='customized table'
-          >
-            <TableHead>
-              <TableRow>
-                <StyledTableCell align='center'>POST</StyledTableCell>
-                <StyledTableCell align='center'>NAME</StyledTableCell>
-                <StyledTableCell align='center'>EMAIL</StyledTableCell>
-                <StyledTableCell align='center'>DONATION TYPE</StyledTableCell>
-                <StyledTableCell align='center'>
-                  Payment Method (If Cash Donation)
+        <div style={{ overflowX: 'auto' }}>
+
+
+          <TableContainer component={Paper}>
+            <Table className={classes.table}
+              aria-label='customized table'
+            >
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align='center'>POST</StyledTableCell>
+                  <StyledTableCell align='center'>NAME</StyledTableCell>
+                  <StyledTableCell align='center'>EMAIL</StyledTableCell>
+                  <StyledTableCell align='center'>DONATION TYPE</StyledTableCell>
+                  <StyledTableCell align='center'>
+                    Payment Method (If Cash Donation)
                 </StyledTableCell>
-                <StyledTableCell align='center'>AMOUNT / ITEM QUANTITY</StyledTableCell>
-                <StyledTableCell align='center'>REMARKS</StyledTableCell>
-                <StyledTableCell align='center'>DATE</StyledTableCell>
-                
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {props.ledger &&
-                props.ledger.map((data) => (
-                  <StyledTableRow key={data._id}>
-                    <StyledTableCell  align='center'>{ props.post.filter(postData => postData._id === data.postId )[0].Title }</StyledTableCell>
-                    <StyledTableCell align='center'>{data.donorName}</StyledTableCell>
-                    <StyledTableCell align='center'>{data.email}</StyledTableCell>
-                    <StyledTableCell align='center'>{data.donationType}</StyledTableCell>
-                    <StyledTableCell align='center'>{data.paymentAddress}</StyledTableCell>
-                    <StyledTableCell align='center'>{data.amount}</StyledTableCell>
-                    <StyledTableCell style={{maxWidth: '20vw'}} align='center'>{data.remarks}</StyledTableCell>
-                    <StyledTableCell align='center'>{(data.date)}</StyledTableCell>
-                  </StyledTableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
+                  <StyledTableCell align='center'>AMOUNT / ITEM QUANTITY</StyledTableCell>
+                  <StyledTableCell align='center'>REMARKS</StyledTableCell>
+                  <StyledTableCell align='center'>DATE</StyledTableCell>
+
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {props.ledger &&
+                  props.ledger.map((data) => (
+                    <StyledTableRow key={data._id}>
+                      <StyledTableCell align='center'>{props.post.filter(postData => postData._id === data.postId)[0].Title}</StyledTableCell>
+                      <StyledTableCell align='center'>{data.donorName}</StyledTableCell>
+                      <StyledTableCell align='center'>{data.email}</StyledTableCell>
+                      <StyledTableCell align='center'>{data.donationType}</StyledTableCell>
+                      <StyledTableCell align='center'>{data.paymentAddress}</StyledTableCell>
+                      <StyledTableCell align='center'>{data.amount}</StyledTableCell>
+                      <StyledTableCell style={{ maxWidth: '20vw' }} align='center'>{data.remarks}</StyledTableCell>
+                      <StyledTableCell align='center'>{(data.date)}</StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
 
       </Container>
 
@@ -250,120 +250,119 @@ const handleClickOpen = async () => {
 
 
 
-{/* Modal */}
+      {/* Modal */}
 
-<Dialog open={openModal} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='sm' fullWidth={true}>
-        <DialogTitle id="form-dialog-title"  style={{alignSelf: 'center', fontSize: '50px'}}>Add New Data</DialogTitle>
+      <Dialog open={openModal} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='sm' fullWidth={true}>
+        <DialogTitle id="form-dialog-title" style={{ alignSelf: 'center', fontSize: '50px' }}>Add New Data</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please Fill the Inputs Bellow: 
+            Please Fill the Inputs Bellow:
           </DialogContentText>
 
 
-            <FormControl style={{marginBottom: '12px'}} fullWidth={true} className={classes.formControl}>
+          <FormControl style={{ marginBottom: '12px' }} fullWidth={true} className={classes.formControl}>
             <InputLabel style={{ marginLeft: '12px' }} id='post'>
 
 
-            Select Post
+              Select Post
               </InputLabel>
 
-              <Select
-                variant='outlined'
-                label='city'
-                name='city'
-                id='city'
-                fullWidth={true}
-                value={ledgerForm.postId}
-                onChange={(e) =>
-                  setLedgerForm({ ...ledgerForm, postId: e.target.value })
-                }
-              >
-                 {props.post && props.post.map(post =>
+            <Select
+              variant='outlined'
+              label='city'
+              name='city'
+              id='city'
+              fullWidth={true}
+              value={ledgerForm.postId}
+              onChange={(e) =>
+                setLedgerForm({ ...ledgerForm, postId: e.target.value })
+              }
+            >
+              {props.post && props.post.map(post =>
 
-          <MenuItem  key={post._id} value={post._id}>{post.Title}</MenuItem>
-
-
-                )}
-                              </Select>
+                <MenuItem key={post._id} value={post._id}>{post.Title}</MenuItem>
 
 
-            </FormControl>
+              )}
+            </Select>
 
 
+          </FormControl>
 
 
 
-            <TextField style={{marginBottom: '12px'}} variant="outlined" fullWidth={true} label="Enter Donor Name (Can be Anonymous)" type="text" name="donorName" id="donorName"
-                        value={ledgerForm.donorName}
-                        onChange={e => setLedgerForm({ ...ledgerForm, donorName: e.target.value })}
-                    />
+
+
+          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} label="Enter Donor Name (Can be Anonymous)" type="text" name="donorName" id="donorName"
+            value={ledgerForm.donorName}
+            onChange={e => setLedgerForm({ ...ledgerForm, donorName: e.target.value })}
+          />
 
 
 
-            <TextField style={{marginBottom: '12px'}} variant="outlined" fullWidth={true} label="Enter Email (Optional)" type="text" name="" id=""  onChange={e => setLedgerForm({ ...ledgerForm, email: e.target.value })} />
+          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} label="Enter Email (Optional)" type="text" name="" id="" onChange={e => setLedgerForm({ ...ledgerForm, email: e.target.value })} />
 
-            <FormControl style={{marginBottom: '12px'}} fullWidth={true} component="fieldset">
-              <FormLabel component='legend'>Select Donation Type</FormLabel>
+          <FormControl style={{ marginBottom: '12px' }} fullWidth={true} component="fieldset">
+            <FormLabel component='legend'>Select Donation Type</FormLabel>
 
 
-              <RadioGroup
-                aria-label='gender'
-                name='gender1'
-                value={ledgerForm.donationType}
-                onChange={(e) =>
-                  setLedgerForm({ ...ledgerForm, donationType: e.target.value })
-                }>
+            <RadioGroup
+              aria-label='gender'
+              name='gender1'
+              value={ledgerForm.donationType}
+              onChange={(e) =>
+                setLedgerForm({ ...ledgerForm, donationType: e.target.value })
+              }>
 
-        <FormControlLabel
-                  value='Cash'
-                  control={<Radio />}
-                  label='Cash'
-                />
-                <FormControlLabel
-                  value='In-Kind'
-                  control={<Radio />}
-                  label='In-Kind'
-                />
-
-</RadioGroup>
-
-                
-                </FormControl>
-
- <TextField style={{marginBottom: '12px'}} variant="outlined" fullWidth={true} label="Enter Payment Method" type="text" name="paymentAddress" id="paymentAddress"
-                        value={ledgerForm.paymentAddress}
-                        onChange={e => setLedgerForm({ ...ledgerForm, paymentAddress: e.target.value })}
-              
-              
-              
+              <FormControlLabel
+                value='Cash'
+                control={<Radio />}
+                label='Cash'
+              />
+              <FormControlLabel
+                value='In-Kind'
+                control={<Radio />}
+                label='In-Kind'
               />
 
-<TextField style={{marginBottom: '12px'}} variant="outlined" fullWidth={true} label="Enter Amount(Cash) / Item Quantity(In-Kind)" type="text" name="amount" id="amount"
-                        value={ledgerForm.amount}
-                        onChange={e => setLedgerForm({ ...ledgerForm, amount: e.target.value })}
-                    />
+            </RadioGroup>
 
 
-<TextField style={{marginBottom: '12px'}} variant="outlined" fullWidth={true} rows={4} multiline label="Enter Remarks" type="text" name="remarks" id="remarks"
-                        value={ledgerForm.remarks}
-                        onChange={e => setLedgerForm({ ...ledgerForm, remarks: e.target.value })}
-                    />
+          </FormControl>
 
-
-
-      <TextField style={{marginBottom: '12px'}} variant="outlined" fullWidth={true}  InputLabelProps={{
-      shrink: true,
-    }} type="date"  onChange={date => {
-                        setDateValue(date)
-                        setLedgerForm({ ...ledgerForm, date: date.target.value })
-                    }} />
+          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} label="Enter Payment Method" type="text" name="paymentAddress" id="paymentAddress"
+            value={ledgerForm.paymentAddress}
+            onChange={e => setLedgerForm({ ...ledgerForm, paymentAddress: e.target.value })}
 
 
 
+          />
+
+          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} label="Enter Amount(Cash) / Item Quantity(In-Kind)" type="text" name="amount" id="amount"
+            value={ledgerForm.amount}
+            onChange={e => setLedgerForm({ ...ledgerForm, amount: e.target.value })}
+          />
+
+
+          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} rows={4} multiline label="Enter Remarks" type="text" name="remarks" id="remarks"
+            value={ledgerForm.remarks}
+            onChange={e => setLedgerForm({ ...ledgerForm, remarks: e.target.value })}
+          />
 
 
 
-          </DialogContent>
+          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} InputLabelProps={{
+            shrink: true,
+          }} type="date" onChange={date => {
+            setLedgerForm({ ...ledgerForm, date: date.target.value })
+          }} />
+
+
+
+
+
+
+        </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
@@ -372,7 +371,7 @@ const handleClickOpen = async () => {
             Donate
           </Button>
         </DialogActions>
-    
+
       </Dialog>
 
 
@@ -406,13 +405,11 @@ const handleClickOpen = async () => {
 
 
 const mapStateToProps = (state) => {
-
-
-return {ledger: state.user.ledger, post: state.user.post, userToken: state.auth.token
+  return {
+    ledger: state.user.ledger, post: state.user.post, userToken: state.auth.token
+  }
 }
 
-}
 
 
-
-export default connect(mapStateToProps)(LedgerList);
+export default connect(mapStateToProps, { userLedgerAdded })(LedgerList);
