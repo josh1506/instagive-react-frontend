@@ -21,7 +21,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import MuiAlert from '@material-ui/lab/Alert';
 import { userLedgerAdded } from '../../../../app/user'
-import { CodeOutlined } from '@material-ui/icons';
+import { CodeOutlined, LaptopWindows } from '@material-ui/icons';
 
 
 
@@ -136,6 +136,8 @@ function LedgerList(props) {
     
     handleClose()
     setOpen(true)
+
+    document.location.reload()
 
   }
 

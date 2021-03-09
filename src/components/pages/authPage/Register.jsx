@@ -2,6 +2,16 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../../../style/authPage/register.css';
 import { Link } from 'react-router-dom';
+import {Checkbox, Button} from '@material-ui/core/';
+
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+
 
 function Register(props) {
   const [checkPassword, setCheckPassword] = useState({ confirm_pass: '' });
@@ -17,6 +27,12 @@ function Register(props) {
 
     orgDescriptions: '',
   });
+
+
+  const [terms, setTerms] = useState(false);
+
+
+
 
   const [files, setFiles] = useState({
     orgPhoto: '',
@@ -84,6 +100,8 @@ function Register(props) {
       orgDescriptions: ''
     })
 
+    
+
     setFiles({
       orgPhoto: '',
       orgDocuments: '',
@@ -97,122 +115,128 @@ function Register(props) {
 
 
 
-
   };
+
+
 
   return (
     <div className='register-container'>
       <div>
         <h1 className='authTitle'>Account Details</h1>
       </div>
-      <form encType='multipart/form-data' action='' onSubmit={handleSubmit}>
+      <form encType='multipart/form-data'  onSubmit={handleSubmit}>
         <div className='register-form1'>
           <div className='register-input-container1'>
-            <label className='form-label' htmlFor='email'>
-              Email
-            </label>
-            <input
-              type='text'
+        
+            <TextField
+            variant="outlined" color="primary"
+            style={{marginBottom: '12px'}}
+
+              type='email'
               name='email'
               id='email'
               value={userForm.email}
-              placeholder='Email'
+              label='Enter Email'
               className='register-form-input-text'
               onChange={handleChange}
             />
-            <label className='form-label' htmlFor='password'>
-              Password
-            </label>
-            <input
-              type='text'
+           
+            <TextField
+            variant="outlined" color="primary"
+            style={{marginBottom: '12px'}}
+
+              type='password'
               name='password'
-              id='password'
               value={userForm.password}
-              placeholder='Password'
+              label='Enter Password'
               className='register-form-input-text'
               onChange={handleChange}
             />
-            <label className='form-label' htmlFor='confirm-pass'>
-              Confirm Password
-            </label>
-            <input
-              type='text'
+           
+            <TextField
+            variant="outlined" color="primary"
+            style={{marginBottom: '12px'}}
+
+              type='password'
               name='confirm-pass'
               id='confirm-pass'
-              placeholder='confirm Password'
+              label='Confirm Password'
               className='register-form-input-text'
               onChange={(e) => setCheckPassword(e.target.value)}
             />
           </div>
         </div>
         <div className='register-form2'>
-          <div className='register-input-container2'>
-            <label className='form-label' htmlFor='orgName'>
-              Organization Name
-            </label>
-            <input
+          <div style={{marginBottom: '12px'}}
+ className='register-input-container2'>
+           
+            <TextField
+            variant="outlined" color="primary"
+
               type='text'
               name='orgName'
               value={userForm.orgName}
               onChange={handleChange}
               id='orgName'
-              placeholder='Organization Name'
+              label='Enter Organization Name'
               className='register-form-input-text'
             />
           </div>
           <div className='register-input-container2'>
-            <label className='form-label' htmlFor='orgNumber'>
-              Organization No.
-            </label>
-            <input
-              type='text'
+            
+            <TextField
+            variant="outlined" color="primary"
+
+              type='number'
               name='orgNumber'
               value={userForm.orgNumber}
               onChange={handleChange}
               id='orgNumber'
-              placeholder='Organization No.'
+              label='Enter Organization Contact Number'
               className='register-form-input-text'
             />
           </div>
           <div className='register-input-container2'>
-            <label className='form-label' htmlFor='city'>
-              City
-            </label>
-            <input
+           
+            <TextField
+            variant="outlined" color="primary"
+
               type='text'
               name='city'
               value={userForm.city}
               onChange={handleChange}
               id='city'
-              placeholder='City'
+              label='Enter City'
               className='register-form-input-text'
-            />
+          
+          />
           </div>
-          <div className='register-input-container2'>
-            <label className='form-label' htmlFor='orgAddress'>
-              Organization Address
-            </label>
-            <input
+          <div style={{marginBottom: '12px'}}
+ className='register-input-container2'>
+            
+            <TextField
+            variant="outlined" color="primary"
+
               type='text'
               name='orgAddress'
               value={userForm.orgAddress}
               onChange={handleChange}
               id='orgAddress'
-              placeholder='Organization Address'
+              label='Enter Organization Address'
               className='register-form-input-text'
             />
           </div>
           <div className='register-input-container2'>
-            <label className='form-label' htmlFor='repName'>
-              Representative Name
-            </label>
-            <input
+           
+            <TextField
+            variant="outlined" color="primary"
+
               type='text'
               name='repName'
               value={userForm.repName}
               onChange={handleChange}
               id='repName'
-              placeholder='Representative Name'
+              label='Enter Representative Name'
               className='register-form-input-text'
             />
           </div>
@@ -265,23 +289,35 @@ function Register(props) {
             />
           </div>
         </div>
-        <div className='register-org-description-container'>
-          <label className='org-photo' htmlFor='orgDescriptions'>
-            Organization Description
-          </label>
-          <textarea
+        <div style={{marginBottom: '12px'}}
+ className='register-org-description-container'>
+         
+          <TextField
+
+          variant="outlined" color="primary"
+              rows={6}
+              multiline
             name='orgDescriptions'
             value={userForm.orgDescriptions}
             onChange={handleChange}
             id='orgDescriptions'
+            placeholder="Enter Organization Description"
             className='register-form-input-text'
-          ></textarea>
+          />
         </div>
         <div className='form-button-container'>
+        
+              <Button variant="outlined" color="default" >
           <Link to='/auth/login' className='form-link'>
             Cancel
           </Link>
-          <button className='form-button'>Send Registration</button>
+          </Button>
+       
+       
+       
+       
+       
+          <Button  variant="contained" color="primary" type="submit" className='form-button'>Send Registration</Button>
         </div>
       </form>
     </div>
