@@ -210,7 +210,7 @@ function UserPostDetails(props) {
 
 
           <FormControl fullWidth className={classes.formControl}>
-            <InputLabel style={{ marginLeft: '12px' }} id='city'>
+            <InputLabel style={{ marginLeft: '12px'}} id='city'>
               Select Location
               </InputLabel>
 
@@ -232,11 +232,11 @@ function UserPostDetails(props) {
           </FormControl>
 
 
-          <FormControl
+          {/* <FormControl
             component='fieldset'
             style={{ margin: '12px 0 0 12px' }}
           >
-            <FormLabel component='legend'>Select Donation Type</FormLabel>
+            {/* <FormLabel component='legend'>Select Donation Type</FormLabel>
             <RadioGroup
               aria-label='gender'
               name='gender1'
@@ -262,13 +262,13 @@ function UserPostDetails(props) {
               />
             </RadioGroup>
           </FormControl>
-
+ */} 
 
 
           <TextField
             rows={15}
             multiline
-            style={{ marginBottom: '12px' }} label="Description" variant="outlined" fullWidth={true}
+            style={{ marginBottom: '12px', marginTop: '12px' }} label="Description" variant="outlined" fullWidth={true}
             type="text"
             name='postDetails'
             value={postForm.description}

@@ -184,7 +184,7 @@ function PostCreateDetails(props) {
                   name='gender1'
                   value={postForm.donationType}
                   onChange={(e) =>
-                    setPostForm({ ...postForm, donationType: e.target.value })
+                    setPostForm({ ...postForm, donationType: e.target.value, totalAmount: 0 })
                   }
                 >
                   <FormControlLabel
@@ -205,6 +205,10 @@ function PostCreateDetails(props) {
                 </RadioGroup>
               </FormControl>
 
+
+            {postForm.donationType === 'In-Kind' ? '' : 
+
+
               <TextField
                 color='primary'
                 margin='normal'
@@ -218,9 +222,10 @@ function PostCreateDetails(props) {
                 value={postForm.totalAmount}
                 onChange={(e) =>
                   setPostForm({ ...postForm, totalAmount: e.target.value })
+               
                 }
               />
-
+              }
 
 
 
