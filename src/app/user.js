@@ -1,4 +1,5 @@
 import route from '../route/instagive'
+import axios from 'axios'
 
 // Action Types
 const USER_DATA_FETCH = 'userDataFetch'
@@ -6,7 +7,6 @@ const USER_LEDGER_ADDED = 'userLedgerAdded'
 const USER_LEDGER_REMOVED = 'userLedgerRemoved'
 const USER_LEDGER_UPDATED = 'userLedgerUpdated'
 
-const USER_POST_FETCH = 'userPostFetch'
 const USER_POST_ADDED = 'userPostAdded'
 const USER_POST_REMOVED = 'userPostRemoved'
 const USER_POST_UPDATED = 'userPostUpdated'
@@ -26,8 +26,7 @@ const userDataFetch = (token) => async dispatch => {
 
 
 const userLedgerAdded = (ledgerForm, token) => async dispatch => {
-    await route.post(`/ledger/${ledgerForm.postId}`, {...ledgerForm, token})
-    
+    await axios.post(`http://localhost:5000/ledger/${ledgerForm.postId}`, { ...ledgerForm, token })
     dispatch({
         type: USER_LEDGER_ADDED,
         payload: ledgerForm
@@ -36,6 +35,34 @@ const userLedgerAdded = (ledgerForm, token) => async dispatch => {
 
 
 // Post
+const userPostAdded = (formdata) => async dispatch => {
+    // await route.post('/post/createpost', formdata)
+    console.log(...formdata);
+    dispatch({
+        type: USER_POST_ADDED,
+        payload: formdata
+    })
+}
+const userPostRemoved = () => async dispatch => {
+    // await route.post()
+
+    dispatch({
+        type: USER_POST_REMOVED,
+        payload: {
+
+        }
+    })
+}
+const userPostUpdated = (postForm, postID, userToken) => async dispatch => {
+    await route.put(`/post/edit/${postID}`, { ...postForm, token: userToken })
+    dispatch({
+        type: USER_POST_UPDATED,
+        payload: {
+            _id: postID,
+            ...postForm
+        }
+    })
+}
 
 
 // Data
@@ -73,7 +100,10 @@ export default (state=userData, action) => {
             }
     
         case USER_POST_UPDATED:
-            return state
+            return {
+                ...state,
+                post: state.post.map(post => post._id === action.payload._id ? {...post, ...action.payload} : post)
+            }
     
         default:
             return state;
@@ -82,5 +112,8 @@ export default (state=userData, action) => {
 
 export {
     userDataFetch,
-    userLedgerAdded
+    userLedgerAdded,
+
+    userPostUpdated,
+    userPostAdded
 }
