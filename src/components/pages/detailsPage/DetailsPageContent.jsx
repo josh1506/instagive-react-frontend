@@ -8,7 +8,7 @@ function DetailsPageContent(props) {
   return (
     <div className='details-page-content-container'>
       <div className='post-image-container'>
-        <img src={`/docs/${props.post.profilePic}`} alt="Photo" className='display-page-image' />
+        <img style={{height: '70vh' }} src={`/docs/${props.post.profilePic}`} alt="Photo" className='display-page-image' />
       </div>
 
       <div className='details-post-container'>

@@ -7,7 +7,7 @@
 
 #showcase {
   /* Transparent */
-  background: rgba(48, 117, 138, 0.75);
+  opacity: 70%;
   color: #fff;
   height: 65vh;
   position: relative;
