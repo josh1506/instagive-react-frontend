@@ -8,7 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { Snackbar} from '@material-ui/core'
+import { Snackbar, Typography, Chip} from '@material-ui/core'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 import axios from 'axios'
@@ -28,7 +28,8 @@ function SideBarDonor(props) {
         currentAmount,
         itemQuantity,
         donationType,
-        _id
+        _id,
+        location
         
     }
     } = props
@@ -118,7 +119,22 @@ function SideBarDonor(props) {
 
             <div>
               
-            
+
+            {donationType === "In-Kind" ? 
+                <div>
+           <Chip style={{marginBottom:'10px', width: '200px'}} label={location}  variant="outlined" color="primary" /> <br></br>
+            <Chip style={{width: '200px'}} label={donationType === "Both" ? 'Cash/In-Kind' : donationType} variant="outlined" color="primary" />
+                </div>
+                : 
+                <div>
+                <Chip style={{marginBottom:'10px'}} label={location}  variant="outlined" color="primary" /> <br></br>
+                <Chip label={donationType === "Both" ? 'Cash/In-Kind' : donationType} variant="outlined" color="primary" />
+                    </div>
+    }
+
+
+
+
             
               {donationType === 'Both' || donationType ==='Cash' ? 
                 <div>
@@ -136,7 +152,7 @@ function SideBarDonor(props) {
                     </div>
                                                          : '' }
 
-{donationType === 'Both' || donationType ==='In-Kind' ? 
+                {donationType === 'Both' || donationType ==='In-Kind' ? 
                                       
                 <div>
                     <h3 className='sidebar-donor-data'>&nbsp;&nbsp;{itemQuantity}</h3>
