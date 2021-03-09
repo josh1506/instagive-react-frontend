@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../../../style/detailsPage/detailsPageContent.css'
-import banner1 from '../../../img/Landscape-Color.jpg'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,7 +7,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import axios from 'axios'
+import { connect } from 'react-redux';
 
 
 
@@ -45,7 +44,7 @@ function DetailsPageContent(props) {
 
     if (donateForm.amount === '') return setHasAmount(true);
 
-    else await axios.post(`http://localhost:5000/donate/${props.match.params.id}`, donateForm)
+    // else await axios.post(`http://localhost:5000/donate/${props.match.params.id}`, donateForm)
 
 
   }
@@ -53,23 +52,23 @@ function DetailsPageContent(props) {
 
 
 
-  if (!props.onSelectedPost) return <div>Loading</div>
+  if (!props.post) return <div>Loading</div>
 
 
   return (
     <div className='details-page-content-container'>
       <div className='post-image-container'>
-        <img src={`/docs/${props.onSelectedPost.profilePic}`} alt="Photo" className='display-page-image' />
+        <img src={`/docs/${props.post.profilePic}`} alt="Photo" className='display-page-image' />
       </div>
 
       <div className='details-post-container'>
         {props.children}
         <p className='donationContent'>
-          {props.onSelectedPost ? props.onSelectedPost.description : ''}
+          {props.post ? props.post.description : ''}
         </p>
         <div>
-          {props.onSelectedPost.imageList.map(imageName =>
-            <img src={`/docs/`} alt="Photo" className='detailsPageImage' />
+          {props.post.imageList.map(imageName =>
+            <img src={`/docs/${imageName}`} key={imageName} alt="Photo" className='detailsPageImage' />
           )}
         </div>
         <div className='donateNowContainer'>
@@ -77,7 +76,7 @@ function DetailsPageContent(props) {
         </div>
       </div>
 
-      <Dialog open={openModal} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='sm' fullWidth='true'>
+      <Dialog open={openModal} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='sm' fullWidth>
         <DialogTitle id="form-dialog-title" style={{ alignSelf: 'center', fontSize: '50px' }}>Donate</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -170,4 +169,10 @@ function DetailsPageContent(props) {
   );
 }
 
-export default DetailsPageContent;
+
+const mapStateToProps = (state, myProps) => {
+  const post = state.postList.find(post => post._id === myProps.match.params.id)
+  return { post }
+}
+
+export default connect(mapStateToProps)(DetailsPageContent);
