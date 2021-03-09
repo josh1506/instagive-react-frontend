@@ -33,6 +33,19 @@ function PostCreateDetails(props) {
     profilePic: '',
   });
 
+  const [numberImage, setNumberImage] = useState({
+
+    name: ''
+
+  })
+  const [numberImageList, setNumberImageList] = useState(0)
+
+
+
+
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -101,19 +114,19 @@ function PostCreateDetails(props) {
 
           <form encType='multipart/form-data' className={classes.form}>
             <Button variant='outlined' color='primary' component='label' >
-              Upload Cover Photo
+              {`Upload Cover Photo : ${numberImage.name === '' ? 'NONE' : numberImage.name}`}
               <input
                 hidden
                 type='file'
                 onChange={(e) => {
                   const file = e.target.files[0];
                   setFiles({ ...files, profilePic: file });
+                  setNumberImage({name: e.target.files[0].name})
                 }}
               ></input>
             </Button>
 
             <TextField
-
               color='primary'
               margin='normal'
               fullWidth
@@ -192,10 +205,6 @@ function PostCreateDetails(props) {
               </RadioGroup>
             </FormControl>
 
-
-
-
-
             <TextField
               color='primary'
               margin='normal'
@@ -260,7 +269,7 @@ function PostCreateDetails(props) {
 
 
             <Button variant='outlined' color='primary' component='label' style={{marginTop:'12px'}}>
-                Upload Reference Picture (Can Have Multiple Pictures)
+                {`Upload Reference Picture (Can Have Multiple Pictures) | Files Selected: ${numberImageList}`}
             <input
             hidden
               type='file'
@@ -269,7 +278,8 @@ function PostCreateDetails(props) {
               onChange={(e) => {
                 const multifiles = e.target.files;
                 setFiles({ ...files, imageList: multifiles });
-              }}
+                setNumberImageList(e.target.files.length)
+                }}
               multiple
               
             ></input>

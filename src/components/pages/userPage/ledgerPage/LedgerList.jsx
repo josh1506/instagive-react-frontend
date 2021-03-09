@@ -9,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container'
-import {TextField, Button, Icon, FormControl, InputLabel, Select, Radio, RadioGroup, FormLabel, FormControlLabel, MenuItem
+import {TextField, Button, Icon, FormControl, InputLabel, Select, Radio, RadioGroup, FormLabel, FormControlLabel, MenuItem, Snackbar
 } from '@material-ui/core/'
 import {connect} from 'react-redux'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
@@ -19,6 +19,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios'
+import MuiAlert from '@material-ui/lab/Alert';
 
 
 
@@ -78,11 +79,17 @@ function LedgerList(props) {
     formControl: {
       minWidth: 120,
     },
+    root: {
+      width: '100%',
+      '& > * + *': {
+        marginTop: theme.spacing(2),
+      },
+    },
+    
   }));  
   
   
   const classes = useStyles();
-
 
 
 
@@ -111,8 +118,8 @@ const handleSubmit = async event => {
 
 
     await axios.post(`http://localhost:5000/ledger/${ledgerForm.postId}`, {...ledgerForm, token: localStorage.getItem('user')})
-
-
+    handleClose()
+    setOpen(true)
 
 }
 
@@ -130,12 +137,38 @@ const handleClickOpen = async () => {
   };
 
 
+  const [open, setOpen] = React.useState(false);
+    
+    
+    
+  const handleCloseAlert = (event, reason) => {
+    if (reason === 'clickaway') {
+      return; 
+    }
+
+    setOpen(false);
+  };
+
+
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
   
 
   return (
 
     <div>
    
+   <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseAlert}>
+        <Alert onClose={handleCloseAlert} severity="success">
+          Data Successfully Added
+        </Alert>
+      </Snackbar>
+      
+
+
+
 
 
 

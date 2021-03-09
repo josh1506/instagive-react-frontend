@@ -18,7 +18,6 @@ function UserPostDetails(props) {
         location: '',
         donationType: ''
     })
-
     
 
     useEffect(() => {
@@ -39,7 +38,7 @@ function UserPostDetails(props) {
 
         const saveUpdate = async () => {
 
-
+    
 
 
            await axios.put(`http://localhost:5000/post/edit/${post._id}`, {...postForm, token: localStorage.getItem('user')})
@@ -169,7 +168,7 @@ function UserPostDetails(props) {
       
         <Snackbar open={snacker} autoHideDuration={2000} onClose={handleCloseAlert}>
           <Alert onClose={handleCloseAlert} severity="success">
-                       Successfully Saved!
+            Successfully Saved
           </Alert>
 
 
@@ -188,8 +187,10 @@ function UserPostDetails(props) {
 
 
 
-            <Button onClick={handleClickOpen} style={{margin: '12px'}} variant="contained" color="primary">Edit Post</Button>
-           
+            <Button onClick={() => props.history.push(`/user/update-details/${props.match.params.id}`)} style={{margin: '12px'}} variant="outlined" color="default">Updates</Button>
+          
+            <Button onClick={handleClickOpen} style={{margin: '12px'}} variant="outlined" color="primary">Edit Post</Button>
+
            
            
 
@@ -276,7 +277,7 @@ function UserPostDetails(props) {
                                style={{marginBottom: '12px'}} label="Description" variant="outlined" fullWidth={true}
                                type="text"
                             name='postDetails'
-                            value={post.description}
+                            value={postForm.description}
                             onChange={e => setPostForm({ ...postForm, description: e.target.value })}
                             id='postDetails'
                             className=''

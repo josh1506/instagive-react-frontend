@@ -41,7 +41,7 @@ function PostList(props) {
           style={{margin: '12px'}}
 
 onClick={() => props.history.push('/user/post-create')}
-        variant='contained'
+        variant='outlined'
         color='primary'
         endIcon={<Icon fontSize="small">add_circle</Icon>
     }
