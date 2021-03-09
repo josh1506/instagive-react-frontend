@@ -26,14 +26,14 @@ const userDataFetch = (token) => async dispatch => {
 
 
 const userLedgerAdded = (ledgerForm, token) => async dispatch => {
-    // await axios.post(`http://localhost:5000/ledger/${ledgerForm.postId}`, { ...ledgerForm, token })
-
-    const newForm = {...ledgerForm}
+    await axios.post(`http://localhost:5000/ledger/${ledgerForm.postId}`, { ...ledgerForm, token })
+    let newForm = {...ledgerForm}
     if (!ledgerForm.donorName) newForm = {...newForm, donorName: 'Anonymous'}
-    console.log('new form', newForm);
+    if (!ledgerForm.email) newForm = {...newForm, email: 'None'}
+
     dispatch({
         type: USER_LEDGER_ADDED,
-        payload: ledgerForm
+        payload: newForm
     })
 }
 

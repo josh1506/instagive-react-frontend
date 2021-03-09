@@ -36,7 +36,7 @@ function PostCard(props) {
     return (
         <div className='postCardContainer'>
             {postList.map((post) => (
-                <Card className={classes.root} style={{ margin: '20px' }}>
+                <Card className={classes.root} style={{ margin: '20px' }} key={post._id}>
                     <CardActionArea>
                         <CardMedia
                             component="img"
