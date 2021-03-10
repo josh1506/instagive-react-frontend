@@ -6,6 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios'
 import MuiAlert from '@material-ui/lab/Alert';
 import { connect } from 'react-redux';
+import Carousel from 'react-elastic-carousel'
+import 'styled-components'
+import '../../../../style/userPage/userPage.css'
 
 
 
@@ -160,14 +163,16 @@ function PostDetailUpdate(props) {
         <Button onClick={() => props.history.push(`/user/post-details/${props.match.params.id}`)} style={{ margin: '12px' }} variant="outlined" color="default">Back to Post</Button>
         <Button onClick={handleClickOpen} style={{ margin: '12px' }} variant="outlined" color="primary">Create New Update</Button>
       </div>
-      <div>
+      <div className='post-update-container'>
         {updateList.map(update =>
-          <div>
+          <div key={update._id} className='update-item-container'>
             <div>
-              {update.imageList.map(image => <img src={`/docs/${image}`} alt={image} />)}
+              <Carousel itemsToShow={1}>
+                {update.imageList.map(image => <img src={`/docs/${image}`} alt={image} key={image} style={{ height: '40vh', width: '100%' }} />)}
+              </Carousel>
             </div>
-            <div>
-              {console.log(update)}
+            <div className='post-update-description'>
+              {update.description}
             </div>
           </div>
         )}
