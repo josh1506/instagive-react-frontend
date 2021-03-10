@@ -6,6 +6,8 @@ import { postListFeched } from './app/postList'
 import { accountFetched } from './app/accounts'
 import { authAdd } from './app/auth'
 import Nav from './components/common/Nav';
+import Footer from './components/common/Footer';
+
 import LandingPage from './components/pages/landingPage/LandingPage';
 import DetailsPage from './components/pages/detailsPage/DetailsPage';
 import AuthPage from './components/pages/authPage/AuthPage';
@@ -53,6 +55,10 @@ function App(props) {
         <Route path='/' exact component={LandingPage} />
         <Redirect to='/not-found' />
       </Switch>
+   
+   <div>
+    <Footer/>
+    </div>
     </div>
   );
 }

@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import Icon from '@material-ui/core/Icon';
-
+import AddIcon from '@material-ui/icons/Add';
 
 function PostList(props) {
   const useStyles = makeStyles({
@@ -43,13 +43,18 @@ function PostList(props) {
 onClick={() => props.history.push('/user/post-create')}
         variant='outlined'
         color='primary'
-        endIcon={<Icon fontSize="small">add_circle</Icon>
+        endIcon={<AddIcon fontSize="small"></AddIcon>
     }
       >Create Post</Button>
 
       <div className='postCardContainer shadow-container'>
 
         {props.post.map((post) => (
+
+
+          <div className="hover-container">
+
+
           <Card className={classes.root} style={{ margin: '20px' }}>
             <CardActionArea>
               <CardMedia
@@ -90,7 +95,12 @@ onClick={() => props.history.push('/user/post-create')}
               </Button>
             </CardActions>
           </Card>
-        ))}
+       
+       
+       
+          </div>
+       
+       ))}
       </div>
     </div>
   );

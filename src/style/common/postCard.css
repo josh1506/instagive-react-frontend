@@ -61,3 +61,22 @@
     padding: 3px 5px;
     border-radius: 5px;
 }
+
+
+.hover-container {
+
+    transition: all 0.2s ease-in-out;
+
+}
+
+
+
+
+.hover-container:hover {
+
+
+transform: scale(1.1);
+
+
+
+}

@@ -22,6 +22,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import MuiAlert from '@material-ui/lab/Alert';
 import { userLedgerAdded } from '../../../../app/user'
 import { CodeOutlined, LaptopWindows } from '@material-ui/icons';
+import AddIcon from '@material-ui/icons/Add';
 
 
 
@@ -199,10 +200,10 @@ function LedgerList(props) {
       <Button
         style={{ margin: '12px' }}
         onClick={handleClickOpen}
-        variant='contained'
+        variant='outlined'
         color='primary'
-        endIcon={<Icon fontSize="small">add_circle</Icon>
-        }
+        endIcon={<AddIcon fontSize="small"></AddIcon>
+      }
       >Add Data</Button>
 
 
@@ -273,10 +274,14 @@ function LedgerList(props) {
       <Dialog open={openModal} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='sm' fullWidth={true}>
         <DialogTitle id="form-dialog-title" style={{ alignSelf: 'center', fontSize: '50px' }}>Add New Data</DialogTitle>
         <DialogContent>
+        <form onSubmit={handleSubmit}>
           <DialogContentText>
             Please Fill the Inputs Bellow:
           </DialogContentText>
 
+
+
+                      
 
           <FormControl style={{ marginBottom: '12px' }} fullWidth={true} className={classes.formControl}>
             <InputLabel style={{ marginLeft: '12px' }} id='post'>
@@ -286,6 +291,7 @@ function LedgerList(props) {
               </InputLabel>
 
             <Select
+              required={true}
               variant='outlined'
               label='city'
               name='city'
@@ -307,19 +313,7 @@ function LedgerList(props) {
 
           </FormControl>
 
-
-
-
-
-          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} required={true} label="Enter Donor Name (Can be Anonymous)" type="text" name="donorName" id="donorName"
-            value={ledgerForm.donorName}
-            onChange={e => {setLedgerForm({ ...ledgerForm, donorName: e.target.value });}}
-          />
-
-
-
-          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} label="Enter Email (Optional)" type="text" name="" id="" onChange={e => setLedgerForm({ ...ledgerForm, email: e.target.value })} />
-
+                
           <FormControl style={{ marginBottom: '12px' }} fullWidth={true} component="fieldset">
             <FormLabel component='legend'>Select Donation Type</FormLabel>
 
@@ -337,6 +331,9 @@ function LedgerList(props) {
                 control={<Radio />}
                 label='Cash'
               />
+          
+          
+
               <FormControlLabel
                 value='In-Kind'
                 control={<Radio />}
@@ -348,7 +345,29 @@ function LedgerList(props) {
 
           </FormControl>
 
-          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} label="Enter Payment Method" type="text" name="paymentAddress" id="paymentAddress"
+
+
+
+
+
+
+
+
+
+
+
+
+          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} required={true} label="Enter Donor Name (Can be Anonymous)" type="text" name="donorName" id="donorName"
+            value={ledgerForm.donorName}
+            onChange={e => {setLedgerForm({ ...ledgerForm, donorName: e.target.value });}}
+          />
+
+
+
+          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} label="Enter Email (Optional)" type="text" name="" id="" onChange={e => setLedgerForm({ ...ledgerForm, email: e.target.value })} />
+
+
+          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} label="Enter Payment Method (etc, Gcash, Bank Account) |" type="text" name="paymentAddress" id="paymentAddress"
             value={ledgerForm.paymentAddress}
             onChange={e => setLedgerForm({ ...ledgerForm, paymentAddress: e.target.value })}
 
@@ -356,7 +375,7 @@ function LedgerList(props) {
 
           />
 
-          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} label="Enter Amount(Cash) / Item Quantity(In-Kind)" type="number" name="amount" id="amount"
+          <TextField style={{ marginBottom: '12px' }}  pattern="[0-9]+" required={true} variant="outlined" fullWidth={true} label="Enter Amount(Cash) / Item Quantity(In-Kind)" type="number" name="amount" id="amount"
             value={ledgerForm.amount}
             onChange={e => setLedgerForm({ ...ledgerForm, amount: e.target.value })}
           />
@@ -369,7 +388,7 @@ function LedgerList(props) {
 
 
 
-          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} InputLabelProps={{
+          <TextField required={true} style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} InputLabelProps={{
             shrink: true,
           }} type="date" onChange={date => {
             setLedgerForm({ ...ledgerForm, date: date.target.value })
@@ -377,18 +396,22 @@ function LedgerList(props) {
 
 
 
-
-
-
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <DialogActions>
+              <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleSubmit} disabled={ledgerForm.amount === 0} color="primary">
+          
+          <Button type="submit" disabled={ledgerForm.amount === 0} color="primary">
             Donate
           </Button>
-        </DialogActions>
+
+
+          </DialogActions>
+
+
+        </form>
+        </DialogContent>
+
 
       </Dialog>
 

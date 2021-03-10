@@ -119,3 +119,13 @@
     font-size: 23px;
     margin-top: 30px;
 }
+
+.hover-container {
+    transition: all 0.2s ease-in-out;
+}
+
+
+.hover-container:hover {
+    transform: scale(1.1);
+
+}

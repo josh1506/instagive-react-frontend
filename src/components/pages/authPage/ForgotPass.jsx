@@ -93,11 +93,11 @@ function ForgotPass(props) {
                 <h1 className='authTitle'>Forgot Password</h1>
                 <p className='authDetails'>Will send your temporary password in your email, Please change it after you logged in</p>
             </div>
-            <form className='form-container'>
+            <form className='form-container' onSubmit={handleSubmit}>
             
               
               
-                <TextField variant="outlined" label="Enter Your Email" fullWidth type="email" name="email" id="email" value={email} style={{marginBottom: "10px"}}  onChange={e => {setEmail(e.target.value); console.log(email)}} />
+                <TextField required={true} variant="outlined" label="Enter Your Email" fullWidth type="email" name="email" id="email" value={email} style={{marginBottom: "10px"}}  onChange={e => {setEmail(e.target.value); console.log(email)}} />
              
              
              
@@ -105,7 +105,7 @@ function ForgotPass(props) {
              
           
           
-                <Button variant="contained" color="primary" fullWidth onClick={handleSubmit}>Send</Button>
+                <Button type="submit" variant="contained" color="primary" fullWidth>Send</Button>
 
           
             </form>

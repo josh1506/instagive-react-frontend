@@ -9,8 +9,8 @@ import { connect } from 'react-redux';
 import Carousel from 'react-elastic-carousel'
 import 'styled-components'
 import '../../../../style/userPage/userPage.css'
-
-
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
 
 
 
@@ -160,8 +160,8 @@ function PostDetailUpdate(props) {
       </Snackbar>
 
       <div className="post-update-detail-button">
-        <Button onClick={() => props.history.push(`/user/post-details/${props.match.params.id}`)} style={{ margin: '12px' }} variant="outlined" color="default">Back to Post</Button>
-        <Button onClick={handleClickOpen} style={{ margin: '12px' }} variant="outlined" color="primary">Create New Update</Button>
+        <Button onClick={() => props.history.push(`/user/post-details/${props.match.params.id}`)} style={{ margin: '12px' }} variant="outlined" color="default" endIcon={<ExitToAppIcon size="small"></ExitToAppIcon>} >Back to Post</Button>
+        <Button onClick={handleClickOpen} style={{ margin: '12px' }} variant="outlined" color="primary" endIcon={<NoteAddIcon size="small"></NoteAddIcon>} >Create New Update</Button>
       </div>
       <div className='post-update-container'>
         {updateList.map(update =>
@@ -198,7 +198,7 @@ function PostDetailUpdate(props) {
             />
 
             <Button variant='outlined' color='primary' component='label' style={{ marginTop: '12px' }}>
-              {`Upload Picture (Can Have Multiple Pictures) | Files Selected: `}
+              {`Upload Picture (Can Have Multiple Pictures) | Files Selected: ${numberImage}`}
               <input
                 hidden
                 type='file'

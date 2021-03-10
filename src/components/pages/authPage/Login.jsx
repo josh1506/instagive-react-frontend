@@ -98,12 +98,12 @@ function Login(props) {
 
 
       </div>
-      <form className='form-container' >
+      <form className='form-container' onSubmit={handleSubmit} >
       
     
 
         <TextField
-          type='text'
+          type='email'
           name='email'
           id='email'
           className='form-input-text'
@@ -119,6 +119,7 @@ function Login(props) {
         />
     
         <TextField
+          
           type='password'
           margin="normal"
           required={true}
@@ -128,7 +129,7 @@ function Login(props) {
           variant="outlined"
           label="Enter Password"
           className='form-input-text'
-          required
+          required={true}
           value={auth.password}
           onChange={(e) => setAuth({ ...auth, password: e.target.value })}
         />
@@ -137,7 +138,7 @@ function Login(props) {
             Forgot Password
           </Link> </Button>
           <div className='form-button-container'>
-            <Button fullWidth style={{margin: '10px'}} color="primary" variant="contained" onClick={handleSubmit}>Login</Button>
+            <Button fullWidth style={{margin: '10px'}} color="primary" variant="contained" type="submit">Login</Button>
            
             <Button  style={{margin: '10px'}} fullWidth variant="contained"
               onClick={() => props.history.push('/auth/register')}
