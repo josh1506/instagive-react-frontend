@@ -4,13 +4,13 @@
     justify-content: center;
     align-items: center;
     width: 1500px;
-    margin: 0% 5% 0% 1.5%;
+    margin: 0% 5% 5% 5%;
     text-align: center;
     letter-spacing: 3px;
     font-weight: bold;
-    height: 45vh;
-    width: 100%;
-    max-width: 240px;
+    /* height: 45vh; */
+    width: 230px;
+    padding: 20%;
     border-radius: 5px;
     box-shadow: 0 0 15px rgb(136 153 166 / 25%),
         0 0 3px 1px rgb(136 153 166 / 15%);
@@ -24,4 +24,44 @@
 .sidebar-donor-data {
     font-size: 23px;
     margin-top: 30px;
+}
+
+
+.sidebar-donor-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1500px;
+    margin: 0% 5% 5% 5%;
+    letter-spacing: 3px;
+    font-weight: bold;
+    /* height: 45vh; */
+    width: 230px;
+    padding: 15% 5%;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgb(136 153 166 / 25%),
+        0 0 3px 1px rgb(136 153 166 / 15%);
+}
+
+
+.sidebar-donor-content {
+    margin: 15px 5px 15px 2px;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgb(136 153 166 / 15%),
+        0 0 3px 1px rgb(136 153 166 / 10%);
+}
+
+.sidebar-donor-name {
+    font-size: 16px;
+}
+
+.sidebar-donor-message {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.sidebar-donor-amount {
+    font-size: 14px;
 }

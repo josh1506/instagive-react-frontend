@@ -27,17 +27,17 @@ function DetailsPage(props) {
     )
 
     return (
-        <div>
+        <div className='details-page-container'>
             <div className="details-header-container">
                 <h1 className='details-title'>{selectedPost ? selectedPost.Title : ''}</h1>
             </div>
             <div className='post-details-container'>
                 <Switch>
-                    <Route path={'/details/:id/updates'} render={props => <DetailsUpdatePage selectedPost={selectedPost} {...props}>{renderContent}</DetailsUpdatePage>} />
-                    <Route path={'/details/:id'} render={props => <DetailsPageContent onSelectedPost={selectedPost} {...props}>{renderContent}</DetailsPageContent>} />
+                    <Route path={'/details/:id/updates'} render={props => <DetailsUpdatePage {...props}>{renderContent}</DetailsUpdatePage>} />
+                    <Route path={'/details/:id'} render={props => <DetailsPageContent {...props}>{renderContent}</DetailsPageContent>} />
                     <Redirect to='/not-found' />
                 </Switch>
-                <SideBarDonor selectedPost={selectedPost} />
+                <SideBarDonor {...props} selectedPost={selectedPost} />
             </div>
         </div>
     );
