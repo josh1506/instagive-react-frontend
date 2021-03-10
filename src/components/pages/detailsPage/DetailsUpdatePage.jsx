@@ -1,7 +1,10 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import '../../../style/detailsPage/detailsUpdatePage.css'
-
+import Carousel from 'react-elastic-carousel'
+import 'styled-components'
+import { connect } from 'react-redux';
+import '../../../style/detailsPage/detailsUpdatePage.css'
 
 
 
@@ -9,41 +12,50 @@ import '../../../style/detailsPage/detailsUpdatePage.css'
 
 
 function DetailsUpdatePage(props) {
-    const [updates, setUpdates] = useState([])
-
+    const [updateList, setUpdateList] = useState([])
+    console.log(props);
 
     useEffect(() => {
-        // Update the document title using the browser API
-
-        const fetchUpdates = async () => {
-
-            // await axios.post(`http://localhost:5000/updates/getall/${props.match.params.id}`, { token: localStorage.getItem('user') }).then(data => setUpdates(data.data))
-
+        const getUpdateList = async () => {
+            const { data } = await axios.post(`http://localhost:5000/updates/getall/${props.match.params.id}`, { token: props.authToken })
+            setUpdateList(data)
         }
 
-        fetchUpdates()
-    }, []);
+        if (props.post) {
+            getUpdateList()
+        }
+    }, [props.post])
 
 
 
 
 
     return (
-        <div>
-
-
-            {/* {props.children}
-            <div className="update-container">
-                {updates.map(update =>
-                    <div key={update.id}>
-                        <h3 className='update-title'>{update.title} - {update.date}</h3>
-                        <p className='update-details'>{update.details}</p>
-                        <img src={update.img} alt="carousel" />
+        <div className='landing-post-update-container'>
+            {props.children}
+            <div className=''>
+                {updateList.map(update =>
+                    <div key={update._id} className='landing-post-update-faded'>
+                        <div>
+                            <Carousel itemsToShow={1}>
+                                {update.imageList.map(image => <img src={`/docs/${image}`} alt={image} key={image} style={{ height: '40vh', width: '100%' }} />)}
+                            </Carousel>
+                        </div>
+                        <div className=''>
+                            {update.description}
+                        </div>
                     </div>
                 )}
-            </div> */}
+            </div>
         </div>
     );
 }
 
-export default DetailsUpdatePage;
+
+const mapStateToProps = (state, myProps) => {
+    const post = state.postList.find(post => post._id === myProps.match.params.id)
+    const authToken = state.auth.token
+    return { post, authToken }
+}
+
+export default connect(mapStateToProps)(DetailsUpdatePage);
