@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { cityLocation } from '../../../others/cityLocation'
 import {
   TextField, Button, FormControl, InputLabel, Select, MenuItem, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar,
+  Chip
 } from '@material-ui/core/'
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -10,6 +11,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { userPostUpdated } from '../../../../app/user'
 import Carousel from 'react-elastic-carousel'
 import 'styled-components'
+
 
 
 
@@ -196,6 +198,72 @@ function UserPostDetails(props) {
             </Carousel>
           </div>
         </div>
+
+
+        {/* Start */}
+        <aside className='user-sidebar-donor'>
+          <div>
+
+
+            {props.post.donationType === "In-Kind" ?
+              <div>
+                <Chip style={{ marginBottom: '10px', width: '200px' }} label={props.post.location} variant="outlined" color="primary" /> <br></br>
+                <Chip style={{ width: '200px' }} label={props.post.donationType === "Both" ? 'Cash/In-Kind' : props.post.donationType} variant="outlined" color="primary" />
+              </div>
+              :
+              <div>
+                <Chip style={{ marginBottom: '10px' }} label={props.post.location} variant="outlined" color="primary" /> <br></br>
+                <Chip label={props.post.donationType === "Both" ? 'Cash/In-Kind' : props.post.donationType} variant="outlined" color="primary" />
+              </div>
+            }
+
+
+
+
+
+            {props.post.donationType === 'Both' || props.post.donationType === 'Cash' ?
+              <div>
+                <div>
+                  <h3 className='user-sidebar-donor-data'>₱{props.post.currentAmount}</h3>
+                  <p className='user-sidebar-donor-text'>Total Raise</p>
+                </div>
+                <div>
+                  <h3 className='user-sidebar-donor-data'>₱{props.post.totalAmount}</h3>
+                  <p className='user-sidebar-donor-text'>Target Amount</p>
+                </div>
+
+
+
+              </div>
+              : ''}
+
+            {props.post.donationType === 'Both' || props.post.donationType === 'In-Kind' ?
+
+              <div>
+                <h3 className='user-sidebar-donor-data'>&nbsp;&nbsp;{props.post.itemQuantity}</h3>
+                <p className='user-sidebar-donor-text'>&nbsp;Items Donated</p>
+              </div>
+
+              : ''}
+
+
+
+
+            <div>
+              <h3 className='user-sidebar-donor-data'>&nbsp;&nbsp;{props.post.totalDonors}</h3>
+              <p className='user-sidebar-donor-text'>&nbsp;&nbsp;Donors</p>
+            </div>
+
+            {props.post.donationType !== 'In-Kind' ?
+
+              <Button variant="contained" color="primary" style={{ margin: '20px 0 0 5px' }} onClick={handleClickOpen}>Donate Now</Button>
+              : ''}
+
+
+
+          </div>
+        </aside>
+        {/* End */}
 
       </div>
       <div>

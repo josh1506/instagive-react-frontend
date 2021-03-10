@@ -84,10 +84,22 @@
 
 
 .details-page-content-container {
-    width: 1600px;
+    width: 100%;
 }
 
 
 .display-page-image {
     width: 100%;
+}
+
+
+.details-page-container {
+    width: 100%;
+    padding: 0% 7%;
+}
+
+
+.donation-content {
+    font-size: 18px;
+    letter-spacing: 1px;
 }
