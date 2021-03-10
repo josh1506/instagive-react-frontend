@@ -207,7 +207,7 @@ function Register(props) {
           <br />
           <b>2. ELIGIBILITY</b> <br />
           <br />
-          3.1 You are not eligible to use the Platform without consent if you
+          2.1 You are not eligible to use the Platform without consent if you
           are under 18 years of age. If you are between the ages of 13 and 17,
           you can use the Platform with the consent and supervision of your
           parent or legal guardian who is at least 18 years old, provided that
@@ -215,19 +215,19 @@ function Register(props) {
           and agrees to be responsible for your use of the Platform.
           <br />
           <br />
-          3.2 You are not eligible to use the Platform if you have previously
+          2.2 You are not eligible to use the Platform if you have previously
           been suspended from using the Platform for any reason and we have not
           explicitly authorized you to resume using the Platform.
           <br />
           <br />
-          3.3 A representative of an organization is not eligible to use the
+          2.3 A representative of an organization is not eligible to use the
           Platform unless they have proper authorization and is capable of
           binding the organization to the Terms.
           <br />
           <br />
           <b>3. PLATFORM ACCESS</b> <br /> <br />
           <br />
-          4.1 If the User is eligible (see Sec. 2, of the Terms), the Platform
+          3.1 If the User is eligible (see Sec. 2, of the Terms), the Platform
           is free to use, however starting a Campaign and getting access to
           features such as Creating Post is limited to registered individuals or
           organizations only. You can register by signing up at Instagive.com.
