@@ -198,6 +198,7 @@ function SideBarDonor(props) {
             id="name"
             label="Name (Leave Blank for Anonymous Donation)"
             type="text"
+            
             fullWidth={true}
             onChange={(e) =>
               setDonateForm({ ...donateForm, name: e.target.value })
@@ -216,7 +217,7 @@ function SideBarDonor(props) {
             id="amount"
             label="Enter Amount: (Required) "
             required={true}
-            required
+            
             type="number"
             fullWidth ={true}
             onChange={(e) =>
@@ -270,6 +271,9 @@ function SideBarDonor(props) {
             Donate
           </Button>
         </DialogActions>
+     
+     
+     
       </Dialog>
 
 

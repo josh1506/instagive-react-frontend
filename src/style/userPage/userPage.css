@@ -90,3 +90,23 @@
     font-size: 20px;
     letter-spacing: 1px;
 }
+
+
+
+.hover-container {
+
+    transition: all 0.2s ease-in-out;
+
+}
+
+
+
+
+.hover-container:hover {
+
+
+transform: scale(1.1);
+
+
+
+}

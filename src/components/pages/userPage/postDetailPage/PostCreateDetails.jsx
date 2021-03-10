@@ -26,7 +26,7 @@ function PostCreateDetails(props) {
     description: '',
     location: '',
     donationType: 'Cash',
-    totalAmount: 0,
+    totalAmount: '',
   });
   const [files, setFiles] = useState({
     imageList: '',
@@ -39,7 +39,6 @@ function PostCreateDetails(props) {
 
   })
   const [numberImageList, setNumberImageList] = useState(0)
-
 
 
 
@@ -62,6 +61,8 @@ function PostCreateDetails(props) {
     formdata.append('donationType', postForm.donationType);
     formdata.append('totalAmount', postForm.totalAmount);
     formdata.append('token', localStorage.getItem('user'));
+   
+
     console.log(...formdata);
 
 
@@ -112,12 +113,13 @@ function PostCreateDetails(props) {
               Creating New Post{' '}
             </Typography>
 
-            <form encType='multipart/form-data' className={classes.form}>
+            <form encType='multipart/form-data' className={classes.form} onSubmit={handleSubmit}>
               <Button variant='outlined' color='primary' component='label' >
                 {`Upload Cover Photo : ${numberImage.name === '' ? 'NONE' : numberImage.name}`}
                 <input
                   hidden
                   type='file'
+                  required={true}
                   onChange={(e) => {
                     const file = e.target.files[0];
                     setFiles({ ...files, profilePic: file });
@@ -133,6 +135,7 @@ function PostCreateDetails(props) {
                 variant='outlined'
                 label='Enter Post Title'
                 type='text'
+                required={true}
                 name='title'
                 id='title'
                 className='user-form-input'
@@ -150,6 +153,7 @@ function PostCreateDetails(props) {
               </InputLabel>
 
                 <Select
+                  required={true}
                   variant='outlined'
                   label='city'
                   name='city'
@@ -210,6 +214,7 @@ function PostCreateDetails(props) {
 
 
               <TextField
+                required={true}
                 color='primary'
                 margin='normal'
                 fullWidth
@@ -234,6 +239,7 @@ function PostCreateDetails(props) {
 
 
               <TextField
+              required={true}
                 variant="outlined"
                 rows={10}
                 type='text'
@@ -276,6 +282,7 @@ function PostCreateDetails(props) {
               <Button variant='outlined' color='primary' component='label' style={{ marginTop: '12px' }}>
                 {`Upload Reference Picture (Can Have Multiple Pictures) | Files Selected: ${numberImageList}`}
                 <input
+                required={true}
                   hidden
                   type='file'
                   id='postImages'
@@ -302,7 +309,7 @@ function PostCreateDetails(props) {
 
 
 
-                <Button variant='contained' color='primary' onClick={handleSubmit}>Save</Button>
+                <Button variant='contained' color='primary' type="submit">Save</Button>
               </div>
             </form>
           </div>
@@ -311,5 +318,7 @@ function PostCreateDetails(props) {
     </div>
   );
 }
+
+
 
 export default PostCreateDetails;

@@ -69,6 +69,13 @@ function Register(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
+
+
+
+
+
+
     const formdata = new FormData();
 
     formdata.append('repId', files.repId);
@@ -285,7 +292,7 @@ function Register(props) {
               variant='outlined'
               color='primary'
               style={{ marginBottom: '12px' }}
-              required
+              required={true}
               type='password'
               name='password'
               value={userForm.password}
@@ -295,7 +302,7 @@ function Register(props) {
             />
 
             <TextField
-              required
+              required={true}
               variant='outlined'
               color='primary'
               style={{ marginBottom: '12px' }}
@@ -304,10 +311,20 @@ function Register(props) {
               type='password'
               name='confirm-pass'
               className='register-form-input-text'
-              onChange={(e) => setCheckPassword(e.target.value)}
+              onChange={(e) => setCheckPassword({confirm_pass :e.target.value})}
             />
           </div>
         </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
         <div className='register-form2'>
           <div
             style={{ marginBottom: '12px' }}
@@ -338,6 +355,7 @@ function Register(props) {
               id='orgNumber'
               label='Enter Organization Contact Number'
               className='register-form-input-text'
+
             />
           </div>
           <div className='register-input-container2'>
@@ -508,6 +526,7 @@ function Register(props) {
             color='primary'
             type='submit'
             className='form-button'
+            
           >
             Send Registration
           </Button>

@@ -10,8 +10,8 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { userPostUpdated } from '../../../../app/user'
 import Carousel from 'react-elastic-carousel'
 import 'styled-components'
-
-
+import EditIcon from '@material-ui/icons/Edit';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 function UserPostDetails(props) {
   const post = props.post
@@ -102,8 +102,10 @@ function UserPostDetails(props) {
           <Alert onClose={handleCloseAlert} severity="success">Successfully Saved</Alert>
         </Snackbar>
       </div>
-      <Button onClick={() => props.history.push(`/user/update-details/${props.match.params.id}`)} style={{ margin: '12px' }} variant="outlined" color="default">Updates</Button>
-      <Button onClick={handleClickOpen} style={{ margin: '12px' }} variant="outlined" color="primary">Edit Post</Button>
+      <Button onClick={() => props.history.push(`/user/update-details/${props.match.params.id}`)} style={{ margin: '12px' }} variant="outlined" color="default"endIcon={<ExitToAppIcon size="smaill"></ExitToAppIcon>} >Updates</Button>
+      <Button onClick={handleClickOpen} style={{ margin: '12px' }} variant="outlined" color="primary" endIcon={<EditIcon size="smaill"></EditIcon>}>Edit Post</Button>
+    
+    
       <Dialog open={openModal} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='sm' fullWidth={true}>
         <DialogTitle id="form-dialog-title" style={{ alignSelf: 'center', fontSize: '50px' }}>Edit Post</DialogTitle>
         <DialogContent>
