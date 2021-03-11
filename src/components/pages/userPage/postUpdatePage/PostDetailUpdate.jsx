@@ -49,6 +49,9 @@ function PostDetailUpdate(props) {
     await axios.post(`http://localhost:5000/updates/${props.match.params.id}`, formdata)
     handleClose()
     handleClickAlert()
+    document.location.reload();
+
+
   }
 
   const handleImage = async (e) => {

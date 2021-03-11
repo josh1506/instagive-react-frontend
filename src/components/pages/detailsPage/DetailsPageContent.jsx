@@ -16,10 +16,19 @@ function DetailsPageContent(props) {
 
       <div className='details-post-container'>
         {props.children}
+        <div style={{display: 'flex' , flexDirection: 'column', alignItems: 'center'}} className="shadow-container">
+          <h1>Description</h1>
         <p className='donation-content'>
           {props.post ? props.post.description : ''}
         </p>
+        </div>
+       
+       
+       
+       
         <div>
+      
+       
           <Carousel itemsToShow={1} >
             {props.post.imageList.map(imageName =>
               <img src={`/docs/${imageName}`} key={imageName} alt="Photo" style={{ height: '40vh', width: '100%' }} className='detailsPageImage' />

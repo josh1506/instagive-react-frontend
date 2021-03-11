@@ -40,7 +40,6 @@ function Register(props) {
   console.log(terms);
 
   const [files, setFiles] = useState({
-    orgPhoto: '',
     orgDocuments: '',
     repId: '',
   });
@@ -58,10 +57,7 @@ function Register(props) {
     setFiles({ ...files, repId: file });
   };
 
-  const handleorgPhoto = (file) => {
-    setFiles({ ...files, orgPhoto: file });
-  };
-
+ 
   const handleorgDocuments = (multifiles) => {
     setFiles({ ...files, orgDocuments: multifiles });
   };
@@ -79,7 +75,6 @@ function Register(props) {
     const formdata = new FormData();
 
     formdata.append('repId', files.repId);
-    formdata.append('orgPhoto', files.orgPhoto);
 
     for (const key in files.orgDocuments) {
       formdata.append('orgDocuments', files.orgDocuments[key]);
@@ -108,7 +103,6 @@ function Register(props) {
       city: '',
       orgName: '',
       orgAddress: '',
-      orgPhoto: '',
       orgNumber: '',
       repName: '',
       repId: '',
@@ -121,16 +115,18 @@ function Register(props) {
     });
 
     setFiles({
-      orgPhoto: '',
+    
       orgDocuments: '',
       repId: '',
     });
 
     setTerms(false);
 
+    setListOrgDocuments(0)
+    setlistRepId(0)
+
     document.getElementById('contained-repID').value = null;
     document.getElementById('contained-button-orgDocuments').value = null;
-    document.getElementById('contained-button-orgPhoto').value = null;
   };
 
   const [snacker, setSnacker] = useState(false);
@@ -153,7 +149,6 @@ function Register(props) {
 
   const [listOrgDocuments, setListOrgDocuments] = useState('');
   const [listRepId, setlistRepId] = useState('');
-  const [listOrgPhoto, setlistOrgPhoto] = useState('');
 
   const [openModal, setModal] = useState(false);
 
@@ -433,7 +428,7 @@ function Register(props) {
             </label>
           </div>
 
-          <div>
+          <div style={{marginBottom: '12px'}}>
             <input
               id='contained-button-orgDocuments'
               multiple
@@ -458,24 +453,8 @@ function Register(props) {
             style={{ marginBottom: '12px' }}
             className='register-input-container2'
           >
-            <input
-              id='contained-button-orgPhoto'
-              type='file'
-              required
-              name='orgPhoto'
-              style={{ display: 'none' }}
-              onChange={(e) => {
-                const file = e.target.files[0];
-                handleorgPhoto(file);
-                setlistOrgPhoto(e.target.files.length);
-              }}
-            />
-
-            <label htmlFor='contained-button-orgPhoto'>
-              <Button variant='outlined' color='primary' component='span'>
-                {`Upload Org Photo Reference: ${listOrgPhoto}`}
-              </Button>
-            </label>
+        
+         
           </div>
         </div>
 

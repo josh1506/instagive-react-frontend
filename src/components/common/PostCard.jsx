@@ -57,7 +57,7 @@ function PostCard(props) {
                                 {post.location} | {post.donationType === 'both' ? 'Cash, In-kind' :
                                     post.donationType === 'cash' ? "Cash" : "In-kind"}
                             </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p">
+                            <Typography style={{height: '110px'}} variant="body2" color="textSecondary" component="p">
                                 {post.description.substring(0, 255)}
                                 {post.description.length > 250 ? '...' : ''}
                             </Typography>

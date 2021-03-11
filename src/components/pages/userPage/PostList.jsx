@@ -77,7 +77,7 @@ onClick={() => props.history.push('/user/post-create')}
                     ? 'Cash'
                     : 'In-kind'}
                 </Typography>
-                <Typography variant='body2' color='textSecondary' component='p'>
+                <Typography style={{height: '110px'}} variant='body2' color='textSecondary' component='p'>
                   {post.description.substring(0, 255)}
                   {post.description.length > 250 ? '...' : ''}
                 </Typography>

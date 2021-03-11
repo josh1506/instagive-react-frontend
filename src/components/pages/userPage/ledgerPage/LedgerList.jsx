@@ -357,7 +357,7 @@ function LedgerList(props) {
 
 
 
-          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} required={true} label="Enter Donor Name (Can be Anonymous)" type="text" name="donorName" id="donorName"
+          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} label="Enter Donor Name (Optional)" type="text" name="donorName" id="donorName"
             value={ledgerForm.donorName}
             onChange={e => {setLedgerForm({ ...ledgerForm, donorName: e.target.value });}}
           />
@@ -366,14 +366,14 @@ function LedgerList(props) {
 
           <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} label="Enter Email (Optional)" type="text" name="" id="" onChange={e => setLedgerForm({ ...ledgerForm, email: e.target.value })} />
 
+             {ledgerForm.donationType === 'Cash' ? 
 
-          <TextField style={{ marginBottom: '12px' }} variant="outlined" fullWidth={true} label="Enter Payment Method (etc, Gcash, Bank Account) |" type="text" name="paymentAddress" id="paymentAddress"
+          <TextField style={{ marginBottom: '12px' }} required={true} variant="outlined" fullWidth={true} label="Enter Payment Method (FOR-CASH) " type="text" name="paymentAddress" id="paymentAddress"
             value={ledgerForm.paymentAddress}
             onChange={e => setLedgerForm({ ...ledgerForm, paymentAddress: e.target.value })}
-
-
-
           />
+              : ''}
+
 
           <TextField style={{ marginBottom: '12px' }}  pattern="[0-9]+" required={true} variant="outlined" fullWidth={true} label="Enter Amount(Cash) / Item Quantity(In-Kind)" type="number" name="amount" id="amount"
             value={ledgerForm.amount}

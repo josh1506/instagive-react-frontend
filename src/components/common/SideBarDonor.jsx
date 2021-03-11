@@ -91,8 +91,11 @@ function SideBarDonor(props) {
   const handleSubmit = async () => {
 
     if (donateForm.amount === 0) return handleClose()
-    else await axios.post(`http://localhost:5000/donate/${_id}`, donateForm)
-      .catch(err => console.log('Error: ', err))
+    else { await axios.post(`http://localhost:5000/donate/${_id}`, donateForm)
+      .catch(err => console.log('Error: ', err)) 
+    
+        document.location.reload();
+    }
     handleClose()
     handleClickAlert()
 
