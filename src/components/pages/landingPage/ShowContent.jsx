@@ -24,6 +24,7 @@ function ShowContent(props) {
         <h1>Welcome to InstaGive</h1>
         <p>
           Online donation platform for the residence of Pampanga
+        
         </p>
         <Button
         classes
@@ -34,7 +35,15 @@ function ShowContent(props) {
           onClick={() => props.history.push('/post-list')}>
           Browse Donations
         </Button>
+        
       </div>
+
+
+
+
+
+
+
     </div>
   );
 }

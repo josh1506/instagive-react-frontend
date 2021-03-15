@@ -162,35 +162,23 @@ function UserPostDetails(props) {
           </Button>
         </DialogActions>
       </Dialog>
-      <h1>Post Details</h1>
+    
       <div className='post-container'>
         <div className="post-create-container">
 
-          <div className="post-detail-text-container">
-            <label className='form-label' htmlFor='post-profile-pic'>Cover Photo</label>
+          <div className="post-detail-text-container" style={{display: 'flex', justifyContent: 'center'}}>
+            <label className='form-label' htmlFor='post-profile-pic'>{post.Title}</label>
           </div>
           <img src={`/docs/${post.profilePic}`} alt="Profile Photo Here" />
 
-          <div className="post-detail-text-container">
-            <label htmlFor="title">Title:</label>
-            <p>{post.Title}</p>
-          </div>
-
-          <div>
-            <div className="post-detail-text-container">
-              <label htmlFor="title">Location:</label>
-              <p>{post.location}</p>
-            </div>
-
-            <div className="post-detail-text-container">
-              <label htmlFor="">Donation Type:</label>
-              <p>{post.donationType}</p>
-            </div>
-          </div>
+         
 
           <div className="post-detail-text-container">
+          
+          <div style={{display: 'flex' , flexDirection: 'column', alignItems: 'center'}} className="shadow-container">
             <label htmlFor="details">Details:</label>
             <p>{post.description}</p>
+            </div>
           </div>
 
           <div className="post-detail-text-container">
@@ -256,12 +244,7 @@ function UserPostDetails(props) {
               <p className='user-sidebar-donor-text'>&nbsp;&nbsp;Donors</p>
             </div>
 
-            {props.post.donationType !== 'In-Kind' ?
-
-              <Button variant="contained" color="primary" style={{ margin: '20px 0 0 5px' }} onClick={handleClickOpen}>Donate Now</Button>
-              : ''}
-
-
+      
 
           </div>
         </aside>
