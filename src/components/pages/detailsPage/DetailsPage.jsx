@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import DetailsPageContent from './DetailsPageContent';
 import DetailsUpdatePage from './DetailsUpdatePage';
 import '../../../style/detailsPage/detailsPage.css'
-import SideBarDonor from '../../common/SideBarDonor';
 
 
 function DetailsPage(props) {
@@ -31,13 +30,12 @@ function DetailsPage(props) {
             <div className="details-header-container">
                 <h1 className='details-title'>{selectedPost ? selectedPost.Title : ''}</h1>
             </div>
-            <div className='post-details-container'>
+            <div>
                 <Switch>
                     <Route path={'/details/:id/updates'} render={props => <DetailsUpdatePage {...props}>{renderContent}</DetailsUpdatePage>} />
-                    <Route path={'/details/:id'} render={props => <DetailsPageContent {...props}>{renderContent}</DetailsPageContent>} />
+                    <Route path={'/details/:id'} render={props => <DetailsPageContent {...props} selectedPost={selectedPost}>{renderContent}</DetailsPageContent>} />
                     <Redirect to='/not-found' />
                 </Switch>
-                <SideBarDonor {...props} selectedPost={selectedPost} />
             </div>
         </div>
     );
