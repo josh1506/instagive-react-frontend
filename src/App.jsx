@@ -15,6 +15,7 @@ import AdminPage from './components/pages/adminPage/AdminPage';
 import NotFound from './components/common/NotFound';
 import './App.css';
 import AllPostList from './components/pages/landingPage/AllPostList';
+import EmailLoginPage from './components/pages/EmailLoginPage';
 
 
 function App(props) {
@@ -45,6 +46,7 @@ function App(props) {
     <div className='App'>
       <Nav />
       <Switch>
+        <Route path='/login/email/:token' component={EmailLoginPage} />
         <Route path='/post-list' component={AllPostList} />
         <Route path='/details/:id' component={DetailsPage} />
         <Route path='/auth' component={AuthPage} />
