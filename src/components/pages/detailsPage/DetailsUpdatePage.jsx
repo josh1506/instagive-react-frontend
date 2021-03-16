@@ -32,8 +32,8 @@ function DetailsUpdatePage(props) {
 
     return (
         <div className='landing-post-update-container'>
+            <div>
             {props.children}
-            <div className=''>
                 {updateList.map(update =>
                     <div key={update._id} className='landing-post-update-faded'>
                         <div>
