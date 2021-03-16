@@ -13,8 +13,11 @@
 
 
 .landing-post-update-container {
-    width: 90%;
-    margin: 0% 0% 0% 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 0% 0% 0% 10%;
 }
 
 
