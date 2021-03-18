@@ -32,13 +32,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import MuiAlert from '@material-ui/lab/Alert';
-import { userLedgerAdded } from '../../../../app/user';
+import { userLedgerAdded, userLedgerAccepted, userLedgerRejected } from '../../../../app/user';
 import { CodeOutlined, LaptopWindows } from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import route from '../../../../route/instagive'
 
 function LedgerList(props) {
+  console.log('ledger here', props.ledger)
   const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: theme.palette.common.black,
@@ -170,11 +172,16 @@ function LedgerList(props) {
 
 
 
+  const handleApproveLedger = async (ledgerID) => {
+    const data = await route.post(`/ledger/${ledgerID}/Approved`, {token: props.userToken})
+    document.location.reload();
+  }
 
 
-
-
-
+  const handleRejectLedger = async (ledgerID) => {
+    const data = await route.post(`/ledger/${ledgerID}/Rejected`, {token: props.userToken})
+    document.location.reload();
+  }
 
 
 
@@ -266,8 +273,8 @@ function LedgerList(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {props.ledger &&
-                  props.ledger.map((data) => (
+                {props.ledger.ledgerAccepted &&
+                  props.ledger.ledgerAccepted.map((data) => (
                     <StyledTableRow key={data._id}>
                       <StyledTableCell align='center'>
                         {
@@ -550,8 +557,8 @@ function LedgerList(props) {
               <TableBody>
               
               {/* Loop ALl Pending */}
-                {props.ledger &&
-                  props.ledger.map((data) => (
+                {props.ledger.ledgerList &&
+                  props.ledger.ledgerList.map((data) => (
                     <StyledTableRow key={data._id}>
                       <StyledTableCell align='center'>
                         {
@@ -585,8 +592,18 @@ function LedgerList(props) {
                         {data.date}
                       </StyledTableCell>
                       <StyledTableCell align='center'>
-                      <Button variant="contained" endIcon={<CheckIcon></CheckIcon>} fullWidth={true} color="primary"></Button>
-                      <Button variant="contained" endIcon={<ClearIcon></ClearIcon>} fullWidth={true} color="secondary"></Button>
+                      <Button variant="contained"
+                       endIcon={<CheckIcon></CheckIcon>} 
+                       fullWidth={true} 
+                       color="primary"
+                       onClick={() => handleApproveLedger(data._id)}
+                       ></Button>
+                      <Button variant="contained"
+                       endIcon={<ClearIcon></ClearIcon>} 
+                       fullWidth={true} 
+                       color="secondary"
+                       onClick={() => handleRejectLedger(data._id)}
+                       ></Button>
 
                       
                       </StyledTableCell>
@@ -678,8 +695,8 @@ function LedgerList(props) {
               <TableBody>
               
               {/* Loop ALl Pending */}
-                {props.ledger &&
-                  props.ledger.map((data) => (
+                {props.ledger.ledgerRejected &&
+                  props.ledger.ledgerRejected.map((data) => (
                     <StyledTableRow key={data._id}>
                       <StyledTableCell align='center'>
                         {
@@ -751,11 +768,14 @@ function LedgerList(props) {
 }
 
 const mapStateToProps = (state) => {
+  const ledgerList = state.user.ledger.filter(donate => donate.status !== 'Approved' && donate.status !== 'Rejected')
+  const ledgerAccepted = state.user.ledger.filter(donate => donate.status === 'Approved')
+  const ledgerRejected = state.user.ledger.filter(donate => donate.status === 'Rejected')
   return {
-    ledger: state.user.ledger,
+    ledger: {ledgerList, ledgerAccepted, ledgerRejected},
     post: state.user.post,
     userToken: state.auth.token,
   };
 };
 
-export default connect(mapStateToProps, { userLedgerAdded })(LedgerList);
+export default connect(mapStateToProps, { userLedgerAdded, userLedgerAccepted, userLedgerRejected })(LedgerList);
