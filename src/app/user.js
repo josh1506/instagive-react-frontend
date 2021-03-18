@@ -7,6 +7,9 @@ const USER_LEDGER_ADDED = 'userLedgerAdded'
 const USER_LEDGER_REMOVED = 'userLedgerRemoved'
 const USER_LEDGER_UPDATED = 'userLedgerUpdated'
 
+const USER_LEDGER_ACCEPTED = 'userLedgerAccepted'
+const USER_LEDGER_REJECTED = 'userLedgerRejected'
+
 const USER_POST_ADDED = 'userPostAdded'
 const USER_POST_REMOVED = 'userPostRemoved'
 const USER_POST_UPDATED = 'userPostUpdated'
@@ -24,6 +27,21 @@ const userDataFetch = (token) => async dispatch => {
     })
 }
 
+
+const userLedgerAccepted = (postID) => async dispatch => {
+    console.log(postID)
+    dispatch({
+        type: USER_LEDGER_ACCEPTED,
+        payload: {_id: postID}
+    })
+}
+const userLedgerRejected = (postID) => async dispatch => {
+    console.log(postID)
+    dispatch({
+        type: USER_LEDGER_REJECTED,
+        payload: {_id: postID}
+    })
+}
 
 const userLedgerAdded = (ledgerForm, token) => async dispatch => {
     await axios.post(`http://localhost:5000/ledger/${ledgerForm.postId}`, { ...ledgerForm, token })
@@ -90,6 +108,19 @@ export default (state=userData, action) => {
                 ...state,
                 ledger: state.ledger.filter(ledger => ledger._id !== action.payload._id)
             }
+    
+        case USER_LEDGER_ACCEPTED:
+            return {
+                ...state,
+                ledger: state.ledger.map(ledger => ledger._id === action.payload._id ? {...ledger, status: 'Approved'} : ledger)
+            }
+    
+        case USER_LEDGER_REJECTED:
+            return {
+                ...state,
+                ledger: state.ledger.map(ledger => ledger._id === action.payload._id ? {...ledger, status: 'Rejected'} : ledger)
+            }
+    
     
         case USER_LEDGER_UPDATED:
             return state
