@@ -32,7 +32,7 @@ function DetailsPageContent(props) {
       
             <Carousel itemsToShow={1} >
               {props.post.imageList.map(imageName =>
-                <img src={`/docs/`} key={imageName} alt="Photo" style={{ height: '40vh', width: '100%' }} className='detailsPageImage' />
+                <img src={`/docs/${imageName}`} key={imageName} alt="Photo" style={{ height: '40vh', width: '100%' }} className='detailsPageImage' />
               )}
             </Carousel>
           </div>

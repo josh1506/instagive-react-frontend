@@ -48,8 +48,8 @@ onClick={() => props.history.push('/user/post-create')}
       >Create Post</Button>
 
       <div className='postCardContainer shadow-container'>
-
-        {props.post.map((post) => (
+        
+         {props.post.length === 0 ? <h2>You have no post</h2> : props.post.map((post) => (
 
 
           <div className="hover-container">

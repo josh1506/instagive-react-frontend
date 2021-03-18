@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 
-import { Snackbar, Chip } from '@material-ui/core'
+import { Snackbar, Chip, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core'
 
 import axios from 'axios'
 import MuiAlert from '@material-ui/lab/Alert';
@@ -69,10 +69,10 @@ function SideBarDonor(props) {
 
     name: '',
     amount: 0,
-    message: '',
+    remarks: '',
     email: '',
-
-
+    donationType: 'Cash',
+    paymentAddress : ''
 
   })
 
@@ -88,16 +88,18 @@ function SideBarDonor(props) {
   };
 
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+
+  e.preventDefault()    
 
     if (donateForm.amount === 0) return handleClose()
-    else { await axios.post(`http://localhost:5000/donate/${_id}`, donateForm)
+    else { await axios.post(`http://localhost:5000/ledger/pending/${_id}`, {...donateForm, token: localStorage.getItem('user')})
       .catch(err => console.log('Error: ', err)) 
     
-        document.location.reload();
+  
+  
     }
-    handleClose()
-    handleClickAlert()
+    
 
   }
 
@@ -204,10 +206,10 @@ function SideBarDonor(props) {
 
 
 
-        {donationType !== 'In-Kind' ?
+       
 
           <Button variant="contained" color="primary" style={{ margin: '20px 0 0 5px' }} onClick={handleClickOpen}>Donate Now</Button>
-          : ''}
+       
 
 
 
@@ -221,7 +223,7 @@ function SideBarDonor(props) {
           {donorList.map(donor =>
             <div className='sidebar-donor-content'>
               <div className='sidebar-donor-name'>{donor.name}</div>
-              <div className='sidebar-donor-message'>{donor.message !== 'No Message' ? donor.message : ''}</div>
+              <div className='sidebar-donor-message'>{donor.remarks !== 'No Message' ? donor.remarks : ''}</div>
               <div className='sidebar-donor-amount'>Donated ₱{donor.amount}</div>
             </div>
           )}
@@ -253,13 +255,69 @@ function SideBarDonor(props) {
             />
 
 
+{donationType === 'Both' &&
+<FormControl
+              style={{ marginBottom: '12px' }}
+              fullWidth={true}
+              component='fieldset'
+            >
+              <FormLabel component='legend'>Select Donation Type</FormLabel>
+
+              <RadioGroup
+                aria-label='gender'
+                name='gender1'
+                value={donateForm.donationType}
+                onChange={(e) =>
+                  setDonateForm({ ...donateForm, donationType: e.target.value })
+                }
+              >
+                <FormControlLabel
+                  value='Cash'
+                  control={<Radio />}
+                  label='Cash'
+                />
+
+                <FormControlLabel
+                  value='In-Kind'
+                  control={<Radio />}
+                  label='In-Kind'
+                />
+              </RadioGroup>
+            </FormControl>
+
+              }
+
+
+
+<TextField
+              autoFocus
+              variant="outlined"
+              margin="dense"
+              id="paymentAddress"
+              // inputProps={{ pattern: '[0-9]' }}
+              label={donationType === 'Both' ? donateForm.donationType === 'Cash' ? "Enter type of Payment etc. Gcash, Paymaya, BPI (Required)" : 'Where did you donate the item? (Required)' : donationType === 'Cash' ? "Enter type of Payment etc. Gcash, Paymaya, BPI (Required)" : 'Where did you donate the item? (Required)'}
+              required={true}
+              type="text"
+              inputProps={{ min: 0 }}
+              fullWidth={true}
+              onChange={(e) =>
+                setDonateForm({ ...donateForm, paymentAddress: e.target.value })
+              }
+            />
+
+
+
+
+
+
+
             <TextField
               autoFocus
               variant="outlined"
               margin="dense"
               id="amount"
               // inputProps={{ pattern: '[0-9]' }}
-              label="Enter Amount: (Required)"
+              label={donationType === 'Both' ? donateForm.donationType === 'Cash' ? "Enter Cash Amount (Required)" : 'Enter Item Quantity (Required)' : donationType === 'Cash' ? "Enter Cash Amount (Required)" : 'Enter Item Quantity (Required)'}
               required={true}
               type="number"
               inputProps={{ min: 0 }}
@@ -268,6 +326,7 @@ function SideBarDonor(props) {
                 setDonateForm({ ...donateForm, amount: e.target.value })
               }
             />
+
 
 
 
@@ -296,7 +355,7 @@ function SideBarDonor(props) {
               fullWidth={true}
               inputProps={{ maxLength: 100 }}
               onChange={(e) =>
-                setDonateForm({ ...donateForm, message: e.target.value })
+                setDonateForm({ ...donateForm, remarks: e.target.value })
               }
             />
 
@@ -312,7 +371,7 @@ function SideBarDonor(props) {
             <Button onClick={handleClose} color="primary">
               Cancel
           </Button>
-            <Button onClick={handleSubmit} disabled={donateForm.amount === 0} color="primary">
+            <Button type="submit" disabled={donateForm.amount === 0}  color="primary">
               Donate
           </Button>
 

@@ -9,7 +9,7 @@ function Posts(props) {
     const postList = props.post
     return (
         <div className='postContainer'>
-            <h2 className='postTitle'>Look who's needy</h2>
+            <h2 className='postTitle'>{props.post.length === 0 ? 'There are no post' : "Look who's needy"}</h2>
             <div>
                 <PostCard {...props} postList={postList} />
                 <div className='postFilterContainer'>
