@@ -58,8 +58,12 @@ function SideBarDonor(props) {
     const postId = _id
 
     const getDonors = async () => {
-      const { data } = await axios.post(`http://localhost:5000/donate/getdonate/${postId}`)
-      setDonorList(data)
+     
+      const { data } = await axios.post(`http://localhost:5000/ledger/getall`, {token: localStorage.getItem('user')})
+     
+      setDonorList(data.filter(data => data.status === 'Approved'))
+
+      
     }
     getDonors()
   }, [])
@@ -67,7 +71,7 @@ function SideBarDonor(props) {
 
   const [donateForm, setDonateForm] = useState({
 
-    name: '',
+    donorName: '',
     amount: 0,
     remarks: '',
     email: '',
@@ -222,7 +226,7 @@ function SideBarDonor(props) {
         <List className={classes.root} subheader={<li />}>
           {donorList.map(donor =>
             <div className='sidebar-donor-content'>
-              <div className='sidebar-donor-name'>{donor.name}</div>
+              <div className='sidebar-donor-name'>{donor.donorName}</div>
               <div className='sidebar-donor-message'>{donor.remarks !== 'No Message' ? donor.remarks : ''}</div>
               <div className='sidebar-donor-amount'>Donated ₱{donor.amount}</div>
             </div>
@@ -250,7 +254,7 @@ function SideBarDonor(props) {
               type="text"
               fullWidth={true}
               onChange={(e) =>
-                setDonateForm({ ...donateForm, name: e.target.value })
+                setDonateForm({ ...donateForm, donorName: e.target.value })
               }
             />
 
