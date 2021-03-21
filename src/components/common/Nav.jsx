@@ -39,7 +39,7 @@ function Nav(props) {
             <span className='navLogin'>
                 {props.auth.token ?
                     <span>
-                        {props.auth.type === 'user' ?
+                        {props.auth.type === 'user' || localStorage.getItem('user') ?
                             <span>
                                 <div>
                                     <IconButton
@@ -105,7 +105,6 @@ function Nav(props) {
 
 
 const mapStateToProps = state => {
-    console.log(state);
     return { auth: state.auth }
 }
 
