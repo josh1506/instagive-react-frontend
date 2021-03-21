@@ -7,6 +7,7 @@ import AdminRejected from './AdminRejected';
 import AdminLogin from './AdminLogin';
 import '../../../style/adminPage/adminPage.css'
 import AdminLedgers from './AdminLedgers';
+import AdminPost from './AdminPost';
 
 function AdminPage(props) {
     const [adminAuthID, setAdminAuthID] = useState()
@@ -26,7 +27,14 @@ function AdminPage(props) {
         {
             label: 'Ledgers',
             path: '/admin/ledgers'
+        },
+        {
+            label: 'User Post',
+            path: '/admin/post'
         }
+
+
+
     ]
 
     useEffect(() => {
@@ -54,6 +62,7 @@ function AdminPage(props) {
                         <Route path='/admin/accepted' component={AdminAccepted} />
                         <Route path='/admin/rejected' component={AdminRejected} />
                         <Route path='/admin/ledgers' component={AdminLedgers} />
+                        <Route path='/admin/post' component={AdminPost} />
 
                         <Redirect from='/admin' to='/admin/pending' exact />
                         <Redirect to='/not-found' />
