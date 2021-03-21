@@ -1,71 +1,105 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { connect } from 'react-redux';
-import Icon from '@material-ui/core/Icon';
-import AddIcon from '@material-ui/icons/Add';
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from '@material-ui/core/';
+import React, { useState, Fragment, useEffect } from 'react';
+import route from '../../../route/instagive'
+
+import { Container, FormControl, InputLabel, Select, Button, ButtonGroup, MenuItem, Typography,CardActionArea, CardActions, CardContent,CardMedia, Card, DialogContent, DialogContentText, DialogActions, Dialog } from '@material-ui/core';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
-function PostList(props) {
-  const [openModal, setModal] = useState({ value: '', postId: '' });
-  const handleClickOpen = async (postId) => {
-    setModal({ value: true, postId });
-  };
+const AdminPost = (props) => {
 
-  const handleClose = () => {
-    setModal({ value: false, postId: '' });
-  };
 
-  const useStyles = makeStyles({
-    root: {
-      maxWidth: 345,
-    },
-    media: {
-      height: 140,
-    },
-    pos: {
-      marginBottom: 12,
-    },
-  });
-  const classes = useStyles();
+    const useStyles = makeStyles((theme) => ({
+        table: {
+          minWidth: 700,
+        },
+        paper: {
+          marginTop: theme.spacing(8),
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        },
+        avatar: {
+          margin: theme.spacing(1),
+          backgroundColor: theme.palette.secondary.main,
+        },
+        form: {
+          width: '100%',
+          marginTop: theme.spacing(1),
+        },
+        submit: {
+          margin: theme.spacing(3, 0, 2),
+        },
+        formControl: {
+          minWidth: 120,
+        },
+        root: {
+            maxWidth: 345,
+        },
+      }));
+      const classes = useStyles();
 
-  if (!props.post)
-    return (
-      <div className='postCardContainer'>
-        <CircularProgress color='inherit' />
-      </div>
-    );
 
-  const handleReject = async () => {
-    await axios.post(
-      `http://localhost:5000/post/poststatus/${openModal.postId}/Rejected`,
-      { token: localStorage.getItem('user') }
-    );
+      useEffect(() => {
+        const getData = async () => {
+          const { data } = await route.get('/admin/getusers')
+          setOrgList(data.approved)
 
-    handleClose();
+        const postlist = await route.get('/admin/allpost')
 
-    document.location.reload();
-  };
+            setPostList(postlist.data)
+        }
+    
+        getData()
+      }, [])
+      const [orgSelected, setOrgSelected] = useState('')
+      const [orgList, setOrgList] = useState([]);
+      const [postList, setPostList] = useState([])
+
+
+    const [table, setTable] = useState('Approved');
+
+
+
+    const handleGetUserPost = (orgID) => {
+        const getData = async () => {
+          const { data } = await route.post(`/admin/userledger/${orgID}`)
+          console.log(data)
+        }
+        console.log(orgID)
+        getData()
+      }
+    
+
+      const [openModal, setModal] = useState({ value: '', postId: '', msg: '' });
+      const handleClickOpen = async (postId, msg) => {
+        setModal({ value: true, postId, msg });
+      };
+    
+      const handleClose = () => {
+        setModal({ value: false, postId: '', msg: '' });
+      };
+    
+
+      const handleStatus = async () => {
+          console.log(openModal.postId)
+        await axios.get(
+          `http://localhost:5000/admin/changepoststatus/${openModal.postId}/${openModal.msg === 'Approve' ? 'Approved' : 'Rejected' }`);
+    
+        handleClose();
+    
+        document.location.reload();
+      };
+    
+
+
+
 
   return (
-    <div>
-      <Dialog
+    <Fragment>
+
+
+
+<Dialog
         open={openModal.value}
         onClose={handleClose}
         aria-labelledby='form-dialog-title'
@@ -74,7 +108,7 @@ function PostList(props) {
       >
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this post?
+            {`Are you sure you want to ${openModal.msg} this post?`}
           </DialogContentText>
         </DialogContent>
 
@@ -83,29 +117,149 @@ function PostList(props) {
             Close
           </Button>
 
-          <Button onClick={handleReject} color='secondary'>
-            Delete
+          <Button onClick={handleStatus} color='secondary'>
+            {openModal.msg}
           </Button>
         </DialogActions>
       </Dialog>
 
-      <Button
-        style={{ margin: '12px' }}
-        onClick={() => props.history.push('/user/post-create')}
-        variant='outlined'
-        color='primary'
-        endIcon={<AddIcon fontSize='small'></AddIcon>}
-      >
-        Create Post
-      </Button>
-      <h3 style={{ textAlign: 'center' }}>Approved Post</h3>
 
-      <div className='postCardContainer shadow-container'>
-        {props.post.filter((post) => post.status === 'Approved').length ===
+
+
+
+
+
+
+
+
+
+
+
+              <h1 className='admin-page-title'>Organization Post</h1>
+
+      <Container
+        style={{ display: 'flex', justifyContent: 'space-between' }}
+        component='main'
+        maxWidth='xl'
+      >
+
+
+
+
+        <Typography variant='h2'> {table}</Typography>
+
+        <ButtonGroup
+          variant='outlined'
+          aria-label='outlined secondary button group'
+        >
+          <Button color={table === 'Approved' ? 'secondary' : 'default'} onClick={() => setTable('Approved')}>
+            Approved
+          </Button>
+          <Button color={table === 'Pending' ? 'secondary' : 'default'} onClick={() => setTable('Pending')}>
+            Pending
+          </Button>
+          <Button color={table === 'Rejected' ? 'secondary' : 'default'} onClick={() => setTable('Rejected')}>
+            Rejected
+          </Button>
+        </ButtonGroup>
+      </Container>
+
+
+      <Container component='main' maxWidth='xl' className='shadow-container'>
+
+
+
+    
+
+       { table==='Pending' ?  postList.filter((post) => post.status === 'Pending').length ===
+        0 ? (
+          <h2>You have no Pending post</h2>
+        ) : (
+          postList.map((post) =>
+            post.status === 'Pending' ? (
+              <div className='hover-container'>
+                <Card
+                  key={post._id}
+                  className={classes.root}
+                  style={{ margin: '20px' }}
+                >
+                  <CardActionArea>
+                    <CardMedia
+                      component='img'
+                      alt={post.profilePic}
+                      height='140'
+                      image={`/docs/${post.profilePic}`}
+                      title={post.profilePic}
+                    />
+                    <CardContent>
+                      <Typography
+                        color='primary'
+                        gutterBottom
+                        variant='h5'
+                        component='h2'
+                      >
+                        {post.Title.substring(0, 20)}
+                        {post.Title.length > 20 ? '...' : ''}
+                      </Typography>
+                      <Typography className={classes.pos} color='textSecondary'>
+                        {post.location} |{' '}
+                        {post.donationType === 'both'
+                          ? 'Cash, In-kind'
+                          : post.donationType === 'cash'
+                          ? 'Cash'
+                          : 'In-kind'}
+                      </Typography>
+                      <Typography
+                        style={{ height: '110px' }}
+                        variant='body2'
+                        color='textSecondary'
+                        component='p'
+                      >
+                        {post.description.substring(0, 255)}
+                        {post.description.length > 250 ? '...' : ''}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button
+                      size='small'
+                      color='primary'
+                      onClick={() =>
+                        props.history.push(`/user/post-details/${post._id}`)
+                      }
+                    >
+                      View Post
+                    </Button>
+
+                    <Button
+                      size='small'
+                      color='secondary'
+                      onClick={() => handleClickOpen(post._id, 'Reject')}
+                    >
+                      Delete Post
+                    </Button>
+                    <Button
+                      size='small'
+                      color='primary'
+                      onClick={() => handleClickOpen(post._id, 'Approve')}
+                    >
+                      Approve Post
+                    </Button>
+                  </CardActions>
+                </Card>
+              </div>
+            ) : (
+              ''
+            )
+          )
+        ): ''}
+
+
+{ table==='Approved' ?  postList.filter((post) => post.status === 'Approved').length ===
         0 ? (
           <h2>You have no approved post</h2>
         ) : (
-          props.post.map((post) =>
+          postList.map((post) =>
             post.status === 'Approved' ? (
               <div className='hover-container'>
                 <Card
@@ -164,10 +318,11 @@ function PostList(props) {
                     <Button
                       size='small'
                       color='secondary'
-                      onClick={() => handleClickOpen(post._id)}
+                      onClick={() => handleClickOpen(post._id, 'Reject')}
                     >
                       Delete Post
                     </Button>
+                    
                   </CardActions>
                 </Card>
               </div>
@@ -175,98 +330,23 @@ function PostList(props) {
               ''
             )
           )
-        )}
-      </div>
+        ): ''}
 
 
 
-      
-      <h3 style={{ textAlign: 'center' }}>Pending Post</h3>
 
-      <div className='postCardContainer shadow-container'>
-        {props.post.filter((post) => post.status === 'Pending').length === 0 ? (
-          <h2>You have no pending post</h2>
-        ) : (
-          props.post.map((post) =>
-            post.status === 'Pending' ? (
-              <div className='hover-container'>
-                <Card className={classes.root} style={{ margin: '20px' }}>
-                  <CardActionArea>
-                    <CardMedia
-                      component='img'
-                      alt={post.profilePic}
-                      height='140'
-                      image={`/docs/${post.profilePic}`}
-                      title={post.profilePic}
-                    />
-                    <CardContent>
-                      <Typography
-                        color='primary'
-                        gutterBottom
-                        variant='h5'
-                        component='h2'
-                      >
-                        {post.Title.substring(0, 20)}
-                        {post.Title.length > 20 ? '...' : ''}
-                      </Typography>
-                      <Typography className={classes.pos} color='textSecondary'>
-                        {post.location} |{' '}
-                        {post.donationType === 'both'
-                          ? 'Cash, In-kind'
-                          : post.donationType === 'cash'
-                          ? 'Cash'
-                          : 'In-kind'}
-                      </Typography>
-                      <Typography
-                        style={{ height: '110px' }}
-                        variant='body2'
-                        color='textSecondary'
-                        component='p'
-                      >
-                        {post.description.substring(0, 255)}
-                        {post.description.length > 250 ? '...' : ''}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions>
-                    <Button
-                      size='small'
-                      color='primary'
-                      onClick={() =>
-                        props.history.push(`/user/post-details/${post._id}`)
-                      }
-                    >
-                      View Post
-                    </Button>
-
-                    <Button
-                      size='small'
-                      color='secondary'
-                      onClick={() => handleClickOpen(post._id)}
-                    >
-                      Delete Post
-                    </Button>
-                  </CardActions>
-                </Card>
-              </div>
-            ) : (
-              ''
-            )
-          )
-        )}
-      </div>
-
-      <h3 style={{ textAlign: 'center' }}>Deleted/Rejected Post</h3>
-
-      <div className='postCardContainer shadow-container'>
-        {props.post.filter((post) => post.status === 'Rejected').length ===
+{ table==='Rejected' ?  postList.filter((post) => post.status === 'Rejected').length ===
         0 ? (
-          <h2>You have no rejected/deleted post</h2>
+          <h2>You have no Rejected post</h2>
         ) : (
-          props.post.map((post) =>
+          postList.map((post) =>
             post.status === 'Rejected' ? (
               <div className='hover-container'>
-                <Card className={classes.root} style={{ margin: '20px' }}>
+                <Card
+                  key={post._id}
+                  className={classes.root}
+                  style={{ margin: '20px' }}
+                >
                   <CardActionArea>
                     <CardMedia
                       component='img'
@@ -314,6 +394,14 @@ function PostList(props) {
                     >
                       View Post
                     </Button>
+
+                    <Button
+                      size='small'
+                      color='primary'
+                      onClick={() => handleClickOpen(post._id, 'Approve')}
+                    >
+                      Approve Post
+                    </Button>
                   </CardActions>
                 </Card>
               </div>
@@ -321,14 +409,17 @@ function PostList(props) {
               ''
             )
           )
-        )}
-      </div>
-    </div>
-  );
-}
+        ): ''}
 
-const mapStateToProps = (state) => {
-  return { post: state.user.post };
+
+
+
+              </Container>
+
+
+
+    </Fragment>
+  );
 };
 
-export default connect(mapStateToProps)(PostList);
+export default AdminPost;
