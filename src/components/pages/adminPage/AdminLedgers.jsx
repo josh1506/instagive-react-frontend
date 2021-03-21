@@ -78,35 +78,39 @@ const AdminLedgers = () => {
   const [table, setTable] = useState('Pending');
   const [orgSelected, setOrgSelected] = useState('')
   const [orgList, setOrgList] = useState([]);
+  const [orgLedgerList, setOrgLedgerList] = useState([])
+  const [postList, setPostList] = useState([])
 
   const classes = useStyles();
-  const handleReject = () => {
-    // axios Rejected
+  const handleReject = async (orgID) => {
+    await route.post(`/admin/changeledgerstatus/${orgID}/Rejected`)
+    document.location.reload();
   };
 
-  const handleApprove = () => {
-    // axios Approved
+  const handleApprove = async (orgID) => {
+    await route.post(`/admin/changeledgerstatus/${orgID}/Approved`)
+    document.location.reload();
   };
 
   const handleGetUserLedger = (orgID) => {
     const getData = async () => {
       const { data } = await route.post(`/admin/userledger/${orgID}`)
-      console.log(data)
+      setOrgLedgerList(data)
     }
-    console.log(orgID)
     getData()
   }
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await route.get('/admin/getusers')
-      setOrgList(data.approved)
+      const { data: user } = await route.get('/admin/getusers')
+      const { data: post } = await route.get('/admin/allpost')
+      setOrgList(user.approved)
+      setPostList(post)
     }
 
     getData()
   }, [])
-
-  console.log(orgList)
+  console.log(orgLedgerList)
   return (
     <div>
       <h1 className='admin-page-title'>Ledgers</h1>
@@ -187,57 +191,59 @@ const AdminLedgers = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  <StyledTableRow>
-                    <StyledTableCell align='center'></StyledTableCell>
-                    <StyledTableCell align='center'></StyledTableCell>
-                    <StyledTableCell align='center'></StyledTableCell>
-                    <StyledTableCell align='center'></StyledTableCell>
-                    <StyledTableCell align='center'></StyledTableCell>
-                    <StyledTableCell align='center'></StyledTableCell>
-                    <StyledTableCell
-                      style={{ maxWidth: '20vw' }}
-                      align='center'
-                    ></StyledTableCell>
-                    <StyledTableCell align='center'></StyledTableCell>
-                    <StyledTableCell align='center'>
-                      {table === 'Approved' && (
-                        <Button
-                          variant='contained'
-                          color='secondary'
-                          onClick={handleReject}
-                        >
-                          <ClearIcon />
-                        </Button>
-                      )}
-                      {table === 'Pending' && (
-                        <ButtonGroup>
-                          <Button
-                            variant='contained'
-                            color='primary'
-                            onClick={handleApprove}
-                          >
-                            <CheckIcon />
-                          </Button>{' '}
+                  {orgLedgerList.filter(post => post.status === table).map(post =>
+                    <StyledTableRow key={post._id}>
+                      <StyledTableCell align='center'>{postList.find(postItem => postItem._id === post.postId).Title}</StyledTableCell>
+                      <StyledTableCell align='center'>{post.donorName}</StyledTableCell>
+                      <StyledTableCell align='center'>{post.email}</StyledTableCell>
+                      <StyledTableCell align='center'>{post.donationType}</StyledTableCell>
+                      <StyledTableCell align='center'>{post.paymentAddress}</StyledTableCell>
+                      <StyledTableCell align='center'>{post.amount}</StyledTableCell>
+                      <StyledTableCell
+                        style={{ maxWidth: '20vw' }}
+                        align='center'
+                      >{post.remarks}</StyledTableCell>
+                      <StyledTableCell align='center'>{post.date}</StyledTableCell>
+                      <StyledTableCell align='center'>
+                        {table === 'Approved' && (
                           <Button
                             variant='contained'
                             color='secondary'
-                            onClick={handleReject}
+                            onClick={() => handleReject(post._id)}
                           >
                             <ClearIcon />
-                          </Button>{' '}
-                        </ButtonGroup>
-                      )}
-                      {table === 'Rejected' && (
-                        <Button
-                          variant='contained'
-                          color='primary'
-                          onClick={handleApprove}
-                        >
-                          <CheckIcon />
-                        </Button>
-                      )}
-                    </StyledTableCell>
-                  </StyledTableRow>
+                          </Button>
+                        )}
+                        {table === 'Pending' && (
+                          <ButtonGroup>
+                            <Button
+                              variant='contained'
+                              color='primary'
+                              onClick={() => handleApprove(post._id)}
+                            >
+                              <CheckIcon />
+                            </Button>{' '}
+                            <Button
+                              variant='contained'
+                              color='secondary'
+                              onClick={() => handleReject(post._id)}
+                            >
+                              <ClearIcon />
+                            </Button>{' '}
+                          </ButtonGroup>
+                        )}
+                        {table === 'Rejected' && (
+                          <Button
+                            variant='contained'
+                            color='primary'
+                            onClick={() => handleApprove(post._id)}
+                          >
+                            <CheckIcon />
+                          </Button>
+                        )}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  )}
                 </TableBody>
               </Fragment>
             </Table>
