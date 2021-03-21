@@ -15,11 +15,12 @@ import {
   ButtonGroup,
   Typography,
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Fragment } from 'react';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
+import route from '../../../route/instagive'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -74,10 +75,11 @@ const AdminLedgers = () => {
     },
   }));
 
-  const [table, setTable] = useState('Approved');
+  const [table, setTable] = useState('Pending');
+  const [orgSelected, setOrgSelected] = useState('')
+  const [orgList, setOrgList] = useState([]);
 
   const classes = useStyles();
-
   const handleReject = () => {
     // axios Rejected
   };
@@ -86,6 +88,25 @@ const AdminLedgers = () => {
     // axios Approved
   };
 
+  const handleGetUserLedger = (orgID) => {
+    const getData = async () => {
+      const { data } = await route.post(`/admin/userledger/${orgID}`)
+      console.log(data)
+    }
+    console.log(orgID)
+    getData()
+  }
+
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await route.get('/admin/getusers')
+      setOrgList(data.approved)
+    }
+
+    getData()
+  }, [])
+
+  console.log(orgList)
   return (
     <div>
       <h1 className='admin-page-title'>Ledgers</h1>
@@ -100,21 +121,27 @@ const AdminLedgers = () => {
           className={classes.formControl}
         >
           <InputLabel style={{ marginLeft: '12px' }} id='post'>
-            Select Org
+            {orgSelected === '' ? 'Select Org' : orgSelected}
           </InputLabel>
 
-          <Select
-            required={true}
-            variant='outlined'
-            label='city'
-            name='city'
-            id='city'
-            //value={ledgerForm.postId}
-            onChange={(e) => setUserId()}
-          >
-            <MenuItem></MenuItem>
+          {orgList.map(org =>
+            <Select
+              key={org._id}
+              required={true}
+              variant='outlined'
+              label='city'
+              name='city'
+              id='city'
+              //value={ledgerForm.postId}
+              onClick={() => {
+                setOrgSelected(org.orgName)
+                handleGetUserLedger(org._id)
+              }}
+            >
+              <MenuItem>{org.orgName}</MenuItem>
             ))
           </Select>
+          )}
         </FormControl>
 
         <Typography variant='h2'> {table}</Typography>
@@ -123,13 +150,13 @@ const AdminLedgers = () => {
           variant='outlined'
           aria-label='outlined secondary button group'
         >
-          <Button color='secondary' onClick={() => setTable('Approved')}>
+          <Button color={table === 'Approved' ? 'secondary' : 'default'} onClick={() => setTable('Approved')}>
             Approved
           </Button>
-          <Button color='default' onClick={() => setTable('Pending')}>
+          <Button color={table === 'Pending' ? 'secondary' : 'default'} onClick={() => setTable('Pending')}>
             Pending
           </Button>
-          <Button color='default' onClick={() => setTable('Rejected')}>
+          <Button color={table === 'Rejected' ? 'secondary' : 'default'} onClick={() => setTable('Rejected')}>
             Rejected
           </Button>
         </ButtonGroup>

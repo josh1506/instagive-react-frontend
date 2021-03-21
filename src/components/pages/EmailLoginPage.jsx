@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import { authAdd } from '../../app/auth';
 
 function EmailLoginPage(props) {
-  // useEffect(() => {
-  //     localStorage.setItem('user', props.match.params.token)
-  // }, [])
+  useEffect(() => {
+    const token = props.match.params.token
+    props.authAdd(token, 'user')
+    localStorage.setItem('user', token)
+    props.history.push('/')
+  }, [])
 
   return (
     <div className='postCardContainer'>
-      <h1 style={{ color: 'red' }}>Hello World</h1>
     </div>
   );
 }
