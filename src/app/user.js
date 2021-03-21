@@ -29,14 +29,12 @@ const userDataFetch = (token) => async dispatch => {
 
 
 const userLedgerAccepted = (postID) => async dispatch => {
-    console.log(postID)
     dispatch({
         type: USER_LEDGER_ACCEPTED,
         payload: {_id: postID}
     })
 }
 const userLedgerRejected = (postID) => async dispatch => {
-    console.log(postID)
     dispatch({
         type: USER_LEDGER_REJECTED,
         payload: {_id: postID}
@@ -150,5 +148,8 @@ export {
     userLedgerAdded,
 
     userPostUpdated,
-    userPostAdded
+    userPostAdded,
+    
+    userLedgerAccepted,
+    userLedgerRejected
 }
