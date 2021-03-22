@@ -22,7 +22,7 @@ function Posts(props) {
 
 
 const mapStateToProps = state => {
-    return { post: state.postList }
+    return { post: state.postList.filter(post => post.status === 'Approved') }
 }
 
 export default connect(mapStateToProps)(Posts);

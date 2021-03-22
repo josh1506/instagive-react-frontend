@@ -33,15 +33,11 @@ function AllPostList(props) {
             </div>
         );
     return (
-
         <div className="shadow-container">
             <div className='postFilterContainer'>
-                <FontAwesomeIcon icon={faFilter} size="xs" />
-                <p className='postFilter'>Filter by:</p>
-                <select name="" id="" ></select>
             </div>
             <div className='postCardContainer'>
-               { props.post.length === 0 ? <h3>There are no post</h3> : props.post.map((post) => (
+                {props.post.length === 0 ? <h3>There are no post</h3> : props.post.map((post) => (
                     <Card className={classes.root} style={{ margin: '20px' }}>
                         <CardActionArea>
                             <CardMedia
@@ -90,7 +86,7 @@ function AllPostList(props) {
 
 
 const mapStateToProps = state => {
-    return { post: state.postList }
+    return { post: state.postList.filter(post => post.status === 'Approved') }
 }
 
 export default connect(mapStateToProps)(AllPostList);
