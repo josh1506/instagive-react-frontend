@@ -252,7 +252,6 @@ function UserPostDetails(props) {
 
       </div>
       <div>
-        <button onClick={() => props.history.push('/user')}>View Post List</button>
       </div>
     </div>
   );

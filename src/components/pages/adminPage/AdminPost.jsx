@@ -1,105 +1,198 @@
 import React, { useState, Fragment, useEffect } from 'react';
-import route from '../../../route/instagive'
+import route from '../../../route/instagive';
 
-import { Container, FormControl, InputLabel, Select, Button, ButtonGroup, MenuItem, Typography,CardActionArea, CardActions, CardContent,CardMedia, Card, DialogContent, DialogContentText, DialogActions, Dialog } from '@material-ui/core';
+import {
+  Container,
+  FormControl,
+  InputLabel,
+  Select,
+  Button,
+  ButtonGroup,
+  MenuItem,
+  Typography,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Card,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Dialog,
+} from '@material-ui/core';
+import Carousel from 'react-elastic-carousel';
+
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
 const AdminPost = (props) => {
+  const useStyles = makeStyles((theme) => ({
+    table: {
+      minWidth: 700,
+    },
+    paper: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+      width: '100%',
+      marginTop: theme.spacing(1),
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+    },
+    formControl: {
+      minWidth: 120,
+    },
+    root: {
+      maxWidth: 345,
+    },
+  }));
+  const classes = useStyles();
 
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await route.get('/admin/getusers');
+      setOrgList(data.approved);
 
-    const useStyles = makeStyles((theme) => ({
-        table: {
-          minWidth: 700,
-        },
-        paper: {
-          marginTop: theme.spacing(8),
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        },
-        avatar: {
-          margin: theme.spacing(1),
-          backgroundColor: theme.palette.secondary.main,
-        },
-        form: {
-          width: '100%',
-          marginTop: theme.spacing(1),
-        },
-        submit: {
-          margin: theme.spacing(3, 0, 2),
-        },
-        formControl: {
-          minWidth: 120,
-        },
-        root: {
-            maxWidth: 345,
-        },
-      }));
-      const classes = useStyles();
+      const postlist = await route.get('/admin/allpost');
 
+      setPostList(postlist.data);
+    };
 
-      useEffect(() => {
-        const getData = async () => {
-          const { data } = await route.get('/admin/getusers')
-          setOrgList(data.approved)
+    getData();
+  }, []);
+  const [orgList, setOrgList] = useState([]);
+  const [postList, setPostList] = useState([]);
 
-        const postlist = await route.get('/admin/allpost')
+  const [table, setTable] = useState('Approved');
 
-            setPostList(postlist.data)
-        }
-    
-        getData()
-      }, [])
-      const [orgSelected, setOrgSelected] = useState('')
-      const [orgList, setOrgList] = useState([]);
-      const [postList, setPostList] = useState([])
+  const handleGetUserPost = (orgID) => {
+    const getData = async () => {
+      const { data } = await route.post(`/admin/userledger/${orgID}`);
+      console.log(data);
+    };
+    console.log(orgID);
+    getData();
+  };
 
+  const [openModal, setModal] = useState({ value: '', postId: '', msg: '' });
+  const handleClickOpen = async (postId, msg) => {
+    setModal({ value: true, postId, msg });
+  };
 
-    const [table, setTable] = useState('Approved');
+  const handleClose = () => {
+    setModal({ value: false, postId: '', msg: '' });
+  };
 
+  const handleStatus = async () => {
+    console.log(openModal.postId);
+    await axios.get(
+      `http://localhost:5000/admin/changepoststatus/${openModal.postId}/${
+        openModal.msg === 'Approve' ? 'Approved' : 'Rejected'
+      }`
+    );
 
+    handleClose();
 
-    const handleGetUserPost = (orgID) => {
-        const getData = async () => {
-          const { data } = await route.post(`/admin/userledger/${orgID}`)
-          console.log(data)
-        }
-        console.log(orgID)
-        getData()
-      }
-    
+    document.location.reload();
+  };
 
-      const [openModal, setModal] = useState({ value: '', postId: '', msg: '' });
-      const handleClickOpen = async (postId, msg) => {
-        setModal({ value: true, postId, msg });
-      };
-    
-      const handleClose = () => {
-        setModal({ value: false, postId: '', msg: '' });
-      };
-    
+  // user post modal
 
-      const handleStatus = async () => {
-          console.log(openModal.postId)
-        await axios.get(
-          `http://localhost:5000/admin/changepoststatus/${openModal.postId}/${openModal.msg === 'Approve' ? 'Approved' : 'Rejected' }`);
-    
-        handleClose();
-    
-        document.location.reload();
-      };
-    
+  const [modalPost, setModalPost] = useState(false);
 
+  const handleClickOpenPost = async (post) => {
+    setPostData({ ...post });
 
+    setModalPost(true);
+  };
 
+  const handleClosePost = () => {
+    setModalPost(false);
+    setPostData({});
+  };
+
+  const [postData, setPostData] = useState({});
+
+  console.log(postData);
 
   return (
     <Fragment>
+      <Dialog
+        open={modalPost}
+        onClose={handleClosePost}
+        aria-labelledby='form-dialog-title'
+        maxWidth='xl'
+        fullWidth={true}
+      >
+        <DialogContent>
+          <DialogContentText>
+            <div className='post-container'>
+              <div className='post-create-container'>
+                <div
+                  className='post-detail-text-container'
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                >
+                  <label className='form-label' htmlFor='post-profile-pic'>
+                    {postData.Title}
+                  </label>
+                </div>
+                <img
+                  style={{ maxHeight: 700, maxWidth: '60vw' }}
+                  src={`/docs/${postData.profilePic}`}
+                  alt='Profile Photo Here'
+                />
 
+                <div className='post-detail-text-container'>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                    }}
+                    className='shadow-container'
+                  >
+                    <label htmlFor='details'>Details:</label>
+                    <p>{postData.description}</p>
+                  </div>
+                </div>
 
+                <div className='post-detail-text-container'>
+                  <label className='form-label' htmlFor='postImages'>
+                    Images:
+                  </label>
+                  <Carousel itemsToShow={1}>
+                    {postData.imageList &&
+                      postData.imageList.map((image) => (
+                        <img
+                          src={`/docs/${image}`}
+                          alt={image}
+                          key={image}
+                          style={{ height: '40vh', width: '100%' }}
+                        />
+                      ))}
+                  </Carousel>
+                </div>
+              </div>
+            </div>
+          </DialogContentText>
+        </DialogContent>
 
-<Dialog
+        <DialogActions>
+          <Button onClick={handleClosePost} color='primary'>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
         open={openModal.value}
         onClose={handleClose}
         aria-labelledby='form-dialog-title'
@@ -123,61 +216,47 @@ const AdminPost = (props) => {
         </DialogActions>
       </Dialog>
 
-
-
-
-
-
-
-
-
-
-
-
-
-              <h1 className='admin-page-title'>Organization Post</h1>
+      <h1 className='admin-page-title'>Organization Post</h1>
 
       <Container
         style={{ display: 'flex', justifyContent: 'space-between' }}
         component='main'
         maxWidth='xl'
       >
-
-
-
-
         <Typography variant='h2'> {table}</Typography>
 
         <ButtonGroup
           variant='outlined'
           aria-label='outlined secondary button group'
         >
-          <Button color={table === 'Approved' ? 'secondary' : 'default'} onClick={() => setTable('Approved')}>
+          <Button
+            color={table === 'Approved' ? 'secondary' : 'default'}
+            onClick={() => setTable('Approved')}
+          >
             Approved
           </Button>
-          <Button color={table === 'Pending' ? 'secondary' : 'default'} onClick={() => setTable('Pending')}>
+          <Button
+            color={table === 'Pending' ? 'secondary' : 'default'}
+            onClick={() => setTable('Pending')}
+          >
             Pending
           </Button>
-          <Button color={table === 'Rejected' ? 'secondary' : 'default'} onClick={() => setTable('Rejected')}>
+          <Button
+            color={table === 'Rejected' ? 'secondary' : 'default'}
+            onClick={() => setTable('Rejected')}
+          >
             Rejected
           </Button>
         </ButtonGroup>
       </Container>
 
-
       <Container component='main' maxWidth='xl' className='shadow-container'>
-
-
-
-    
-
-       { table==='Pending' ?  postList.filter((post) => post.status === 'Pending').length ===
-        0 ? (
-          <h2>You have no Pending post</h2>
-        ) : (
-          postList.map((post) =>
-            post.status === 'Pending' ? (
-              <div className='hover-container'>
+        {table === 'Pending' ? (
+          postList.filter((post) => post.status === 'Pending').length === 0 ? (
+            <h2>You have no Pending post</h2>
+          ) : (
+            postList.map((post) =>
+              post.status === 'Pending' ? (
                 <Card
                   key={post._id}
                   className={classes.root}
@@ -224,9 +303,7 @@ const AdminPost = (props) => {
                     <Button
                       size='small'
                       color='primary'
-                      onClick={() =>
-                        props.history.push(`/user/post-details/${post._id}`)
-                      }
+                      onClick={() => handleClickOpenPost(post)}
                     >
                       View Post
                     </Button>
@@ -247,21 +324,21 @@ const AdminPost = (props) => {
                     </Button>
                   </CardActions>
                 </Card>
-              </div>
-            ) : (
-              ''
+              ) : (
+                ''
+              )
             )
           )
-        ): ''}
-
-
-{ table==='Approved' ?  postList.filter((post) => post.status === 'Approved').length ===
-        0 ? (
-          <h2>You have no approved post</h2>
         ) : (
-          postList.map((post) =>
-            post.status === 'Approved' ? (
-              <div className='hover-container'>
+          ''
+        )}
+
+        {table === 'Approved' ? (
+          postList.filter((post) => post.status === 'Approved').length === 0 ? (
+            <h2>You have no approved post</h2>
+          ) : (
+            postList.map((post) =>
+              post.status === 'Approved' ? (
                 <Card
                   key={post._id}
                   className={classes.root}
@@ -308,9 +385,7 @@ const AdminPost = (props) => {
                     <Button
                       size='small'
                       color='primary'
-                      onClick={() =>
-                        props.history.push(`/user/post-details/${post._id}`)
-                      }
+                      onClick={() => handleClickOpenPost(post)}
                     >
                       View Post
                     </Button>
@@ -322,26 +397,23 @@ const AdminPost = (props) => {
                     >
                       Delete Post
                     </Button>
-                    
                   </CardActions>
                 </Card>
-              </div>
-            ) : (
-              ''
+              ) : (
+                ''
+              )
             )
           )
-        ): ''}
-
-
-
-
-{ table==='Rejected' ?  postList.filter((post) => post.status === 'Rejected').length ===
-        0 ? (
-          <h2>You have no Rejected post</h2>
         ) : (
-          postList.map((post) =>
-            post.status === 'Rejected' ? (
-              <div className='hover-container'>
+          ''
+        )}
+
+        {table === 'Rejected' ? (
+          postList.filter((post) => post.status === 'Rejected').length === 0 ? (
+            <h2>You have no Rejected post</h2>
+          ) : (
+            postList.map((post) =>
+              post.status === 'Rejected' ? (
                 <Card
                   key={post._id}
                   className={classes.root}
@@ -388,9 +460,7 @@ const AdminPost = (props) => {
                     <Button
                       size='small'
                       color='primary'
-                      onClick={() =>
-                        props.history.push(`/user/post-details/${post._id}`)
-                      }
+                      onClick={() => handleClickOpenPost(post)}
                     >
                       View Post
                     </Button>
@@ -404,20 +474,15 @@ const AdminPost = (props) => {
                     </Button>
                   </CardActions>
                 </Card>
-              </div>
-            ) : (
-              ''
+              ) : (
+                ''
+              )
             )
           )
-        ): ''}
-
-
-
-
-              </Container>
-
-
-
+        ) : (
+          ''
+        )}
+      </Container>
     </Fragment>
   );
 };
