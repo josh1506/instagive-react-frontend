@@ -38,7 +38,7 @@ function AllPostList(props) {
             </div>
             <div className='postCardContainer'>
                 {props.post.length === 0 ? <h3>There are no post</h3> : props.post.map((post) => (
-                    <Card className={classes.root} style={{ margin: '20px' }}>
+                    <Card className={`${classes.root} about-us-cards`} style={{ margin: '20px' }}>
                         <CardActionArea>
                             <CardMedia
                                 component='img'

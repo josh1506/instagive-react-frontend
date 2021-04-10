@@ -13,11 +13,11 @@ import '../../../style/detailsPage/detailsUpdatePage.css'
 
 function DetailsUpdatePage(props) {
     const [updateList, setUpdateList] = useState([])
-    console.log(props);
+    
 
     useEffect(() => {
         const getUpdateList = async () => {
-            const { data } = await axios.post(`http://localhost:5000/updates/getall/${props.match.params.id}`, { token: props.authToken })
+            const { data } = await axios.get(`http://localhost:5000/updates/getall/${props.match.params.id}`)
             setUpdateList(data)
         }
 
@@ -41,7 +41,7 @@ function DetailsUpdatePage(props) {
                                 {update.imageList.map(image => <img src={`/docs/${image}`} alt={image} key={image} style={{ height: '40vh', width: '100%' }} />)}
                             </Carousel>
                         </div>
-                        <div className=''>
+                        <div style={{textAlign: 'center'}} className=''>
                             {update.description}
                         </div>
                     </div>

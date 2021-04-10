@@ -21,10 +21,10 @@ function ShowContent(props) {
   return (
     <div id='showcase'>
       <div className='container showcase-container'>
-        <h1>Welcome to InstaGive</h1>
+        <div style={{position: 'relative', top: '230px', zIndex: '2'}}>
+        <h1 style={{color: 'white'}}>Welcome to InstaGive</h1>
         <p>
           Online donation platform for the residence of Pampanga
-        
         </p>
         <Button
         classes
@@ -35,6 +35,8 @@ function ShowContent(props) {
           onClick={() => props.history.push('/post-list')}>
           Browse Donations
         </Button>
+          </div>
+       
         
       </div>
 
