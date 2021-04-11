@@ -54,7 +54,7 @@ function PostList(props) {
 
   const handleReject = async () => {
     await axios.post(
-      `http://localhost:5000/post/poststatus/${openModal.postId}/Rejected`,
+      `https://instagive-backend.herokuapp.com/post/poststatus/${openModal.postId}/Rejected`,
       { token: localStorage.getItem('user') }
     );
 
@@ -102,7 +102,7 @@ function PostList(props) {
 
       <div className='postCardContainer shadow-container'>
         {props.post.filter((post) => post.status === 'Approved').length ===
-        0 ? (
+          0 ? (
           <h2>You have no approved post</h2>
         ) : (
           props.post.map((post) =>
@@ -136,8 +136,8 @@ function PostList(props) {
                         {post.donationType === 'both'
                           ? 'Cash, In-kind'
                           : post.donationType === 'cash'
-                          ? 'Cash'
-                          : 'In-kind'}
+                            ? 'Cash'
+                            : 'In-kind'}
                       </Typography>
                       <Typography
                         style={{ height: '110px' }}
@@ -180,7 +180,7 @@ function PostList(props) {
 
 
 
-      
+
       <h3 style={{ textAlign: 'center' }}>Pending Post</h3>
 
       <div className='postCardContainer shadow-container'>
@@ -214,8 +214,8 @@ function PostList(props) {
                         {post.donationType === 'both'
                           ? 'Cash, In-kind'
                           : post.donationType === 'cash'
-                          ? 'Cash'
-                          : 'In-kind'}
+                            ? 'Cash'
+                            : 'In-kind'}
                       </Typography>
                       <Typography
                         style={{ height: '110px' }}
@@ -260,7 +260,7 @@ function PostList(props) {
 
       <div className='postCardContainer shadow-container'>
         {props.post.filter((post) => post.status === 'Rejected').length ===
-        0 ? (
+          0 ? (
           <h2>You have no rejected/deleted post</h2>
         ) : (
           props.post.map((post) =>
@@ -290,8 +290,8 @@ function PostList(props) {
                         {post.donationType === 'both'
                           ? 'Cash, In-kind'
                           : post.donationType === 'cash'
-                          ? 'Cash'
-                          : 'In-kind'}
+                            ? 'Cash'
+                            : 'In-kind'}
                       </Typography>
                       <Typography
                         style={{ height: '110px' }}

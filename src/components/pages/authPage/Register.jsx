@@ -57,7 +57,7 @@ function Register(props) {
     setFiles({ ...files, repId: file });
   };
 
- 
+
   const handleorgDocuments = (multifiles) => {
     setFiles({ ...files, orgDocuments: multifiles });
   };
@@ -91,7 +91,7 @@ function Register(props) {
     formdata.append('orgDescriptions', userForm.orgDescriptions);
 
     const data = await axios.post(
-      'http://localhost:5000/user/register',
+      'https://instagive-backend.herokuapp.com/user/register',
       formdata
     );
     handleClickAlert();
@@ -115,7 +115,7 @@ function Register(props) {
     });
 
     setFiles({
-    
+
       orgDocuments: '',
       repId: '',
     });
@@ -249,9 +249,9 @@ function Register(props) {
           are due, Launchers have the responsibility to provide refunds to
           Givers at their own discretion. <b>The Company will NOT be held liable
           for refunds or lack thereof.</b>
-        <br/><br/>
-        <b>For other concerns or verifications, please contact us at </b><a href="mailto:instagive2021@gmail.com<">instagive2021@gmail.com</a>
-        
+          <br /><br />
+          <b>For other concerns or verifications, please contact us at </b><a href="mailto:instagive2021@gmail.com<">instagive2021@gmail.com</a>
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color='primary'>
@@ -306,20 +306,20 @@ function Register(props) {
               type='password'
               name='confirm-pass'
               className='register-form-input-text'
-              onChange={(e) => setCheckPassword({confirm_pass :e.target.value})}
+              onChange={(e) => setCheckPassword({ confirm_pass: e.target.value })}
             />
           </div>
         </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
+
+
+
+
         <div className='register-form2'>
           <div
             style={{ marginBottom: '12px' }}
@@ -428,7 +428,7 @@ function Register(props) {
             </label>
           </div>
 
-          <div style={{marginBottom: '12px'}}>
+          <div style={{ marginBottom: '12px' }}>
             <input
               id='contained-button-orgDocuments'
               multiple
@@ -453,8 +453,8 @@ function Register(props) {
             style={{ marginBottom: '12px' }}
             className='register-input-container2'
           >
-        
-         
+
+
           </div>
         </div>
 
@@ -505,7 +505,7 @@ function Register(props) {
             color='primary'
             type='submit'
             className='form-button'
-            
+
           >
             Send Registration
           </Button>

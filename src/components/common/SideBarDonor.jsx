@@ -58,12 +58,12 @@ function SideBarDonor(props) {
     const postId = _id
 
     const getDonors = async () => {
-     
-      const { data } = await axios.post(`http://localhost:5000/ledger/getall`, {token: localStorage.getItem('user')})
-     
+
+      const { data } = await axios.post(`https://instagive-backend.herokuapp.com/ledger/getall`, { token: localStorage.getItem('user') })
+
       setDonorList(data.filter(data => data.status === 'Approved'))
 
-      
+
     }
     getDonors()
   }, [])
@@ -76,7 +76,7 @@ function SideBarDonor(props) {
     remarks: '',
     email: '',
     donationType: 'Cash',
-    paymentAddress : ''
+    paymentAddress: ''
 
   })
 
@@ -94,16 +94,17 @@ function SideBarDonor(props) {
 
   const handleSubmit = async (e) => {
 
-  e.preventDefault()    
+    e.preventDefault()
 
     if (donateForm.amount === 0) return handleClose()
-    else { await axios.post(`http://localhost:5000/ledger/pending/${_id}`, {...donateForm, token: localStorage.getItem('user')})
-      .catch(err => console.log('Error: ', err)) 
-    
-  
-  
+    else {
+      await axios.post(`https://instagive-backend.herokuapp.com/ledger/pending/${_id}`, { ...donateForm, token: localStorage.getItem('user') })
+        .catch(err => console.log('Error: ', err))
+
+
+
     }
-    
+
 
   }
 
@@ -210,10 +211,10 @@ function SideBarDonor(props) {
 
 
 
-       
 
-          <Button variant="contained" color="primary" style={{ margin: '20px 0 0 5px' }} onClick={handleClickOpen}>Donate Now</Button>
-       
+
+        <Button variant="contained" color="primary" style={{ margin: '20px 0 0 5px' }} onClick={handleClickOpen}>Donate Now</Button>
+
 
 
 
@@ -259,41 +260,41 @@ function SideBarDonor(props) {
             />
 
 
-{donationType === 'Both' &&
-<FormControl
-              style={{ marginBottom: '12px' }}
-              fullWidth={true}
-              component='fieldset'
-            >
-              <FormLabel component='legend'>Select Donation Type</FormLabel>
-
-              <RadioGroup
-                aria-label='gender'
-                name='gender1'
-                value={donateForm.donationType}
-                onChange={(e) =>
-                  setDonateForm({ ...donateForm, donationType: e.target.value })
-                }
+            {donationType === 'Both' &&
+              <FormControl
+                style={{ marginBottom: '12px' }}
+                fullWidth={true}
+                component='fieldset'
               >
-                <FormControlLabel
-                  value='Cash'
-                  control={<Radio />}
-                  label='Cash'
-                />
+                <FormLabel component='legend'>Select Donation Type</FormLabel>
 
-                <FormControlLabel
-                  value='In-Kind'
-                  control={<Radio />}
-                  label='In-Kind'
-                />
-              </RadioGroup>
-            </FormControl>
+                <RadioGroup
+                  aria-label='gender'
+                  name='gender1'
+                  value={donateForm.donationType}
+                  onChange={(e) =>
+                    setDonateForm({ ...donateForm, donationType: e.target.value })
+                  }
+                >
+                  <FormControlLabel
+                    value='Cash'
+                    control={<Radio />}
+                    label='Cash'
+                  />
 
-              }
+                  <FormControlLabel
+                    value='In-Kind'
+                    control={<Radio />}
+                    label='In-Kind'
+                  />
+                </RadioGroup>
+              </FormControl>
+
+            }
 
 
 
-<TextField
+            <TextField
               autoFocus
               variant="outlined"
               margin="dense"
@@ -375,7 +376,7 @@ function SideBarDonor(props) {
             <Button onClick={handleClose} color="primary">
               Cancel
           </Button>
-            <Button type="submit" disabled={donateForm.amount === 0}  color="primary">
+            <Button type="submit" disabled={donateForm.amount === 0} color="primary">
               Donate
           </Button>
 

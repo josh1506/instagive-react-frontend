@@ -42,7 +42,7 @@ const userLedgerRejected = (postID) => async dispatch => {
 }
 
 const userLedgerAdded = (ledgerForm, token) => async dispatch => {
-    await axios.post(`http://localhost:5000/ledger/${ledgerForm.postId}`, { ...ledgerForm, token })
+    await axios.post(`https://instagive-backend.herokuapp.com/ledger/${ledgerForm.postId}`, { ...ledgerForm, token })
     let newForm = {...ledgerForm}
     if (!ledgerForm.donorName) newForm = {...newForm, donorName: 'Anonymous'}
     if (!ledgerForm.email) newForm = {...newForm, email: 'None'}

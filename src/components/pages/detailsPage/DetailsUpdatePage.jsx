@@ -13,11 +13,11 @@ import '../../../style/detailsPage/detailsUpdatePage.css'
 
 function DetailsUpdatePage(props) {
     const [updateList, setUpdateList] = useState([])
-    
+
 
     useEffect(() => {
         const getUpdateList = async () => {
-            const { data } = await axios.get(`http://localhost:5000/updates/getall/${props.match.params.id}`)
+            const { data } = await axios.get(`https://instagive-backend.herokuapp.com/updates/getall/${props.match.params.id}`)
             setUpdateList(data)
         }
 
@@ -33,7 +33,7 @@ function DetailsUpdatePage(props) {
     return (
         <div className='landing-post-update-container'>
             <div>
-            {props.children}
+                {props.children}
                 {updateList.map(update =>
                     <div key={update._id} className='landing-post-update-faded'>
                         <div>
@@ -41,7 +41,7 @@ function DetailsUpdatePage(props) {
                                 {update.imageList.map(image => <img src={`${image}`} alt={image} key={image} style={{ height: '40vh', width: '100%' }} />)}
                             </Carousel>
                         </div>
-                        <div style={{textAlign: 'center'}} className=''>
+                        <div style={{ textAlign: 'center' }} className=''>
                             {update.description}
                         </div>
                     </div>

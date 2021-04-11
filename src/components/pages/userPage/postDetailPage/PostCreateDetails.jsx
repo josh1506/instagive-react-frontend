@@ -61,18 +61,18 @@ function PostCreateDetails(props) {
     formdata.append('donationType', postForm.donationType);
     formdata.append('totalAmount', postForm.totalAmount);
     formdata.append('token', localStorage.getItem('user'));
-   
+
 
     console.log(...formdata);
 
 
     const data = await axios.post(
-      'http://localhost:5000/post/createpost',
+      'https://instagive-backend.herokuapp.com/post/createpost',
       formdata
     );
 
 
-    window.location.replace('http://localhost:5001/user');
+    window.location.replace('https://instagive-frontend.herokuapp.com/user');
   };
 
   const useStyles = makeStyles((theme) => ({
@@ -210,26 +210,26 @@ function PostCreateDetails(props) {
               </FormControl>
 
 
-            {postForm.donationType === 'In-Kind' ? '' : 
+              {postForm.donationType === 'In-Kind' ? '' :
 
 
-              <TextField
-                required={true}
-                color='primary'
-                margin='normal'
-                fullWidth
-                variant='outlined'
-                label='Enter Amount'
-                type='number'
-                name='totalAmount'
-                id='totalAmount'
-                className='user-form-input'
-                value={postForm.totalAmount}
-                onChange={(e) =>
-                  setPostForm({ ...postForm, totalAmount: e.target.value })
-               
-                }
-              />
+                <TextField
+                  required={true}
+                  color='primary'
+                  margin='normal'
+                  fullWidth
+                  variant='outlined'
+                  label='Enter Amount'
+                  type='number'
+                  name='totalAmount'
+                  id='totalAmount'
+                  className='user-form-input'
+                  value={postForm.totalAmount}
+                  onChange={(e) =>
+                    setPostForm({ ...postForm, totalAmount: e.target.value })
+
+                  }
+                />
               }
 
 
@@ -239,7 +239,7 @@ function PostCreateDetails(props) {
 
 
               <TextField
-              required={true}
+                required={true}
                 variant="outlined"
                 rows={10}
                 type='text'
@@ -282,7 +282,7 @@ function PostCreateDetails(props) {
               <Button variant='outlined' color='primary' component='label' style={{ marginTop: '12px' }}>
                 {`Upload Reference Picture (Can Have Multiple Pictures) | Files Selected: ${numberImageList}`}
                 <input
-                required={true}
+                  required={true}
                   hidden
                   type='file'
                   id='postImages'

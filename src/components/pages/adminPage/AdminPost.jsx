@@ -94,8 +94,7 @@ const AdminPost = (props) => {
   const handleStatus = async () => {
     console.log(openModal.postId);
     await axios.get(
-      `http://localhost:5000/admin/changepoststatus/${openModal.postId}/${
-        openModal.msg === 'Approve' ? 'Approved' : 'Rejected'
+      `https://instagive-backend.herokuapp.com/admin/changepoststatus/${openModal.postId}/${openModal.msg === 'Approve' ? 'Approved' : 'Rejected'
       }`
     );
 
@@ -285,8 +284,8 @@ const AdminPost = (props) => {
                         {post.donationType === 'both'
                           ? 'Cash, In-kind'
                           : post.donationType === 'cash'
-                          ? 'Cash'
-                          : 'In-kind'}
+                            ? 'Cash'
+                            : 'In-kind'}
                       </Typography>
                       <Typography
                         style={{ height: '110px' }}
@@ -367,8 +366,8 @@ const AdminPost = (props) => {
                         {post.donationType === 'both'
                           ? 'Cash, In-kind'
                           : post.donationType === 'cash'
-                          ? 'Cash'
-                          : 'In-kind'}
+                            ? 'Cash'
+                            : 'In-kind'}
                       </Typography>
                       <Typography
                         style={{ height: '110px' }}
@@ -442,8 +441,8 @@ const AdminPost = (props) => {
                         {post.donationType === 'both'
                           ? 'Cash, In-kind'
                           : post.donationType === 'cash'
-                          ? 'Cash'
-                          : 'In-kind'}
+                            ? 'Cash'
+                            : 'In-kind'}
                       </Typography>
                       <Typography
                         style={{ height: '110px' }}
