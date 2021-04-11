@@ -38,7 +38,7 @@ function DetailsUpdatePage(props) {
                     <div key={update._id} className='landing-post-update-faded'>
                         <div>
                             <Carousel itemsToShow={1}>
-                                {update.imageList.map(image => <img src={`/docs/${image}`} alt={image} key={image} style={{ height: '40vh', width: '100%' }} />)}
+                                {update.imageList.map(image => <img src={`${image}`} alt={image} key={image} style={{ height: '40vh', width: '100%' }} />)}
                             </Carousel>
                         </div>
                         <div style={{textAlign: 'center'}} className=''>

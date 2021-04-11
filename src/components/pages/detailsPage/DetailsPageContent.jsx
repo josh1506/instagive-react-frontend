@@ -13,7 +13,7 @@ function DetailsPageContent(props) {
     <div className="post-details-container">
       <div className='details-page-content-container'>
         <div className='post-image-container'>
-          <img style={{ height: '70vh' }} src={`/docs/${props.post.profilePic}`} alt="Photo" className='display-page-image' />
+          <img style={{ height: '70vh' }} src={`${props.post.profilePic}`} alt="Photo" className='display-page-image' />
         </div>
         <div className='details-post-container'>
           {props.children}
@@ -32,7 +32,7 @@ function DetailsPageContent(props) {
       
             <Carousel itemsToShow={1} >
               {props.post.imageList.map(imageName =>
-                <img src={`/docs/${imageName}`} key={imageName} alt="Photo" style={{ height: '40vh', width: '100%' }} className='detailsPageImage' />
+                <img src={`${imageName}`} key={imageName} alt="Photo" style={{ height: '40vh', width: '100%' }} className='detailsPageImage' />
               )}
             </Carousel>
           </div>

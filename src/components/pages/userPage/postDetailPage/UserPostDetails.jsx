@@ -169,7 +169,7 @@ function UserPostDetails(props) {
           <div className="post-detail-text-container" style={{display: 'flex', justifyContent: 'center'}}>
             <label className='form-label' htmlFor='post-profile-pic'>{post.Title}</label>
           </div>
-          <img src={`/docs/${post.profilePic}`} alt="Profile Photo Here" />
+          <img src={`${post.profilePic}`} alt="Profile Photo Here" />
 
          
 
@@ -184,7 +184,7 @@ function UserPostDetails(props) {
           <div className="post-detail-text-container">
             <label className='form-label' htmlFor='postImages'>Images:</label>
             <Carousel itemsToShow={1}>
-              {post.imageList.map(image => <img src={`/docs/${image}`} alt={image} key={image} style={{ height: '40vh', width: '100%' }} />)}
+              {post.imageList.map(image => <img src={`${image}`} alt={image} key={image} style={{ height: '40vh', width: '100%' }} />)}
             </Carousel>
           </div>
         </div>

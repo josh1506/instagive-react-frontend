@@ -137,7 +137,8 @@ function PostDetailUpdate(props) {
 
   useEffect(() => {
     const getUpdateList = async () => {
-      const { data } = await axios.post(`http://localhost:5000/updates/getall/${props.match.params.id}`, { token: props.authToken })
+      const { data } = await axios.get(`http://localhost:5000/updates/getall/${props.match.params.id}`)
+      console.log(data)
       setUpdateList(data)
     }
     if (props.post) {
@@ -171,7 +172,7 @@ function PostDetailUpdate(props) {
           <div key={update._id} className='update-item-container'>
             <div>
               <Carousel itemsToShow={1}>
-                {update.imageList.map(image => <img src={`/docs/${image}`} alt={image} key={image} style={{ height: '40vh', width: '100%' }} />)}
+                {update.imageList.map(image => <img src={`${image}`} alt={image} key={image} style={{ height: '40vh', width: '100%' }} />)}
               </Carousel>
             </div>
             <div className='post-update-description'>

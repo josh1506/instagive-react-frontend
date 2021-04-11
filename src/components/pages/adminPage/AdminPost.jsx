@@ -146,7 +146,7 @@ const AdminPost = (props) => {
                 </div>
                 <img
                   style={{ maxHeight: 700, maxWidth: '60vw' }}
-                  src={`/docs/${postData.profilePic}`}
+                  src={`${postData.profilePic}`}
                   alt='Profile Photo Here'
                 />
 
@@ -172,7 +172,7 @@ const AdminPost = (props) => {
                     {postData.imageList &&
                       postData.imageList.map((image) => (
                         <img
-                          src={`/docs/${image}`}
+                          src={`${image}`}
                           alt={image}
                           key={image}
                           style={{ height: '40vh', width: '100%' }}
@@ -267,7 +267,7 @@ const AdminPost = (props) => {
                       component='img'
                       alt={post.profilePic}
                       height='140'
-                      image={`/docs/${post.profilePic}`}
+                      image={`${post.profilePic}`}
                       title={post.profilePic}
                     />
                     <CardContent>
@@ -349,7 +349,7 @@ const AdminPost = (props) => {
                       component='img'
                       alt={post.profilePic}
                       height='140'
-                      image={`/docs/${post.profilePic}`}
+                      image={`${post.profilePic}`}
                       title={post.profilePic}
                     />
                     <CardContent>
@@ -424,7 +424,7 @@ const AdminPost = (props) => {
                       component='img'
                       alt={post.profilePic}
                       height='140'
-                      image={`/docs/${post.profilePic}`}
+                      image={`${post.profilePic}`}
                       title={post.profilePic}
                     />
                     <CardContent>

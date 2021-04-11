@@ -44,7 +44,7 @@ function AllPostList(props) {
                                 component='img'
                                 alt={post.profilePic}
                                 height='140'
-                                image={`/docs/${post.profilePic}`}
+                                image={`${post.profilePic}`}
                                 title={post.profilePic}
                             />
                             <CardContent>
