@@ -46,7 +46,7 @@ function PostDetailUpdate(props) {
 
 
 
-    await axios.post(`http://localhost:5000/updates/${props.match.params.id}`, formdata)
+    await axios.post(`https://instagive-backend.herokuapp.com/updates/${props.match.params.id}`, formdata)
     handleClose()
     handleClickAlert()
     document.location.reload();
@@ -137,7 +137,7 @@ function PostDetailUpdate(props) {
 
   useEffect(() => {
     const getUpdateList = async () => {
-      const { data } = await axios.post(`http://localhost:5000/updates/getall/${props.match.params.id}`, { token: props.authToken })
+      const { data } = await axios.post(`https://instagive-backend.herokuapp.com/updates/getall/${props.match.params.id}`, { token: props.authToken })
       setUpdateList(data)
     }
     if (props.post) {
