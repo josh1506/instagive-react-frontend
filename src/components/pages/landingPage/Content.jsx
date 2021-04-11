@@ -70,7 +70,7 @@ function Content(props) {
       description: ''
     },
     {
-      imageName: '/jabor.png',
+      imageName: '/jabor.PNG',
       title: 'jabor',
       alt: 'jabor',
       name: 'Joshua Micheal Jabor',
@@ -79,7 +79,7 @@ function Content(props) {
 
     },
     {
-      imageName: '/jan.png',
+      imageName: '/jan.PNG',
       title: 'jan',
       alt: 'jan',
       name: 'Jan Carlos Dizon',
@@ -88,7 +88,7 @@ function Content(props) {
 
     },
     {
-      imageName: '/mich.png',
+      imageName: '/mich.PNG',
       title: 'mich',
       alt: 'mich',
       name: 'Michelle Biag',
@@ -129,36 +129,36 @@ function Content(props) {
           <DialogContentText>WHO WE ARE?:</DialogContentText>
 
           <Container>
-          
-          <div style={{display: 'flex', width:'100%'}} className="cards-about-us">
-          {picDetails.map(details => 
-            <Card className={classes.root} style={{ margin: '20px', width:'100%' }}>
+
+            <div style={{ display: 'flex', width: '100%' }} className="cards-about-us">
+              {picDetails.map(details =>
+                <Card className={classes.root} style={{ margin: '20px', width: '100%' }}>
+                  <CardActionArea>
+                    <CardMedia
+                      component='img'
+                      alt={details.alt}
+                      height='350'
+                      image={details.imageName}
+                      title={details.title}
+                    />
+                    <CardContent>
+                      <Typography
+                        color='primary'
+                        gutterBottom
+                        variant='h7'
+                        component='h5'
+                      >{details.name}</Typography>
+                      <Typography color='textSecondary'></Typography>
+
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions></CardActions>
+                </Card>
+              )}
+            </div>
+            <Card style={{ margin: '20px' }}>
               <CardActionArea>
-                <CardMedia
-                  component='img'
-                  alt={details.alt}
-                  height='350'
-                  image={details.imageName}
-                  title={details.title}
-                />
-                <CardContent>
-                  <Typography
-                    color='primary'
-                    gutterBottom
-                    variant='h7'
-                    component='h5'
-                  >{details.name}</Typography>
-                  <Typography color='textSecondary'></Typography>
-                 
-                </CardContent>
-              </CardActionArea>
-              <CardActions></CardActions>
-            </Card>
-          )}
-          </div>
-         <Card style={{ margin: '20px' }}>
-              <CardActionArea>
-               
+
                 <CardContent>
                   <Typography
                     color='primary'
@@ -177,7 +177,7 @@ function Content(props) {
               </CardActionArea>
               <CardActions></CardActions>
             </Card>
-        
+
           </Container>
         </DialogContent>
 
