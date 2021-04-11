@@ -72,7 +72,7 @@ function PostCreateDetails(props) {
     );
 
 
-    window.location.replace('https://instagive-backend.herokuapp.com/user');
+    window.location.replace('https://instagive-frontend.herokuapp.com/user');
   };
 
   const useStyles = makeStyles((theme) => ({
