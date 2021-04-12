@@ -428,7 +428,7 @@ function LedgerList(props) {
                 required={true}
                 variant='outlined'
                 fullWidth={true}
-                label='Enter Payment Method (FOR-CASH) '
+                label='Enter Payment Method(CASH) '
                 type='text'
                 name='paymentAddress'
                 id='paymentAddress'

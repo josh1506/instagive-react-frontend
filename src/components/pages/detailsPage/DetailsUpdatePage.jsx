@@ -31,23 +31,26 @@ function DetailsUpdatePage(props) {
 
 
     return (
-        <div className='landing-post-update-container'>
             <div>
                 {props.children}
-                {updateList.map(update =>
-                    <div key={update._id} className='landing-post-update-faded'>
-                        <div>
-                            <Carousel itemsToShow={1}>
-                                {update.imageList.map(image => <img src={`${image}`} alt={image} key={image} style={{ height: '40vh', width: '100%' }} />)}
-                            </Carousel>
-                        </div>
-                        <div style={{ textAlign: 'center' }} className=''>
-                            {update.description}
-                        </div>
-                    </div>
-                )}
+              
+      
+      <div className='post-update-container'>
+        {updateList.map(update =>
+          <div key={update._id} className='update-item-container'>
+            <div>
+              <Carousel itemsToShow={1}>
+                {update.imageList.map(image => <img src={`${image}`} alt={image} key={image} style={{ height: '50vh', width: '100%' }} />)}
+              </Carousel>
             </div>
-        </div>
+            <div className='post-update-description'>
+              {update.description}
+            </div>
+          </div>
+        )}
+      </div>
+
+            </div>
     );
 }
 

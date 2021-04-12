@@ -3,16 +3,16 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 0px 15%
+    padding: 0px 5%;
+    width: 100%;
 }
 
 .post-create-container {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
     align-content: center;
     justify-content: center;
-    width: 100%;
     padding: 1% 3% 3% 3%;
     border-radius: 16px;
     box-shadow: 0 0 15px rgb(136 153 166 / 25%),
@@ -67,7 +67,7 @@
 
 
 .update-item-container {
-    width: 60%;
+    width: 80%;
     margin: 1% 4% 2% 4%;
     padding: 1% 3% 3% 3%;
     border-radius: 16px;
@@ -77,10 +77,15 @@
 
 .post-detail-text-container {
     margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-overflow: clip;
+    
 }
 
 
-.post-detail-text-container label {
+.post-detail-text-container div {
     font-weight: bold;
     font-size: 25px;
     letter-spacing: 2px;
@@ -89,9 +94,26 @@
 .post-detail-text-container p {
     font-size: 20px;
     letter-spacing: 1px;
+    width: 100%;
+    word-wrap: break-word;
 }
 
 
+.carousel-item {
+    width: 100%;
+    height: 100%;
+}
+
+
+.rec.rec-arrow{
+    border-radius: 0;
+}
+.rec.rec-arrow:hover {
+    border-radius: 50%;
+}
+.rec.rec-arrow:disabled {
+    visibility: hidden;
+}
 
 
 .user-sidebar-donor {
@@ -109,6 +131,65 @@
     box-shadow: 0 0 15px rgb(136 153 166 / 25%),
         0 0 3px 1px rgb(136 153 166 / 15%);
 }
+
+
+
+
+
+@media (min-width: 481px) and (max-width : 1200px) {
+
+.post-create-container{
+
+width: 70%;
+}
+
+.rec.rec-arrow{
+    display: none;
+   }
+
+
+}
+
+
+
+
+
+@media (max-width : 480px) {
+
+    .post-container {
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .user-sidebar-donor {
+        border-radius: 16px;
+        width: 70%;
+        margin-bottom: 1rem;
+
+    }
+    .rec.rec-arrow{
+     display: none;
+    }
+
+
+    .carousel-item {
+        height: 300px;
+    }
+    .update-item-container {
+        width: 100%;
+    }
+
+.post-container{
+
+    flex-direction: column-reverse;
+    
+}
+
+
+
+}
+
 
 
 .user-sidebar-donor-text {
@@ -129,3 +210,8 @@
     transform: scale(1.1);
 
 }
+
+
+
+
+

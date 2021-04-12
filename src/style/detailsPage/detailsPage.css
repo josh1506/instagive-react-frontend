@@ -103,3 +103,25 @@
     font-size: 18px;
     letter-spacing: 1px;
 }
+
+
+
+
+@media (max-width : 480px) {
+
+    .details-button {
+        height: 30px;
+        padding: 2rem;
+        font-size: 1rem;
+        color: #f7f7f7;
+        border: #f7f7f7 solid 2px;
+        background: #0275d8;
+        border-radius: 5%;
+        cursor: pointer;
+        min-width: 50%;
+    }
+
+    .details-button-container{
+        flex-direction: row;
+    }
+}

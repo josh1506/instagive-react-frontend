@@ -175,18 +175,22 @@ function UserPostDetails(props) {
 
           <div className="post-detail-text-container">
           
-          <div style={{display: 'flex' , flexDirection: 'column', alignItems: 'center'}} className="shadow-container">
-            <label htmlFor="details">Details:</label>
+        
+            <div style={{alignSelf:'center'}}>Details:</div>
             <p>{post.description}</p>
             </div>
-          </div>
+      
 
-          <div className="post-detail-text-container">
+          <div>
             <label className='form-label' htmlFor='postImages'>Images:</label>
             <Carousel itemsToShow={1}>
-              {post.imageList.map(image => <img src={`${image}`} alt={image} key={image} style={{ height: '40vh', width: '100%' }} />)}
+              {post.imageList.map(image => <img className="carousel-item" src={`${image}`} alt={image} key={image} />)}
             </Carousel>
           </div>
+     
+     
+     
+     
         </div>
 
 

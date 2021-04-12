@@ -26,18 +26,14 @@ function DetailsPage(props) {
     )
 
     return (
-        <div className='details-page-container'>
-            <div className="details-header-container">
-                <h1 className='details-title'>{selectedPost ? selectedPost.Title : ''}</h1>
-            </div>
-            <div>
+      
+           
                 <Switch>
                     <Route path={'/details/:id/updates'} render={props => <DetailsUpdatePage {...props}>{renderContent}</DetailsUpdatePage>} />
                     <Route path={'/details/:id'} render={props => <DetailsPageContent {...props} selectedPost={selectedPost}>{renderContent}</DetailsPageContent>} />
                     <Redirect to='/not-found' />
                 </Switch>
-            </div>
-        </div>
+        
     );
 }
 

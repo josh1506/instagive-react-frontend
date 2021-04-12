@@ -137,7 +137,7 @@ function PostDetailUpdate(props) {
 
   useEffect(() => {
     const getUpdateList = async () => {
-      const { data } = await axios.post(`https://instagive-backend.herokuapp.com/updates/getall/${props.match.params.id}`, { token: props.authToken })
+      const { data } = await axios.get(`https://instagive-backend.herokuapp.com/updates/getall/${props.match.params.id}`, { token: props.authToken })
       setUpdateList(data)
     }
     if (props.post) {
@@ -162,16 +162,22 @@ function PostDetailUpdate(props) {
 
       </Snackbar>
 
+
+
       <div className="post-update-detail-button">
         <Button onClick={() => props.history.push(`/user/post-details/${props.match.params.id}`)} style={{ margin: '12px' }} variant="outlined" color="default" endIcon={<ExitToAppIcon size="small"></ExitToAppIcon>} >Back to Post</Button>
         <Button onClick={handleClickOpen} style={{ margin: '12px' }} variant="outlined" color="primary" endIcon={<NoteAddIcon size="small"></NoteAddIcon>} >Create New Update</Button>
       </div>
+
+
+
+      
       <div className='post-update-container'>
         {updateList.map(update =>
           <div key={update._id} className='update-item-container'>
             <div>
               <Carousel itemsToShow={1}>
-                {update.imageList.map(image => <img src={`${image}`} alt={image} key={image} style={{ height: '40vh', width: '100%' }} />)}
+                {update.imageList.map(image => <img src={`${image}`} alt={image} key={image} style={{ height: '50vh', width: '100%' }} />)}
               </Carousel>
             </div>
             <div className='post-update-description'>
@@ -180,6 +186,9 @@ function PostDetailUpdate(props) {
           </div>
         )}
       </div>
+
+
+
 
       <Dialog open={openModal} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='sm' fullWidth={true}>
         <form encType='multipart/form-data'>

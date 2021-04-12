@@ -245,11 +245,9 @@ function PostCreateDetails(props) {
                 type='text'
                 multiline
                 id='description'
-                fullWidth
-
-
-
-                label="Enter your Post Description, You can include your own payment option and account, (etc, GCASH, BPI, PAYPAL) or  your address for In-Kind Donation"
+                fullWidth 
+                label="Enter your Post Description"
+                placeholder="You can include your own payment option and account, (etc, GCASH, BPI, PAYPAL) or  your address for In-Kind Donation"
                 name='description'
                 value={postForm.description}
                 onChange={(e) =>

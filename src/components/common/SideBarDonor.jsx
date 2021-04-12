@@ -220,20 +220,11 @@ function SideBarDonor(props) {
 
       </div>
 
-      <div className='sidebar-donor-list'>
+      <div className='button-donor-list'>
         <p>
           {props.children}
         </p>
-        <List className={classes.root} subheader={<li />}>
-          {donorList.map(donor =>
-            <div className='sidebar-donor-content'>
-              <div className='sidebar-donor-name'>{donor.donorName}</div>
-              <div className='sidebar-donor-message'>{donor.remarks !== 'No Message' ? donor.remarks : ''}</div>
-              <div className='sidebar-donor-amount'>Donated ₱{donor.amount}</div>
-            </div>
-          )}
-
-        </List>
+       
       </div>
 
       <Dialog open={openModal} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='sm' fullWidth={true}>
@@ -251,7 +242,8 @@ function SideBarDonor(props) {
 
               margin="dense"
               id="name"
-              label="Name (Leave Blank for Anonymous Donation)"
+              label="Name"
+              placeholder="(Blank for Anonymous Donation)"
               type="text"
               fullWidth={true}
               onChange={(e) =>
@@ -300,7 +292,8 @@ function SideBarDonor(props) {
               margin="dense"
               id="paymentAddress"
               // inputProps={{ pattern: '[0-9]' }}
-              label={donationType === 'Both' ? donateForm.donationType === 'Cash' ? "Enter type of Payment etc. Gcash, Paymaya, BPI (Required)" : 'Where did you donate the item? (Required)' : donationType === 'Cash' ? "Enter type of Payment etc. Gcash, Paymaya, BPI (Required)" : 'Where did you donate the item? (Required)'}
+              label={donationType === 'Both' ? donateForm.donationType === 'Cash' ? "Enter type of Payment(Required)" : 'Where did you donate the item? (Required)' : donationType === 'Cash' ? "Enter type of Payment (Required)" : 'Where did you donate the item? (Required)'}
+              placeholder={donationType === 'Both' ? donateForm.donationType === 'Cash' ? "etc. Gcash, Paymaya, BPI" : 'Address' : donationType === 'Cash' ? "Etc. Gcash, Paymaya, BPI" : 'Address'}
               required={true}
               type="text"
               inputProps={{ min: 0 }}
@@ -341,7 +334,8 @@ function SideBarDonor(props) {
               variant="outlined"
               margin="dense"
               id="email"
-              label="Email (Optional, For Sending the Certificate)"
+              label="Email (Optional)"
+              placeholder="For Sending  aCertificate"
               type="email"
               fullWidth={true}
               onChange={(e) =>
@@ -353,7 +347,8 @@ function SideBarDonor(props) {
               variant="outlined"
               margin="dense"
               id="outlined-multiline-static"
-              label="Message (Optional) max input 100 characters"
+              label="Message (Optional)"
+              placeholder="Max input 100 characters"
               rows={4}
               type="text"
               multiline
