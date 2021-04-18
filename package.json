@@ -1,5 +1,4 @@
 {
-  "homepage": "https://josh1506.github.io/instagive-react-frontend",
   "name": "instagive-frontend",
   "version": "0.1.0",
   "private": true,
@@ -33,8 +32,6 @@
     "npm": "6.14.11"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "dev": "react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
