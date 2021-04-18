@@ -27,11 +27,13 @@ function Nav(props) {
 
     return (
         <nav className="navBar">
-            <span>
-                <Link to="/" className='navLogo'>
+            <span style={{display: 'flex'}}>
+                <Link to="/admin" className='navLogo'>
                     <img src={logo} alt="logo" height='45px' className='logo' style={{ marginRight: 10 }} />
-                    <p className='navLogoName'>InstaGive</p>
                 </Link>
+                    <Link to='/' style={{textDecoration: 'none', display: 'flex', alignItems: 'center'}}>
+                        <p className='navLogoName' style={{fontSize: 22, color: '#fff'}}>InstaGive</p>
+                    </Link>
                 <span>
                     {/* Other nav links */}
                 </span>
