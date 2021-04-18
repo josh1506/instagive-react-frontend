@@ -18,7 +18,7 @@ function DetailsPageContent(props) {
           </div>
 
 
-          <img src={`${props.post.profilePic}`} alt="Profile Photo Here" />
+          <img style={{maxHeight: '100%', maxWidth: '100%'}} src={`${props.post.profilePic}`} alt="Profile Photo Here" />
 
 
         

@@ -169,7 +169,7 @@ function UserPostDetails(props) {
           <div className="post-detail-text-container" style={{display: 'flex', justifyContent: 'center'}}>
             <label className='form-label' htmlFor='post-profile-pic'>{post.Title}</label>
           </div>
-          <img src={`${post.profilePic}`} alt="Profile Photo Here" />
+          <img style={{maxHeight: '100%', maxWidth:'100%'}} src={`${post.profilePic}`} alt="Profile Photo Here" />
 
          
 
