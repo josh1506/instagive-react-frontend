@@ -130,7 +130,6 @@ function LedgerList(props) {
     handleClose();
     setOpen(true);
 
-    document.location.reload();
   };
 
   const [openModal, setModal] = useState(false);

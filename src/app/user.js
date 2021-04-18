@@ -51,6 +51,13 @@ const userLedgerAdded = (ledgerForm, token) => async dispatch => {
         type: USER_LEDGER_ADDED,
         payload: newForm
     })
+
+
+    document.location.reload();
+
+
+
+    
 }
 
 
