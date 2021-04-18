@@ -128,24 +128,26 @@ const AdminLedgers = () => {
             {orgSelected === '' ? 'Select Org' : orgSelected}
           </InputLabel>
 
+          <Select
+            required={true}
+            variant='outlined'
+            label='city'
+            name='city'
+            id='city'
+            // value={ledgerForm.postId}
+          >
           {orgList.map(org =>
-            <Select
-              key={org._id}
-              required={true}
-              variant='outlined'
-              label='city'
-              name='city'
-              id='city'
-              //value={ledgerForm.postId}
-              onClick={() => {
+              <MenuItem 
+                key={org._id}
+                onClick={() => {
                 setOrgSelected(org.orgName)
                 handleGetUserLedger(org._id)
               }}
-            >
-              <MenuItem>{org.orgName}</MenuItem>
-            ))
+              >
+                {org.orgName}
+                </MenuItem>
+            )}
           </Select>
-          )}
         </FormControl>
 
         <Typography variant='h2'> {table}</Typography>
