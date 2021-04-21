@@ -249,7 +249,7 @@ const AdminPost = (props) => {
         </ButtonGroup>
       </Container>
 
-      <Container component='main' maxWidth='xl' className='shadow-container'>
+      <Container component='main' maxWidth='xl' className='shadow-container' style={{display: 'flex'}}>
         {table === 'Pending' ? (
           postList.filter((post) => post.status === 'Pending').length === 0 ? (
             <h2>You have no Pending post</h2>

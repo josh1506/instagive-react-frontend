@@ -247,7 +247,7 @@ function Register(props) {
           4.1 Instagive is not responsible for any problems regarding the transaction
           between the Launcher and the Giver. If a problem arises that refunds
           are due, Launchers have the responsibility to provide refunds to
-          Givers at their own discretion. <b>The Company will NOT be held liable
+          Givers at their own discretion. <b>Instagive will NOT be held liable
           for refunds or lack thereof.</b>
           <br /><br />
           <b>For other concerns or verifications, please contact us at </b><a href="mailto:instagive2021@gmail.com<">instagive2021@gmail.com</a>

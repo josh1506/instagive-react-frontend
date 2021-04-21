@@ -35,9 +35,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(143, 195, 255, 0.116);
-    box-shadow: 0 0 15px rgb(136 153 166 / 15%),
-        0 0 3px 1px rgb(136 153 166 / 1%);
+  
 }
 
 

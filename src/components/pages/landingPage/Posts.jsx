@@ -8,8 +8,8 @@ import { NavLink } from 'react-router-dom';
 function Posts(props) {
     const postList = props.post
     return (
-        <div className='postContainer'>
-            <h2 className='postTitle'>{props.post.length === 0 ? 'There are no post' : "Look who's needy"}</h2>
+        <div style={{marginTop: '50px'}} className='postContainer'>
+            <h2 className='postTitle'>{props.post.length === 0 ? 'There are no post' : "Post list"}</h2>
             <div>
                 <PostCard {...props} postList={postList} />
                 <div className='postFilterContainer'>
