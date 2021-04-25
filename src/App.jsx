@@ -16,6 +16,7 @@ import NotFound from './components/common/NotFound';
 import './App.css';
 import AllPostList from './components/pages/landingPage/AllPostList';
 import EmailLoginPage from './components/pages/EmailLoginPage';
+import MessengerCustomerChat from 'react-messenger-customer-chat';
 
 
 function App(props) {
@@ -57,8 +58,11 @@ function App(props) {
         <Redirect to='/not-found' />
       </Switch>
    
-   <div>
-    </div>
+      <MessengerCustomerChat
+        pageId='114092927169420'
+        appId='697765701142285'
+      />
+
     </div>
   );
 }
