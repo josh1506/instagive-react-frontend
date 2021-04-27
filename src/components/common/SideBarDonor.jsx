@@ -7,6 +7,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import ReCAPTCHA from "react-google-recaptcha";
 
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -92,9 +93,22 @@ function SideBarDonor(props) {
   };
 
 
+  const [captcha, setCaptcha] = useState(false)
+
+  const handleCaptcha = (value) => {
+    
+      if(value !== null) setCaptcha(true);
+
+  }
+
+
   const handleSubmit = async (e) => {
 
     e.preventDefault()
+
+
+// Site Key = 6LeZELwaAAAAAJr4hCyldepcnin7DElTijIPY5bv
+// Secret Key = 6LeZELwaAAAAAJhu_f2dQl2tL9PRLIrw_TMOAwrx
 
     if (donateForm.amount === 0) return handleClose()
     else {
@@ -361,7 +375,10 @@ function SideBarDonor(props) {
 
 
 
-
+<ReCAPTCHA
+    sitekey="6LeZELwaAAAAAJr4hCyldepcnin7DElTijIPY5bv"
+    onChange={handleCaptcha}
+  />,
 
 
 
@@ -371,7 +388,7 @@ function SideBarDonor(props) {
             <Button onClick={handleClose} color="primary">
               Cancel
           </Button>
-            <Button type="submit" disabled={donateForm.amount === 0} color="primary">
+            <Button type="submit" disabled={donateForm.amount === 0 || captcha === false} color="primary">
               Donate
           </Button>
 
