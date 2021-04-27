@@ -59,8 +59,7 @@ function SideBarDonor(props) {
     const postId = _id
 
     const getDonors = async () => {
-
-      const { data } = await axios.post(`https://instagive-backend.herokuapp.com/ledger/getall`, { token: localStorage.getItem('user') })
+      const { data } = await axios.get(`https://instagive-backend.herokuapp.com/ledger/getpostrecords/${props.match.params.id}`)
 
       setDonorList(data.filter(data => data.status === 'Approved'))
 
