@@ -172,13 +172,14 @@ function LedgerList(props) {
 
 
   const handleApproveLedger = async (ledgerID) => {
-    const data = await route.post(`/ledger/${ledgerID}/Approved`, {token: props.userToken})
-    document.location.reload();
+    await route.post(`/ledger/${ledgerID}/Approved`, {token: props.userToken})
+        document.location.reload();
+
   }
 
 
   const handleRejectLedger = async (ledgerID) => {
-    const data = await route.post(`/ledger/${ledgerID}/Rejected`, {token: props.userToken})
+    await route.post(`/ledger/${ledgerID}/Rejected`, {token: props.userToken})
     document.location.reload();
   }
 
