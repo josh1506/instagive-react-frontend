@@ -118,6 +118,9 @@ function SideBarDonor(props) {
 
     }
 
+      handleClickOpen(true);
+      setSnacker(true);
+
 
   }
 
