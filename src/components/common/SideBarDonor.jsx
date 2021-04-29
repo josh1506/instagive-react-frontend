@@ -239,6 +239,23 @@ function SideBarDonor(props) {
       <div className='button-donor-list'>
         <p>
           {props.children}
+          <div className='shadow-container' style={{
+              margin: 0,
+              padding: 5,
+              maxHeight: 250,
+              overflowY: 'scroll'
+            }}>
+          {donorList.map(donor => 
+            <div className='shadow-container' style={{
+              margin: '10px 1px',
+              padding: '5px 10px',
+            }}>
+              <p>{donor.donorName}</p>
+              <p>{donor.remarks}</p>
+              <p>{donor.amount}</p>
+            </div>
+            )}
+            </div>
         </p>
        
       </div>

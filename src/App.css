@@ -14,6 +14,9 @@
 }
 
 
+::-webkit-scrollbar {
+  width: 0;
+}
 
 
 @media (max-width: 999px) {
