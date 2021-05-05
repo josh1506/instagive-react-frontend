@@ -1,4 +1,5 @@
 .navBar {
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6,6 +7,8 @@
   background-color: rgb(113, 173, 241);
   height: 7vh;
   width: 100%;
+  top: 0;
+  z-index: 10;
 }
 
 .navLogo {
