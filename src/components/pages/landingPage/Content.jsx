@@ -22,7 +22,7 @@ import {
 } from '@material-ui/core/';
 
 function Content(props) {
-    const [openModal, setModal] = useState(false);
+    const {openModal, setModal} = props
     const handleClickOpen = async () => {
         setModal(true);
     };
