@@ -12,6 +12,7 @@ import {
   DialogContentText,
   DialogTitle,
   Snackbar,
+  Tooltip,
 } from '@material-ui/core/';
 
 import Typography from '@material-ui/core/Typography';
@@ -21,7 +22,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import MuiAlert from '@material-ui/lab/Alert';
 
 function Register(props) {
-  const [checkPassword, setCheckPassword] = useState({ confirm_pass: '' });
+  const [checkPassword, setCheckPassword] = useState({
+    confirm_pass: '',
+    valid: true,
+    message: 'Verify Password',
+  });
+
   const [userForm, setUserForm] = useState({
     email: '',
     password: '',
@@ -35,9 +41,10 @@ function Register(props) {
     orgDescriptions: '',
   });
 
-  const [terms, setTerms] = useState(false);
-
-  console.log(terms);
+  const [terms, setTerms] = useState({
+    status: false,
+    disableButton: true,
+  });
 
   const [files, setFiles] = useState({
     orgDocuments: '',
@@ -45,7 +52,52 @@ function Register(props) {
   });
 
   const handleChange = (event) => {
-    console.log(event.target.value);
+    if (event.target.name === 'password') {
+      if (event.target.value.length === 0) {
+        setPassComplexity({
+          message:
+            'Password must be between 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter',
+          valid: true,
+        });
+        console.log('meow');
+      }
+      const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+
+      if (event.target.value.match(regex)) {
+        setPassComplexity({ valid: true, message: 'VALID PASSWORD' });
+      } else if (
+        !event.target.value.match(regex) &&
+        event.target.value.length !== 0
+      ) {
+        setPassComplexity({
+          message:
+            'Password Not Valid! Password must be between 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter',
+          valid: false,
+        });
+      }
+    } else if (event.target.name === 'confirm-pass') {
+      if (event.target.value !== userForm.password) {
+        setCheckPassword({
+          confirm_pass: event.target.value,
+          message: 'Password is not the same!',
+          valid: false,
+        });
+      } else if (event.target.value === userForm.password) {
+        setCheckPassword({
+          confirm_pass: event.target.value,
+          message: 'Password Match!',
+          valid: true,
+        });
+      }
+
+      if (event.target.value.length === 0) {
+        setCheckPassword({
+          confirm_pass: event.target.value,
+          message: 'Verify Password',
+          valid: true,
+        });
+      }
+    }
 
     setUserForm({
       ...userForm,
@@ -53,24 +105,44 @@ function Register(props) {
     });
   };
 
-  const handlerepId = (file) => {
-    setFiles({ ...files, repId: file });
+  const allowedFiles = [
+    'jpg',
+    'jpeg',
+    'png',
+    'pdf',
+    'docs',
+    'docx',
+    'document',
+  ];
+
+  const handlerepId = (file, e) => {
+    const fileToArray = file.name.split('.');
+
+    if (!allowedFiles.includes(fileToArray[fileToArray.length - 1])) {
+      handleClickAlert('Format Not Allowed!', 'error');
+      e.preventDefault();
+    } else {
+      setFiles({ ...files, repId: file });
+      setlistRepId(e.target.files.length);
+    }
   };
 
+  const handleorgDocuments = (multifiles, e) => {
+    for (let index = 0; index < multifiles.length; index++) {
+      let file = multifiles[index].name.split('.');
+      if (!allowedFiles.includes(file[file.length - 1])) {
+        handleClickAlert('Some Formats not Allowed', 'error');
 
-  const handleorgDocuments = (multifiles) => {
+        return e.preventDefault();
+      }
+    }
+
     setFiles({ ...files, orgDocuments: multifiles });
+    setListOrgDocuments(multifiles.length);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-
-
-
-
-
-
 
     const formdata = new FormData();
 
@@ -92,9 +164,9 @@ function Register(props) {
 
     const data = await axios.post(
       'https://instagive-backend.herokuapp.com/user/register',
-      formdata
+      formdata,
     );
-    handleClickAlert();
+    handleClickAlert('Successfully Requested Account!', 'success');
     console.log(data);
 
     setUserForm({
@@ -115,24 +187,27 @@ function Register(props) {
     });
 
     setFiles({
-
       orgDocuments: '',
       repId: '',
     });
 
-    setTerms(false);
+    setTerms({ ...terms, status: false });
 
-    setListOrgDocuments(0)
-    setlistRepId(0)
+    setListOrgDocuments(0);
+    setlistRepId(0);
 
     document.getElementById('contained-repID').value = null;
     document.getElementById('contained-button-orgDocuments').value = null;
   };
 
-  const [snacker, setSnacker] = useState(false);
+  const [snacker, setSnacker] = useState({
+    status: false,
+    message: '',
+    severity: 'success',
+  });
 
-  const handleClickAlert = () => {
-    setSnacker(true);
+  const handleClickAlert = (message, severity) => {
+    setSnacker({ message, status: true, severity });
   };
 
   const handleCloseAlert = (event, reason) => {
@@ -140,11 +215,11 @@ function Register(props) {
       return;
     }
 
-    setSnacker(false);
+    setSnacker({ status: false, message: '', severity: 'success' });
   };
 
   const Alert = (props) => {
-    return <MuiAlert elevation={6} variant='filled' {...props} />;
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
   };
 
   const [listOrgDocuments, setListOrgDocuments] = useState('');
@@ -154,42 +229,125 @@ function Register(props) {
 
   const handleClickOpen = async () => {
     setModal(true);
+
   };
 
   const handleClose = () => {
     setModal(false);
+    setTerms({ ...terms ,disableButton: true, });
   };
   const handleCheckbox = () => {
     setModal(false);
-    setTerms(true);
+    setTerms({ ...terms, status: true });
   };
 
+  
+const[openDocuModal, setDocuModal] = useState(false)
+
+  const handleClickOpenDocument = async () => {
+      setDocuModal(true)
+  }
+  const handleCloseDocument = async () => {
+    setDocuModal(false)
+
+  }
+
+
+  const [passComplexity, setPassComplexity] = useState({
+    valid: true,
+    message:
+      'Password must be between 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter',
+  });
+
+  const handleScroll = (e) => {
+    const lowest =
+      e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+    if (lowest) setTerms({ disableButton: false, status: false });
+    else setTerms({ disableButton: true, status: false });
+  };
   return (
-    <div style={{ marginLeft: '65px' }} className='register-container'>
+    <div style={{ marginLeft: '65px' }} className="register-container">
       <Snackbar
-        open={snacker}
+        open={snacker.status}
         autoHideDuration={2000}
         onClose={handleCloseAlert}
       >
-        <Alert onClose={handleCloseAlert} severity='success'>
-          Successfully Requested Account
+        <Alert onClose={handleCloseAlert} severity={snacker.severity}>
+          {snacker.message}
         </Alert>
       </Snackbar>
+
+
+      <Dialog
+        open={openDocuModal}
+        onClose={handleCloseDocument}
+        aria-labelledby="form-dialog-title"
+        maxWidth="sm"
+        fullWidth={true}
+      >
+
+<DialogTitle
+          id="form-dialog-title"
+          style={{ alignSelf: 'center', fontSize: '50px' }}
+        >
+          Valid Documents
+        </DialogTitle>
+          <DialogContent style={{whiteSpace: 'pre-line'}}>
+<h1>Valid ID: </h1>
+<br/><br/>
+<p>
+Passport including those issued by foreign governments <br/> <br/>
+Driver's license <br/> <br/>
+Professional Regulation Commission (PRC) ID <br/> <br/>
+Postal ID <br/> <br/>
+Voter’s ID <br/> <br/>
+Taxpayer Identification Number (TIN) <br/> <br/>
+Government Service Insurance System (GSIS) e-Card <br/> <br/>
+Social Security System (SSS) card <br/> <br/>
+Senior Citizen card <br/> <br/>
+Overseas Workers Welfare Administration (OWWA) ID <br/> <br/>
+Overseas Filipino Worker (OFW) ID <br/> <br/>
+Government office and Government-owned and Controlled Corporation (GOCC) ID e.g., Armed Forces of the Philippines (AFP), Home Development Mutual Fund (HDMF) IDs <br/> <br/>
+ID issued by the National Council on Disability Affairs <br/> <br/>
+Integrated Bar of the Philippines (IBP) ID <br/> <br/>
+Company IDs issued by private entities or institutions registered with or supervised or regulated either by the Bangko Sentral ng Pilipinas (BSP), Securities and Exchange Commission (SEC) or Insurance Commission (IC) <br/> <br/>
+PhilHealth Health Insurance Card ng Bayan <br/> <br/>
+National Bureau of Investigation (NBI) Clearance <br/> <br/>
+Police Clearance <br/> <br/>
+Baranggay Certification <br/> <br/>
+Seaman’s Book <br/> <br/>
+Alien Certificate of Registration / Immigrant Certificate of Registration <br/> <br/>
+Department of Social Welfare and Development (DSWD) Certification <br/> <br/>
+Professional ID cards issued by Maritime Industry Authority (MARINA)<br/><br/>
+</p>
+<h1>Valid Documents: </h1>
+<br/><br/>
+Business Registration document<br/><br/>
+Billing Statement<br/><br/>
+Notarized Application Form submitted to DSWD<br/><br/>
+
+          </DialogContent>
+          <DialogActions>
+          <Button onClick={handleCloseDocument} color="primary">
+            Back
+          </Button>
+        </DialogActions>
+        </Dialog>
 
       <Dialog
         open={openModal}
         onClose={handleClose}
-        aria-labelledby='form-dialog-title'
-        maxWidth='sm'
+        aria-labelledby="form-dialog-title"
+        maxWidth="sm"
         fullWidth={true}
       >
         <DialogTitle
-          id='form-dialog-title'
+          id="form-dialog-title"
           style={{ alignSelf: 'center', fontSize: '50px' }}
         >
           TERMS AND CONDITIONS
         </DialogTitle>
-        <DialogContent>
+        <DialogContent onScroll={handleScroll}>
           <DialogContentText>Pleae Read:</DialogContentText>
           <b>1. ACCEPTANCE OF TERMS</b> <br />
           <br />
@@ -244,268 +402,306 @@ function Register(props) {
           accurate, current and complete. <br />
           <br /> <br />
           <b>4. LIABILITY</b> <br />
-          4.1 Instagive is not responsible for any problems regarding the transaction
-          between the Launcher and the Giver. If a problem arises that refunds
-          are due, Launchers have the responsibility to provide refunds to
-          Givers at their own discretion. <b>Instagive will NOT be held liable
-          for refunds or lack thereof.</b>
-          <br /><br />
-          <b>For other concerns or verifications, please contact us at </b><a href="mailto:instagive2021@gmail.com<">instagive2021@gmail.com</a>
-
+          4.1 Instagive is not responsible for any problems regarding the
+          transaction between the Launcher and the Giver. If a problem arises
+          that refunds are due, Launchers have the responsibility to provide
+          refunds to Givers at their own discretion.{' '}
+          <b>Instagive will NOT be held liable for refunds or lack thereof.</b>
+          <br />
+          <br />
+          <b>For other concerns or verifications, please contact us at </b>
+          <a href="mailto:instagive2021@gmail.com<">instagive2021@gmail.com</a>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color='primary'>
+          <Button onClick={handleClose} color="primary">
             Back
           </Button>
-          <Button variant='contained' onClick={handleCheckbox} color='primary'>
+          <Button
+            variant="contained"
+            onClick={handleCheckbox}
+            color="primary"
+            disabled={terms.disableButton}
+          >
             Accept and Continue
           </Button>
         </DialogActions>
       </Dialog>
 
       <div>
-        <h1 className='authTitle'>Account Details</h1>
+        <h1 className="authTitle">Account Details</h1>
       </div>
-      <form encType='multipart/form-data' onSubmit={handleSubmit}>
-        <div className='register-form1'>
-          <div className='register-input-container1'>
+      <form encType="multipart/form-data" onSubmit={handleSubmit}>
+        <div className="register-form1">
+          <div className="register-input-container1">
             <TextField
-              variant='outlined'
-              color='primary'
+              variant="outlined"
+              color="primary"
               style={{ marginBottom: '12px' }}
               required
-              type='email'
-              name='email'
-              id='email'
+              type="email"
+              name="email"
+              id="email"
               value={userForm.email}
-              label='Enter Email'
-              className='register-form-input-text'
+              label="Enter Email"
+              className="register-form-input-text"
               onChange={handleChange}
             />
+            <Tooltip title={passComplexity.message}>
+              <TextField
+                variant="outlined"
+                color={passComplexity.valid === true ? 'primary' : 'secondary'}
+                style={{ marginBottom: '12px' }}
+                required={true}
+                type="password"
+                name="password"
+                value={userForm.password}
+                label="Enter Password"
+                className="register-form-input-text"
+                onChange={handleChange}
+              />
+            </Tooltip>
 
-            <TextField
-              variant='outlined'
-              color='primary'
-              style={{ marginBottom: '12px' }}
-              required={true}
-              type='password'
-              name='password'
-              value={userForm.password}
-              label='Enter Password'
-              className='register-form-input-text'
-              onChange={handleChange}
-            />
-
-            <TextField
-              required={true}
-              variant='outlined'
-              color='primary'
-              style={{ marginBottom: '12px' }}
-              label='Confirm Password'
-              value={checkPassword.confirm_pass}
-              type='password'
-              name='confirm-pass'
-              className='register-form-input-text'
-              onChange={(e) => setCheckPassword({ confirm_pass: e.target.value })}
-            />
+            <Tooltip title={checkPassword.message}>
+              <TextField
+                required={true}
+                variant="outlined"
+                color={checkPassword.valid === true ? 'primary' : 'secondary'}
+                style={{ marginBottom: '12px' }}
+                label="Confirm Password"
+                value={checkPassword.confirm_pass}
+                type="password"
+                name="confirm-pass"
+                className="register-form-input-text"
+                onChange={handleChange}
+                disabled={
+                  passComplexity.valid === true
+                    ? userForm.password.length !== 0
+                      ? false
+                      : true
+                    : true
+                }
+              />
+            </Tooltip>
           </div>
         </div>
 
-
-
-
-
-
-
-
-
-
-        <div className='register-form2'>
+        <div className="register-form2">
           <div
             style={{ marginBottom: '12px' }}
-            className='register-input-container2'
+            className="register-input-container2"
           >
             <TextField
               required
-              variant='outlined'
-              color='primary'
-              type='text'
-              name='orgName'
+              variant="outlined"
+              color="primary"
+              type="text"
+              name="orgName"
               value={userForm.orgName}
               onChange={handleChange}
-              id='orgName'
-              label='Enter Organization Name'
-              className='register-form-input-text'
+              id="orgName"
+              label="Enter Organization Name"
+              className="register-form-input-text"
             />
           </div>
-          <div className='register-input-container2'>
+          <div className="register-input-container2">
             <TextField
-              variant='outlined'
-              color='primary'
+              variant="outlined"
+              color="primary"
               required
-              type='number'
-              name='orgNumber'
+              type="number"
+              name="orgNumber"
               value={userForm.orgNumber}
               onChange={handleChange}
-              id='orgNumber'
-              label='Enter Organization Contact Number'
-              className='register-form-input-text'
-
+              id="orgNumber"
+              label="Enter Organization Contact Number"
+              className="register-form-input-text"
+              onKeyDown={(e) =>
+                ['e', 'E', '+', '-', ';', ',', '#', '*'].includes(e.key) &&
+                e.preventDefault()
+              }
             />
           </div>
-          <div className='register-input-container2'>
+          <div className="register-input-container2">
             <TextField
-              variant='outlined'
-              color='primary'
+              variant="outlined"
+              color="primary"
               required
-              type='text'
-              name='city'
+              type="text"
+              name="city"
               value={userForm.city}
               onChange={handleChange}
-              id='city'
-              label='Enter City'
-              className='register-form-input-text'
+              id="city"
+              label="Enter City"
+              className="register-form-input-text"
             />
           </div>
           <div
             style={{ marginBottom: '12px' }}
-            className='register-input-container2'
+            className="register-input-container2"
           >
-            <TextField
-              variant='outlined'
-              color='primary'
-              required
-              type='text'
-              name='orgAddress'
-              value={userForm.orgAddress}
-              onChange={handleChange}
-              id='orgAddress'
-              label='Enter Organization Address'
-              className='register-form-input-text'
-            />
+            <Tooltip title="House#, Street #, Village/Subdivision  Example: #442, Street 5, Brgy. Dolores">
+              <TextField
+                variant="outlined"
+                color="primary"
+                required
+                type="text"
+                name="orgAddress"
+                value={userForm.orgAddress}
+                onChange={handleChange}
+                id="orgAddress"
+                label="Enter Organization Address"
+                className="register-form-input-text"
+              />
+            </Tooltip>
           </div>
           <div
             style={{ marginBottom: '12px' }}
-            className='register-input-container2'
+            className="register-input-container2"
           >
-            <TextField
-              variant='outlined'
-              color='primary'
-              required
-              type='text'
-              name='repName'
-              value={userForm.repName}
-              onChange={handleChange}
-              id='repName'
-              label='Enter Representative Name'
-              className='register-form-input-text'
-            />
+            <Tooltip
+              title={`First Name, Middle Initial, Lastname 
+            Example: Juan C. Dela Cruz`}
+            >
+              <TextField
+                variant="outlined"
+                color="primary"
+                required
+                type="text"
+                name="repName"
+                value={userForm.repName}
+                onChange={handleChange}
+                id="repName"
+                label="Enter Representative Name"
+                className="register-form-input-text"
+              />
+            </Tooltip>
           </div>
 
-          <div className='register-input-container2'>
+
+          <div className="register-input-container2">
             <input
-              id='contained-repID'
-              type='file'
+              id="contained-repID"
+              type="file"
               required
-              name='repId'
+              name="repId"
               style={{ display: 'none' }}
               onChange={(e) => {
                 const file = e.target.files[0];
-                handlerepId(file);
-                setlistRepId(e.target.files.length);
+                handlerepId(file, e);
               }}
             />
-
-            <label htmlFor='contained-repID'>
+ 
+          <Tooltip title="Only Avaiable Files: JPG, PNG, JPEG, DOCS, DOCX, PDF">
+            <label htmlFor="contained-repID">
               <Button
                 style={{ marginTop: '12px' }}
-                variant='outlined'
-                color='primary'
-                component='span'
+                variant="outlined"
+                color="primary"
+                component="span"
               >
                 {`Upload Valid Representative ID: ${listRepId}`}
               </Button>
             </label>
+          </Tooltip>
           </div>
-
           <div style={{ marginBottom: '12px' }}>
             <input
-              id='contained-button-orgDocuments'
+              id="contained-button-orgDocuments"
               multiple
-              type='file'
+              type="file"
               required
-              name='orgDocuments'
+              name="orgDocuments"
               style={{ display: 'none' }}
               onChange={(e) => {
                 const multifiles = e.target.files;
-                handleorgDocuments(multifiles);
-                setListOrgDocuments(multifiles.length);
+                handleorgDocuments(multifiles, e);
               }}
             />
+        
+        <Tooltip title="Only Avaiable Files: JPG, PNG, JPEG, DOCS, DOCX, PDF">
 
-            <label htmlFor='contained-button-orgDocuments'>
-              <Button variant='outlined' color='primary' component='span'>
+            <label htmlFor="contained-button-orgDocuments">
+              <Button variant="outlined" color="primary" component="span">
                 {`Upload Organization Documents: ${listOrgDocuments}`}
               </Button>
             </label>
+            </Tooltip>
           </div>
           <div
             style={{ marginBottom: '12px' }}
-            className='register-input-container2'
-          >
-
-
-          </div>
+            className="register-input-container2"
+          ></div>
         </div>
-
+                
         <div
           style={{ marginBottom: '12px' }}
-          className='register-org-description-container'
+          className="register-org-description-container"
         >
           <TextField
-            variant='outlined'
-            color='primary'
+            variant="outlined"
+            color="primary"
             required
             rows={6}
             multiline
-            name='orgDescriptions'
+            name="orgDescriptions"
             value={userForm.orgDescriptions}
             onChange={handleChange}
-            id='orgDescriptions'
-            placeholder='Enter Organization Description'
-            className='register-form-input-text'
+            id="orgDescriptions"
+            placeholder="Enter Organization Description"
+            className="register-form-input-text"
           />
         </div>
 
         <Checkbox
           style={{ marginTop: '-8px' }}
-          checked={terms}
-          name='checkedB'
-          color='primary'
+          checked={terms.status}
+          name="checkedB"
+          color="primary"
         />
+
+
+
         <Button
           onClick={handleClickOpen}
-          variant='text'
+          variant="text"
           style={{ marginBottom: '5px' }}
-          color='primary'
+          color="primary"
         >
           TERMS AND CONDITION
         </Button>
+      
+        <Button
+          onClick={handleClickOpenDocument}
+          variant="text"
+          style={{ marginBottom: '4px' }}
+          color="primary"
+        >
+          Valid Documents/ID
+        </Button>
 
-        <div className='form-button-container'>
-          <Button variant='outlined' color='default'>
-            <Link to='/auth/login' className='form-link'>
+
+
+        <div className="form-button-container">
+          <Button variant="outlined" color="default">
+            <Link to="/auth/login" className="form-link">
               Cancel
             </Link>
           </Button>
 
           <Button
-            disabled={!terms}
-            variant='contained'
-            color='primary'
-            type='submit'
-            className='form-button'
-
+            disabled={
+              terms.status === true
+                ? checkPassword.valid === true
+                  ? checkPassword.confirm_pass.length !== 0
+                    ? false
+                    : true
+                  : true
+                : true
+            }
+            variant="contained"
+            color="primary"
+            type="submit"
+            className="form-button"
           >
             Send Registration
           </Button>
