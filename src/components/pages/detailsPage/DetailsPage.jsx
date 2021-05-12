@@ -1,45 +1,74 @@
-import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
+import React from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
-import DetailsPageContent from './DetailsPageContent';
-import DetailsUpdatePage from './DetailsUpdatePage';
-import '../../../style/detailsPage/detailsPage.css'
-
+import DetailsPageContent from "./DetailsPageContent";
+import DetailsUpdatePage from "./DetailsUpdatePage";
+import "../../../style/detailsPage/detailsPage.css";
 
 function DetailsPage(props) {
-    const postList = props.postList
-    const selectedPost = postList.filter(post => post._id === props.match.params.id)[0]
+    const postList = props.postList;
+    const selectedPost = postList.filter(
+        (post) => post._id === props.match.params.id
+    )[0];
 
-    if (!selectedPost)
-        return (
-            <div>Loading...</div>
-        )
+    if (!selectedPost) return <div>Loading...</div>;
 
     const renderContent = (
         <div>
-            <div className='details-button-container'>
-                <button className='details-button' onClick={() => props.history.push(`/details/${selectedPost._id}`)}>Description</button>
-                <button className='details-button' onClick={() => props.history.push(`/details/${selectedPost._id}/updates`)}>Updates</button>
+            <div className="details-button-container">
+                <button
+                    className="details-button"
+                    onClick={() =>
+                        props.history.push(`/details/${selectedPost._id}`)
+                    }
+                >
+                    Description
+                </button>
+                <button
+                    className="details-button"
+                    onClick={() =>
+                        props.history.push(
+                            `/details/${selectedPost._id}/updates`
+                        )
+                    }
+                >
+                    Updates
+                </button>
             </div>
         </div>
-    )
+    );
 
     return (
-      
-           
-                <Switch>
-                    <Route path={'/details/:id/updates'} render={props => <DetailsUpdatePage {...props}>{renderContent}</DetailsUpdatePage>} />
-                    <Route path={'/details/:id'} render={props => <DetailsPageContent {...props} selectedPost={selectedPost}>{renderContent}</DetailsPageContent>} />
-                    <Redirect to='/not-found' />
-                </Switch>
-        
+        <div style={{ paddingTop: "3vh" }}>
+            <Switch>
+                <Route
+                    path={"/details/:id/updates"}
+                    render={(props) => (
+                        <DetailsUpdatePage {...props}>
+                            {renderContent}
+                        </DetailsUpdatePage>
+                    )}
+                />
+                <Route
+                    path={"/details/:id"}
+                    render={(props) => (
+                        <DetailsPageContent
+                            {...props}
+                            selectedPost={selectedPost}
+                        >
+                            {renderContent}
+                        </DetailsPageContent>
+                    )}
+                />
+                <Redirect to="/not-found" />
+            </Switch>
+        </div>
     );
 }
 
-
 const mapStateToProps = ({ postList }) => {
-    return { postList }
-}
+    return { postList };
+};
 
 export default connect(mapStateToProps)(DetailsPage);
