@@ -4,6 +4,7 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { connect } from 'react-redux'
 
 import { accountRejected } from '../../../app/accounts'
+import { Tooltip } from '@material-ui/core';
 
 function AdminAccepted(props) {
     const theadData = [
@@ -43,7 +44,7 @@ function AdminAccepted(props) {
                             <th key={tableHead.name} className='table-header'>{tableHead.label}</th>
                         )}
                         <th className='table-header'>No. of Post</th>
-                        <th className='table-header'>Status</th>
+                        {/* <th className='table-header'>Status</th> */}
                     </tr>
                 </thead>
                 <tbody>
@@ -54,16 +55,11 @@ function AdminAccepted(props) {
                                     {account[tableHead.name]}</td>
                             )}
                             <td className='table-item'>
-
+                                {account.totalPost}
                             </td>
+                                {/* <Tooltip title="Reject">
                             <td className='table-item'>
-                                {/* <FontAwesomeIcon
-                                    icon={faEdit}
-                                    className='table-icon'
-                                    size='lg'
-                                    onClick={e => handleEditButton(account)}
-                                    style={{ cursor: 'pointer' }}
-                                /> */}
+                               
                                 <FontAwesomeIcon
                                     icon={faTrash}
                                     className='table-icon'
@@ -72,6 +68,7 @@ function AdminAccepted(props) {
                                     style={{ cursor: 'pointer' }}
                                 />
                             </td>
+                                </Tooltip> */}
                         </tr>
                     )}
                 </tbody>
