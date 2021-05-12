@@ -116,7 +116,7 @@ function Register(props) {
   ];
 
   const handlerepId = (file, e) => {
-    const fileToArray = file.name.split('.');
+    const fileToArray = e.target.files[0].name.split('.');
 
     if (!allowedFiles.includes(fileToArray[fileToArray.length - 1])) {
       handleClickAlert('Format Not Allowed!', 'error');
@@ -428,7 +428,7 @@ Notarized Application Form submitted to DSWD<br/><br/>
       </Dialog>
 
       <div>
-        <h1 className="authTitle">Account Details</h1>
+        <h1 style={{paddingTop: '7vh'}} className="authTitle">Account Details</h1>
       </div>
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
         <div className="register-form1">
@@ -519,6 +519,7 @@ Notarized Application Form submitted to DSWD<br/><br/>
                 ['e', 'E', '+', '-', ';', ',', '#', '*'].includes(e.key) &&
                 e.preventDefault()
               }
+              placeholder="Ex. 09053446241"
             />
           </div>
           <div className="register-input-container2">
@@ -533,6 +534,7 @@ Notarized Application Form submitted to DSWD<br/><br/>
               id="city"
               label="Enter City"
               className="register-form-input-text"
+              placeholder="Ex. San Fernando"
             />
           </div>
           <div
@@ -551,6 +553,7 @@ Notarized Application Form submitted to DSWD<br/><br/>
                 id="orgAddress"
                 label="Enter Organization Address"
                 className="register-form-input-text"
+                placeholder="Ex. #422, Street 5, Brgy Dolores"
               />
             </Tooltip>
           </div>
@@ -573,6 +576,7 @@ Notarized Application Form submitted to DSWD<br/><br/>
                 id="repName"
                 label="Enter Representative Name"
                 className="register-form-input-text"
+                placeholder="Ex, Juan C. Dela Cruz"
               />
             </Tooltip>
           </div>
